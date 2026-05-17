@@ -1,0 +1,28 @@
+{
+  "name": "中文第四册 · Chinese Learning Adventure",
+  "short_name": "中文四册",
+  "description": "Interactive Chinese learning app for Level 4 — stroke order, games, TTS, recording",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f0f4ff",
+  "theme_color": "#4361ee",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["education", "kids"]
+}

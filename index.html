@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>中文第四册 · 学习乐园</title>
+
+<!-- ── PWA / Add-to-Home-Screen ── -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4361ee">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="中文四册">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', ()=>
+      navigator.serviceWorker.register('./sw.js')
+        .catch(e=>console.warn('SW:', e))
+    );
+  }
+</script>
+<style>
+  /* ── Child-friendly palette: bright but not harsh ── */
+  :root {
+    --bg: #f0f4ff;           /* soft light blue-white */
+    --card: #ffffff;
+    --shadow: rgba(60,80,180,0.12);
+    --accent: #4361ee;       /* vivid blue */
+    --accent2: #3a86ff;
+    --gold: #f4a228;
+    --green: #2ec4b6;
+    --red: #e63946;
+    --purple: #7b2d8b;
+    --text: #1a1a2e;         /* near-black, high contrast */
+    --text-light: #555577;
+    --border: rgba(67,97,238,0.15);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI','PingFang SC','Helvetica Neue',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    font-size:16px;
+  }
+
+  /* ── HEADER ── */
+  header{
+    background:linear-gradient(135deg,#4361ee,#3a0ca3);
+    color:#fff;
+    text-align:center;
+    padding:32px 20px 24px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='1.5' fill='rgba(255,255,255,0.15)'/%3E%3Ccircle cx='33' cy='18' r='1' fill='rgba(255,255,255,0.1)'/%3E%3Ccircle cx='50' cy='8' r='2' fill='rgba(255,255,255,0.08)'/%3E%3Ccircle cx='18' cy='45' r='1.2' fill='rgba(255,255,255,0.12)'/%3E%3Ccircle cx='45' cy='40' r='0.8' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E");
+    pointer-events:none;
+  }
+  .hbadge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);
+    color:#fff;padding:4px 16px;border-radius:20px;font-size:0.82rem;margin-bottom:10px;letter-spacing:1px;}
+  header h1{font-size:2.2rem;font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,0.2);margin-bottom:6px;}
+  header p{font-size:1rem;opacity:0.88;}
+  .star-row{font-size:1.6rem;margin-top:8px;letter-spacing:4px;}
+
+  /* ── MAIN ── */
+  main{max-width:960px;margin:0 auto;padding:28px 14px 60px;}
+
+  .sec-title{
+    font-size:1.05rem;font-weight:700;color:var(--accent);
+    margin-bottom:16px;display:flex;align-items:center;gap:10px;
+  }
+  .sec-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:1px;}
+
+  /* ── LESSON GRID ── */
+  .lessons-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(268px,1fr));
+    gap:14px;margin-bottom:36px;
+  }
+  .lesson-card{
+    background:var(--card);
+    border:2px solid var(--border);
+    border-radius:16px;padding:18px;
+    text-decoration:none;color:var(--text);
+    transition:all .22s;display:block;
+    position:relative;overflow:hidden;
+    box-shadow:0 2px 12px var(--shadow);
+  }
+  .lesson-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:4px;
+    background:var(--stripe,#aaa);border-radius:0;
+  }
+  .lesson-card.available{cursor:pointer;}
+  .lesson-card.available:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(67,97,238,0.2);
+    border-color:var(--stripe,var(--accent));
+  }
+  .lesson-card.coming-soon{opacity:0.55;cursor:default;pointer-events:none;}
+
+  .lnum{font-size:0.74rem;color:var(--text-light);margin-bottom:5px;letter-spacing:1px;font-weight:600;}
+  .lemoji{font-size:2.2rem;margin-bottom:7px;display:block;}
+  .ltitle-cn{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:3px;}
+  .ltitle-en{font-size:0.8rem;color:var(--text-light);margin-bottom:10px;}
+  .ltags{display:flex;gap:5px;flex-wrap:wrap;}
+  .tag{font-size:0.68rem;padding:3px 8px;border-radius:10px;font-weight:500;
+    background:rgba(67,97,238,0.08);border:1px solid rgba(67,97,238,0.15);color:var(--accent);}
+  .tag.gold{background:rgba(244,162,40,0.12);border-color:rgba(244,162,40,0.3);color:#b07300;}
+  .tag.green{background:rgba(46,196,182,0.1);border-color:rgba(46,196,182,0.3);color:#1a8c84;}
+
+  .status-badge{position:absolute;top:12px;right:12px;font-size:0.65rem;padding:3px 8px;border-radius:10px;font-weight:600;}
+  .ready{background:#d4f5e9;color:#1a8c55;border:1px solid #a3e4c5;}
+  .soon{background:#f0f0f0;color:#999;border:1px solid #ddd;}
+
+  /* ── FEATURES ── */
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;}
+  .feat-card{
+    background:var(--card);border:1.5px solid var(--border);border-radius:12px;
+    padding:14px;text-align:center;box-shadow:0 2px 8px var(--shadow);
+    transition:all .2s;
+  }
+  .feat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(67,97,238,0.15);}
+  .ficon{font-size:1.8rem;margin-bottom:6px;}
+  .fname{font-size:0.88rem;font-weight:700;color:var(--accent);margin-bottom:3px;}
+  .fdesc{font-size:0.72rem;color:var(--text-light);}
+
+  /* ── AGE GUIDE ── */
+  .age-guide{
+    background:linear-gradient(135deg,#fff9ed,#fff3d4);
+    border:2px solid rgba(244,162,40,0.3);
+    border-radius:14px;padding:16px;margin-bottom:28px;
+  }
+  .age-guide h3{color:#b07300;font-size:0.95rem;margin-bottom:8px;}
+  .age-guide p{font-size:0.84rem;color:#5a4200;line-height:1.7;}
+
+  footer{text-align:center;padding:20px;font-size:0.78rem;color:var(--text-light);}
+
+  @media(max-width:480px){
+    header h1{font-size:1.7rem;}
+    .features-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hbadge">📚 中文 · 第四册</div>
+  <h1>🌟 中文学习乐园</h1>
+  <p>Chinese Learning Adventure</p>
+  <div class="star-row">⭐ 🚀 🌙 🔭 🌏</div>
+</header>
+
+<main>
+
+  <!-- Install banner (shown only when installable or on iOS) -->
+  <div id="installBanner" style="display:none;background:linear-gradient(135deg,#e8f0ff,#d4e4ff);
+      border:1.5px solid rgba(67,97,238,0.25);border-radius:14px;padding:12px 16px;margin-bottom:16px;
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font-size:1.6rem">📲</span>
+    <div style="flex:1;min-width:180px">
+      <strong style="color:#2a3fa0;font-size:0.9rem">把它装到设备上 / Install as App</strong><br>
+      <span style="font-size:0.78rem;color:#445">
+        <strong>iPhone / iPad：</strong>Safari → 分享按钮 → "添加到主屏幕"<br>
+        <strong>Android：</strong>Chrome → 菜单 → "安装应用"<br>
+        <strong>电脑：</strong>Chrome 地址栏右侧点安装图标
+      </span>
+    </div>
+    <button onclick="document.getElementById('installBanner').style.display='none'"
+      style="border:none;background:none;font-size:1.1rem;cursor:pointer;color:#888">✕</button>
+  </div>
+  <script>
+    // Show install banner automatically on iOS (can't use BeforeInstallPrompt there)
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if(isIOS && !isStandalone) document.getElementById('installBanner').style.display='flex';
+
+    // On Chrome/Android, show banner when browser fires BeforeInstallPrompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', e=>{
+      e.preventDefault(); deferredPrompt=e;
+      document.getElementById('installBanner').style.display='flex';
+    });
+  </script>
+
+  <!-- Age tip -->
+  <div class="age-guide">
+    <h3>💡 使用小贴士（For Parents & Teachers）</h3>
+    <p>
+      每一课包含 <strong>7个互动功能</strong>：课文朗读 · 生字笔顺 · 词语游戏 · 对话配音 · 宾果游戏 · 趣味小游戏 · 录音练习。
+      所有语音均为 <strong>大陆普通话（zh-CN）</strong>。
+      支持电脑和 iPad（触屏写字）。建议家长和孩子一起探索！
+    </p>
+  </div>
+
+  <div class="sec-title">📖 全部课文</div>
+
+  <div class="lessons-grid">
+
+    <a href="lesson1.html" class="lesson-card coming-soon" style="--stripe:#3a86ff">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第一课</div><span class="lemoji">✉️</span>
+      <div class="ltitle-cn">给爷爷的信</div>
+      <div class="ltitle-en">A Letter to Grandfather</div>
+      <div class="ltags"><span class="tag">北京</span><span class="tag">信件</span><span class="tag">家人</span></div>
+    </a>
+
+    <a href="lesson2.html" class="lesson-card coming-soon" style="--stripe:#7b2d8b">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第二课</div><span class="lemoji">🏯</span>
+      <div class="ltitle-cn">颐和园</div>
+      <div class="ltitle-en">The Summer Palace</div>
+      <div class="ltags"><span class="tag">北京</span><span class="tag">公园</span><span class="tag">历史</span></div>
+    </a>
+
+    <a href="lesson3.html" class="lesson-card coming-soon" style="--stripe:#e63946">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第三课</div><span class="lemoji">🏰</span>
+      <div class="ltitle-cn">凡尔赛宫</div>
+      <div class="ltitle-en">The Palace of Versailles</div>
+      <div class="ltags"><span class="tag">法国</span><span class="tag">艺术</span><span class="tag">文物</span></div>
+    </a>
+
+    <a href="lesson4.html" class="lesson-card coming-soon" style="--stripe:#f4a228">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第四课</div><span class="lemoji">☀️</span>
+      <div class="ltitle-cn">太阳晒出好健康</div>
+      <div class="ltitle-en">The Sun Keeps Us Healthy</div>
+      <div class="ltags"><span class="tag">健康</span><span class="tag">太阳</span><span class="tag green">科学</span></div>
+    </a>
+
+    <a href="lesson5.html" class="lesson-card coming-soon" style="--stripe:#2ec4b6">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第五课</div><span class="lemoji">🐴</span>
+      <div class="ltitle-cn">小马过河</div>
+      <div class="ltitle-en">The Little Horse Crosses the River</div>
+      <div class="ltags"><span class="tag">故事</span><span class="tag">对话</span><span class="tag">动物</span></div>
+    </a>
+
+    <a href="lesson6.html" class="lesson-card coming-soon" style="--stripe:#3a86ff">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第六课</div><span class="lemoji">🌾</span>
+      <div class="ltitle-cn">悯农</div>
+      <div class="ltitle-en">Pity the Farmers (Poem)</div>
+      <div class="ltags"><span class="tag">古诗</span><span class="tag">唐朝</span><span class="tag">李绅</span></div>
+    </a>
+
+    <a href="lesson7.html" class="lesson-card coming-soon" style="--stripe:#7b2d8b">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第七课</div><span class="lemoji">🍁</span>
+      <div class="ltitle-cn">古诗二首</div>
+      <div class="ltitle-en">Two Ancient Poems</div>
+      <div class="ltags"><span class="tag">山行</span><span class="tag">绝句</span><span class="tag">杜牧</span></div>
+    </a>
+
+    <a href="lesson8.html" class="lesson-card coming-soon" style="--stripe:#e63946">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第八课</div><span class="lemoji">🪨</span>
+      <div class="ltitle-cn">司马光</div>
+      <div class="ltitle-en">Sima Guang</div>
+      <div class="ltags"><span class="tag">历史</span><span class="tag">勇敢</span><span class="tag">故事</span></div>
+    </a>
+
+    <!-- ★ AVAILABLE ★ -->
+    <a href="lesson9.html" class="lesson-card available" style="--stripe:#f4a228">
+      <span class="status-badge ready">✓ 现在学习！</span>
+      <div class="lnum">第九课</div><span class="lemoji">⭐</span>
+      <div class="ltitle-cn">数星星的孩子</div>
+      <div class="ltitle-en">The Boy Who Counted Stars</div>
+      <div class="ltags">
+        <span class="tag gold">⭐ 星空</span>
+        <span class="tag gold">🔭 天文</span>
+        <span class="tag">张衡</span>
+        <span class="tag">北斗星</span>
+      </div>
+    </a>
+
+    <a href="lesson10.html" class="lesson-card coming-soon" style="--stripe:#2ec4b6">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第十课</div><span class="lemoji">🌿</span>
+      <div class="ltitle-cn">大自然的语言</div>
+      <div class="ltitle-en">The Language of Nature</div>
+      <div class="ltags"><span class="tag green">自然</span><span class="tag green">科学</span><span class="tag">天气</span></div>
+    </a>
+
+    <a href="lesson11.html" class="lesson-card coming-soon" style="--stripe:#3a86ff">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第十一课</div><span class="lemoji">🌙</span>
+      <div class="ltitle-cn">月球之旅</div>
+      <div class="ltitle-en">Journey to the Moon</div>
+      <div class="ltags"><span class="tag gold">🚀 宇宙</span><span class="tag gold">🌙 月球</span><span class="tag">宇航员</span></div>
+    </a>
+
+    <a href="lesson12.html" class="lesson-card coming-soon" style="--stripe:#7b2d8b">
+      <span class="status-badge soon">即将上线</span>
+      <div class="lnum">第十二课</div><span class="lemoji">🐰</span>
+      <div class="ltitle-cn">小白兔与大自然</div>
+      <div class="ltitle-en">The Little White Rabbit</div>
+      <div class="ltags"><span class="tag">小动物</span><span class="tag">观察</span><span class="tag">天气</span></div>
+    </a>
+
+  </div>
+
+  <!-- Features -->
+  <div class="sec-title">🎮 每课都有的功能</div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="ficon">📖</div><div class="fname">课文朗读</div><div class="fdesc">拼音标注 + 大陆普通话朗读，点字听音</div></div>
+    <div class="feat-card"><div class="ficon">✍️</div><div class="fname">笔顺练习</div><div class="fdesc">田字格 + 动画演示 + 触屏手写（iPad支持）</div></div>
+    <div class="feat-card"><div class="ficon">🌿</div><div class="fname">词根家族</div><div class="fdesc">认识部件，学习同旁的汉字和词语</div></div>
+    <div class="feat-card"><div class="ficon">📚</div><div class="fname">词语游戏</div><div class="fdesc">翻转单词卡 + 中英配对游戏</div></div>
+    <div class="feat-card"><div class="ficon">💬</div><div class="fname">对话朗读</div><div class="fdesc">不同角色不同声调，可以自己配音</div></div>
+    <div class="feat-card"><div class="ficon">🎯</div><div class="fname">宾果游戏</div><div class="fdesc">汉字宾果，连成5线就赢！</div></div>
+    <div class="feat-card"><div class="ficon">🚀</div><div class="fname">趣味小游戏</div><div class="fdesc">星星问答 + 拼音火箭，边玩边学</div></div>
+    <div class="feat-card"><div class="ficon">🎤</div><div class="fname">录音练习</div><div class="fdesc">录下声音对比示范，可下载保存</div></div>
+  </div>
+
+</main>
+
+<footer>中文第四册 · Made with ❤️ for young Chinese learners</footer>
+
+</body>
+</html>
