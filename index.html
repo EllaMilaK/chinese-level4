@@ -7,7 +7,7 @@
 
 <!-- ── PWA / Add-to-Home-Screen ── -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4361ee">
+<meta name="theme-color" content="#2e7d32">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -22,20 +22,22 @@
   }
 </script>
 <style>
-  /* ── Child-friendly palette: bright but not harsh ── */
+  /* ── Light green palette ── */
   :root {
-    --bg: #f0f4ff;           /* soft light blue-white */
+    --bg: #f2f8f2;
     --card: #ffffff;
-    --shadow: rgba(60,80,180,0.12);
-    --accent: #4361ee;       /* vivid blue */
-    --accent2: #3a86ff;
-    --gold: #f4a228;
-    --green: #2ec4b6;
+    --shadow: rgba(46,125,50,0.12);
+    --accent: #2e7d32;
+    --accent2: #388e3c;
+    --accent-light: #a5d6a7;
+    --accent-xlight: #e8f5e9;
+    --gold: #f57f17;
+    --green: #43a047;
     --red: #e63946;
-    --purple: #7b2d8b;
-    --text: #1a1a2e;         /* near-black, high contrast */
-    --text-light: #555577;
-    --border: rgba(67,97,238,0.15);
+    --text: #1a2e1a;
+    --text-light: #4a6b4a;
+    --border: rgba(46,125,50,0.18);
+    --border2: rgba(46,125,50,0.35);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -48,7 +50,7 @@
 
   /* ── HEADER ── */
   header{
-    background:linear-gradient(135deg,#4361ee,#3a0ca3);
+    background:linear-gradient(135deg,#2e7d32,#1b5e20);
     color:#fff;
     text-align:center;
     padding:32px 20px 24px;
@@ -97,7 +99,7 @@
   .lesson-card.available{cursor:pointer;}
   .lesson-card.available:hover{
     transform:translateY(-5px);
-    box-shadow:0 10px 30px rgba(67,97,238,0.2);
+    box-shadow:0 10px 30px rgba(46,125,50,0.2);
     border-color:var(--stripe,var(--accent));
   }
   .lesson-card.coming-soon{opacity:0.55;cursor:default;pointer-events:none;}
@@ -108,9 +110,9 @@
   .ltitle-en{font-size:0.8rem;color:var(--text-light);margin-bottom:10px;}
   .ltags{display:flex;gap:5px;flex-wrap:wrap;}
   .tag{font-size:0.68rem;padding:3px 8px;border-radius:10px;font-weight:500;
-    background:rgba(67,97,238,0.08);border:1px solid rgba(67,97,238,0.15);color:var(--accent);}
-  .tag.gold{background:rgba(244,162,40,0.12);border-color:rgba(244,162,40,0.3);color:#b07300;}
-  .tag.green{background:rgba(46,196,182,0.1);border-color:rgba(46,196,182,0.3);color:#1a8c84;}
+    background:var(--accent-xlight);border:1px solid var(--border);color:var(--accent);}
+  .tag.gold{background:rgba(245,127,23,0.1);border-color:rgba(245,127,23,0.3);color:#e65100;}
+  .tag.green{background:rgba(67,160,71,0.1);border-color:rgba(67,160,71,0.3);color:#2e7d32;}
 
   .status-badge{position:absolute;top:12px;right:12px;font-size:0.65rem;padding:3px 8px;border-radius:10px;font-weight:600;}
   .ready{background:#d4f5e9;color:#1a8c55;border:1px solid #a3e4c5;}
@@ -123,19 +125,19 @@
     padding:14px;text-align:center;box-shadow:0 2px 8px var(--shadow);
     transition:all .2s;
   }
-  .feat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(67,97,238,0.15);}
+  .feat-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(46,125,50,0.15);}
   .ficon{font-size:1.8rem;margin-bottom:6px;}
   .fname{font-size:0.88rem;font-weight:700;color:var(--accent);margin-bottom:3px;}
   .fdesc{font-size:0.72rem;color:var(--text-light);}
 
   /* ── AGE GUIDE ── */
   .age-guide{
-    background:linear-gradient(135deg,#fff9ed,#fff3d4);
-    border:2px solid rgba(244,162,40,0.3);
+    background:var(--accent-xlight);
+    border:2px solid var(--border2);
     border-radius:14px;padding:16px;margin-bottom:28px;
   }
-  .age-guide h3{color:#b07300;font-size:0.95rem;margin-bottom:8px;}
-  .age-guide p{font-size:0.84rem;color:#5a4200;line-height:1.7;}
+  .age-guide h3{color:var(--accent);font-size:0.95rem;margin-bottom:8px;}
+  .age-guide p{font-size:0.84rem;color:var(--text);line-height:1.7;}
 
   footer{text-align:center;padding:20px;font-size:0.78rem;color:var(--text-light);}
 
@@ -157,12 +159,12 @@
 <main>
 
   <!-- Install banner (shown only when installable or on iOS) -->
-  <div id="installBanner" style="display:none;background:linear-gradient(135deg,#e8f0ff,#d4e4ff);
-      border:1.5px solid rgba(67,97,238,0.25);border-radius:14px;padding:12px 16px;margin-bottom:16px;
+  <div id="installBanner" style="display:none;background:var(--accent-xlight);
+      border:1.5px solid var(--border2);border-radius:14px;padding:12px 16px;margin-bottom:16px;
       display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
     <span style="font-size:1.6rem">📲</span>
     <div style="flex:1;min-width:180px">
-      <strong style="color:#2a3fa0;font-size:0.9rem">把它装到设备上 / Install as App</strong><br>
+      <strong style="color:var(--accent);font-size:0.9rem">把它装到设备上 / Install as App</strong><br>
       <span style="font-size:0.78rem;color:#445">
         <strong>iPhone / iPad：</strong>Safari → 分享按钮 → "添加到主屏幕"<br>
         <strong>Android：</strong>Chrome → 菜单 → "安装应用"<br>
