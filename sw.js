@@ -1,10 +1,11 @@
 // 中文四册 — Service Worker
 // Caches all lesson pages for offline use after first visit
 
-const CACHE = 'chinese4-v1';
+const CACHE = 'chinese4-v2';
 const PRECACHE = [
   './',
   './index.html',
+  './lesson1.html',
   './lesson9.html',
   './manifest.json'
 ];

@@ -43,6 +43,10 @@
     background:rgba(230,57,70,.15);border:1px solid var(--accent);color:var(--accent);
     padding:7px 14px;border-radius:20px;text-decoration:none;font-size:0.9rem;transition:all .2s;}
   .back-btn:hover{background:var(--accent);color:#fff;}
+  .next-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    background:rgba(230,57,70,.15);border:1px solid var(--accent);color:var(--accent);
+    padding:7px 14px;border-radius:20px;text-decoration:none;font-size:0.9rem;transition:all .2s;white-space:nowrap;}
+  .next-btn:hover{background:var(--accent);color:#fff;}
   .chapter-num{font-size:0.82rem;color:var(--accent2);letter-spacing:3px;margin-bottom:3px;}
   header h1{font-size:1.8rem;color:var(--accent);text-shadow:0 0 20px rgba(230,57,70,.5);}
   header h1 span{font-size:0.9rem;color:var(--accent2);display:block;margin-top:2px;}
@@ -285,11 +289,12 @@
 <canvas id="lanternfield"></canvas>
 
 <header>
-  <a href="index.html" class="back-btn">← 返回</a>
+  <a href="index.html" class="back-btn">← 主页</a>
   <div class="chapter-num">第 一 课 · LESSON ONE</div>
   <h1>✉️ 给爷爷的信
     <span>A Letter to Grandfather</span>
   </h1>
+  <a href="lesson9.html" class="next-btn">第九课 →</a>
 </header>
 
 <div class="tabs">

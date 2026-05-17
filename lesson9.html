@@ -45,6 +45,10 @@
     background:rgba(245,200,66,.15);border:1px solid var(--accent);color:var(--accent);
     padding:7px 14px;border-radius:20px;text-decoration:none;font-size:0.9rem;transition:all .2s;}
   .back-btn:hover{background:var(--accent);color:var(--star-blue);}
+  .prev-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    background:rgba(245,200,66,.15);border:1px solid var(--accent);color:var(--accent);
+    padding:7px 14px;border-radius:20px;text-decoration:none;font-size:0.9rem;transition:all .2s;white-space:nowrap;}
+  .prev-btn:hover{background:var(--accent);color:var(--star-blue);}
   .chapter-num{font-size:0.82rem;color:var(--accent2);letter-spacing:3px;margin-bottom:3px;}
   header h1{font-size:1.8rem;color:var(--accent);text-shadow:0 0 20px rgba(245,200,66,.5);}
   header h1 span{font-size:0.9rem;color:var(--accent2);display:block;margin-top:2px;}
@@ -315,9 +319,10 @@
 <canvas id="starfield"></canvas>
 
 <header>
-  <a href="index.html" class="back-btn">← 返回</a>
+  <a href="index.html" class="back-btn">← 主页</a>
   <div class="chapter-num">第四册 · 第九课</div>
   <h1>数星星的孩子 ⭐<span>The Boy Who Counted Stars</span></h1>
+  <a href="lesson1.html" class="prev-btn">← 第一课</a>
 </header>
 
 <div class="tabs">
