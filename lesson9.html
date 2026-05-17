@@ -937,19 +937,17 @@ function speakNN(text){ // 奶奶 (slightly lower)
   if(zhCNVoices.length) u.voice = zhCNVoices[0];
   window.speechSynthesis.speak(u);
 }
-// ── TTS pre-processor: force 数 to read as shǔ (verb: to count) ──
-// Strategy: insert "在" before 数 when it appears as a verb.
-// "在数" is an unambiguous progressive verb — zh-CN TTS engines always read 数 as shǔ here.
-function preprocessTTS(text){
-  // Negative lookbehind (?<!在) prevents double-inserting 在 on already-fixed text.
-  // All patterns insert "在" before 数 to force shǔ reading (progressive verb marker).
-  return text
-    .replace(/地数/g,                          '地在数')    // 一颗一颗地数
-    .replace(/(?<!在)数(星星|天上|星[，。])/g, '在数$1')   // 数星星 / 数天上
-    .replace(/(?<!在)数了/g,                   '在数了')    // 数了很久
-    .replace(/(?<!在)数不/g,                   '在数不')    // 数不完
-    .replace(/(?<!在)数得/g,                   '在数得')    // 数得清
-    .replace(/([头来去坐站])数([^字学])/g,     '$1在数$2'); // 仰着头数
+// ── Build pinyin reading string from a STORY paragraph's py array ──
+// Using pinyin guarantees the TTS hears the correct tone marks (e.g. shǔ not shù).
+function buildPinyinStr(para){
+  let out = '';
+  para.py.forEach(p=>{
+    if(!p || p===' ') return;
+    // Punctuation: attach to previous syllable (no leading space)
+    if('，。！？：、""'.includes(p)) out = out.trimEnd() + p + ' ';
+    else out += p + ' ';
+  });
+  return out.trim();
 }
 
 function stopSpeech(){
@@ -1048,7 +1046,7 @@ async function _storyRun(from){
     storyPos=i; _storyHighlight(i);
     await new Promise(resolve=>{
       if(storyState!=='playing'){resolve();return;}
-      const u=new SpeechSynthesisUtterance(preprocessTTS(STORY[i].text));
+      const u=new SpeechSynthesisUtterance(buildPinyinStr(STORY[i]));
       u.lang='zh-CN'; u.rate=0.82;
       if(zhCNVoices.length) u.voice=zhCNVoices[0];
       u.onend=()=>setTimeout(resolve, storyState==='playing'?350:0);
@@ -1376,7 +1374,8 @@ async function _dlgRun(from){
     await new Promise(resolve=>{
       if(dlgState!=='playing'){ resolve(); return; }
       const line=DIALOGUE[i];
-      const u=new SpeechSynthesisUtterance(preprocessTTS(line.text));
+      // Use the py (pinyin) string so tone marks guarantee correct pronunciation
+      const u=new SpeechSynthesisUtterance(line.py);
       u.lang='zh-CN'; u.rate=line.spk==='ff'?0.88:0.82; u.pitch=line.spk==='ff'?1.08:0.92;
       if(zhCNVoices.length) u.voice=zhCNVoices[0];
       u.onend=()=>{ bbl?.classList.remove('playing'); setTimeout(resolve, dlgState==='playing'?380:0); };
@@ -1409,13 +1408,13 @@ function dlgStop(){
   _dlgUpdateBtns();
 }
 
-// Click an individual bubble to hear it (with preprocessed TTS)
+// Click an individual bubble to hear it (using pinyin for correct tones)
 function speakDlgLine(i){
   dlgStop(); // stop any full playback
   const line=DIALOGUE[i];
   document.querySelectorAll('.bubble').forEach(b=>b.classList.remove('playing'));
   const bbl=document.getElementById('bbl'+i); if(bbl) bbl.classList.add('playing');
-  const u=new SpeechSynthesisUtterance(preprocessTTS(line.text));
+  const u=new SpeechSynthesisUtterance(line.py);
   u.lang='zh-CN'; u.rate=line.spk==='ff'?0.88:0.82; u.pitch=line.spk==='ff'?1.08:0.92;
   if(zhCNVoices.length) u.voice=zhCNVoices[0];
   u.onend=()=>bbl?.classList.remove('playing');
@@ -1426,7 +1425,7 @@ function toggleDlgPy(){
   document.querySelectorAll('.line-py').forEach(e=>e.style.display=showDlgPY?'block':'none');
 }
 let dlgRecTarget='', dlgRecPY='', recBlob=null, mRec=null, recTimer=null, recSec=0;
-function playTargetTTS(){ if(!dlgRecTarget){speak('先选一句话！');return;} speak(preprocessTTS(dlgRecTarget),{rate:0.82}); }
+function playTargetTTS(){ if(!dlgRecTarget){speak('先选一句话！');return;} speak(dlgRecPY||dlgRecTarget,{rate:0.82}); }
 function toggleRec(){
   if(mRec&&mRec.state==='recording'){ mRec.stop(); clearInterval(recTimer); document.getElementById('recBtn').textContent='⏺ 录音'; document.getElementById('recBtn').classList.remove('recording'); return; }
   if(!dlgRecTarget){ document.getElementById('recStatus').textContent='先选一句话！'; return; }
@@ -1490,8 +1489,8 @@ function callBingo(){
   document.getElementById('callerWord').textContent=item.show;
   document.getElementById('callerHint').textContent=item.hint;
   document.getElementById('bingoMsg').textContent='';
-  // For standalone single-char 数 (verb), give TTS enough context to read shǔ
-  const ttsWord = item.show==='数' ? '在数星星' : preprocessTTS(item.show);
+  // Use pinyin from hint (e.g. "shǔ — to count" → "shǔ") for correct tones
+  const ttsWord = item.hint ? item.hint.split(' — ')[0].trim() : item.show;
   speak(ttsWord,{rate:0.75});
 }
 function markBingo(i,word){
@@ -1608,7 +1607,7 @@ function selectRecSent(i){
   mainBlob=null; document.getElementById('mPlayBtn').disabled=true; document.getElementById('mDlBtn').disabled=true;
   document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false;
 }
-function playRefTTS(){ if(!curRefText){speak('先选句子！');return;} speak(preprocessTTS(curRefText),{rate:0.8}); }
+function playRefTTS(){ if(!curRefText){speak('先选句子！');return;} speak(curRefPy||curRefText,{rate:0.8}); }
 function toggleMainRec(){
   if(mainRec){ if(mainMR&&mainMR.state==='recording') mainMR.stop(); clearInterval(mainTimer); document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false; return; }
   if(!curRefText){ document.getElementById('mRecStatus').textContent='先选句子！'; return; }
