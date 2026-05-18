@@ -958,8 +958,10 @@ async function _storyRun(from){
       const u=new SpeechSynthesisUtterance(STORY[i].text);
       u.lang='zh-CN';u.rate=0.82;
       if(zhCNVoices.length) u.voice=zhCNVoices[0];
-      u.onend=()=>setTimeout(resolve,storyState==='playing'?350:0);
-      u.onerror=resolve;
+      let _sd=false;
+      function _sn(){if(!_sd){_sd=true;clearTimeout(_sfb);setTimeout(resolve,storyState==='playing'?350:0);}}
+      const _sfb=setTimeout(_sn,STORY[i].text.length*420+3500);
+      u.onend=_sn;u.onerror=_sn;
       window.speechSynthesis.speak(u);
     });
   }
@@ -1207,8 +1209,10 @@ async function _dlgRun(from){
       const u=new SpeechSynthesisUtterance(line.text);
       u.lang='zh-CN';u.rate=0.88;u.pitch=line.spk==='spk1'?1.1:1.05;
       if(zhCNVoices.length) u.voice=zhCNVoices[0];
-      u.onend=()=>{bbl?.classList.remove('playing');setTimeout(resolve,dlgState==='playing'?380:0);};
-      u.onerror=resolve;
+      let _dd=false;
+      function _dn(){if(!_dd){_dd=true;clearTimeout(_dfb);bbl?.classList.remove('playing');setTimeout(resolve,dlgState==='playing'?380:0);}}
+      const _dfb=setTimeout(_dn,line.text.length*420+3500);
+      u.onend=_dn;u.onerror=_dn;
       window.speechSynthesis.speak(u);
     });
   }
