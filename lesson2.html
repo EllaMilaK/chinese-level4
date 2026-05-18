@@ -2,64 +2,52 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>第一课 · 给爷爷的信</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2e7d32">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>第二课 · 颐和园</title>
+<meta name="theme-color" content="#0277bd">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="中文四册">
-<link rel="apple-touch-icon" href="icon-192.png">
-<script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>
-      navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('SW:',e))
-    );
-  }
-</script>
+<meta name="apple-mobile-web-app-title" content="颐和园">
 <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 <style>
 :root {
-  --bg:#f2f8f2; --card-bg:#ffffff;
-  --accent:#2e7d32; --accent2:#388e3c;
-  --text:#1a2e1a; --text2:#4a6b4a; --text3:#81a881;
-  --border:rgba(46,125,50,0.18); --border2:rgba(46,125,50,0.35);
-  --shadow:0 2px 12px rgba(46,125,50,0.12);
-  --header-bg:linear-gradient(180deg,#2e7d32,#388e3c);
-  --header-shadow:rgba(46,125,50,0.3);
+  --bg:#e8f4fa; --card-bg:#ffffff;
+  --accent:#0277bd; --accent2:#0288d1;
+  --text:#012a45; --text2:#2a6080; --text3:#7ab0cc;
+  --border:rgba(2,119,189,0.18); --border2:rgba(2,119,189,0.35);
+  --shadow:0 2px 12px rgba(2,119,189,0.12);
+  --header-bg:linear-gradient(180deg,#0277bd,#0288d1);
+  --header-shadow:rgba(2,119,189,0.3);
   --tabs-bg:#ffffff;
-  --tab-inactive-bg:#e8f5e9; --tab-inactive-color:#4a6b4a;
-  --tab-hover-bg:#a5d6a7; --tab-hover-color:#2e7d32;
+  --tab-inactive-bg:#e1f5fe; --tab-inactive-color:#2a6080;
+  --tab-hover-bg:#81d4fa; --tab-hover-color:#0277bd;
   --tab-active-text:#ffffff;
   --btn-primary-text:#ffffff;
-  --btn-primary-shadow:rgba(46,125,50,0.4);
-  --btn-sec-bg:#e8f5e9; --btn-sec-color:#2e7d32; --btn-sec-hover:#a5d6a7;
-  --pinyin-color:#388e3c;
-  --story-hl-bg:rgba(46,125,50,0.12); --story-hl-text:#1a2e1a;
-  --badge-bg:#e8f5e9;
-  --speak-btn-bg:#e8f5e9; --speak-btn-hover:#a5d6a7;
-  --char-active-bg:#e8f5e9;
-  --stroke-area-bg:#e8f5e9;
-  --radical-bg:#e8f5e9; --radical-item-bg:rgba(255,255,255,0.7);
-  --radical-item-hover:#e8f5e9;
-  --fc-front-bg:linear-gradient(135deg,#2e7d32,#388e3c);
-  --fc-back-bg:linear-gradient(135deg,#e8f5e9,#f1f8e9);
+  --btn-primary-shadow:rgba(2,119,189,0.4);
+  --btn-sec-bg:#e1f5fe; --btn-sec-color:#0277bd; --btn-sec-hover:#81d4fa;
+  --pinyin-color:#0288d1;
+  --story-hl-bg:rgba(2,119,189,0.12); --story-hl-text:#012a45;
+  --badge-bg:#e1f5fe;
+  --speak-btn-bg:#e1f5fe; --speak-btn-hover:#81d4fa;
+  --char-active-bg:#e1f5fe;
+  --stroke-area-bg:#e1f5fe;
+  --radical-bg:#e1f5fe; --radical-item-bg:rgba(255,255,255,0.7);
+  --radical-item-hover:#e1f5fe;
+  --fc-front-bg:linear-gradient(135deg,#0277bd,#0288d1);
+  --fc-back-bg:linear-gradient(135deg,#e1f5fe,#f0faff);
   --fc-front-word:#ffffff; --fc-front-hint:rgba(255,255,255,0.8);
-  --match-card-bg:#e8f5e9; --match-selected-bg:rgba(46,125,50,0.12);
-  --spk1-color:#2e7d32; --spk1-badge-bg:rgba(46,125,50,0.1);
-  --spk1-avatar-bg:linear-gradient(135deg,#a5d6a7,#81c784);
-  --spk1-bubble-bg:rgba(46,125,50,0.06);
-  --spk1-bubble-border:rgba(46,125,50,0.35);
-  --spk2-color:#6a1b9a; --spk2-badge-bg:rgba(106,27,154,0.1);
-  --spk2-avatar-bg:linear-gradient(135deg,#ce93d8,#ab47bc);
-  --spk2-bubble-bg:rgba(106,27,154,0.06);
-  --spk2-bubble-border:rgba(106,27,154,0.3);
-  --bubble-glow:rgba(46,125,50,0.25);
-  --rec-box-bg:rgba(46,125,50,0.05);
-  --caller-bg:rgba(46,125,50,0.06);
-  --bingo-cell-bg:#ffffff; --bingo-marked-bg:rgba(46,125,50,0.15);
-  --bingo-free-bg:#e8f5e9;
+  --match-card-bg:#e1f5fe; --match-selected-bg:rgba(2,119,189,0.12);
+  --spk1-color:#0277bd; --spk1-badge-bg:rgba(2,119,189,0.1);
+  --spk1-avatar-bg:linear-gradient(135deg,#81d4fa,#4fc3f7);
+  --spk1-bubble-bg:rgba(2,119,189,0.06); --spk1-bubble-border:rgba(2,119,189,0.35);
+  --spk2-color:#00838f; --spk2-badge-bg:rgba(0,131,143,0.1);
+  --spk2-avatar-bg:linear-gradient(135deg,#80deea,#4dd0e1);
+  --spk2-bubble-bg:rgba(0,131,143,0.06); --spk2-bubble-border:rgba(0,131,143,0.3);
+  --bubble-glow:rgba(2,119,189,0.25);
+  --rec-box-bg:rgba(2,119,189,0.05);
+  --caller-bg:rgba(2,119,189,0.06);
+  --bingo-cell-bg:#ffffff; --bingo-marked-bg:rgba(2,119,189,0.15);
+  --bingo-free-bg:#e1f5fe;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI','PingFang SC','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:16px;}
@@ -198,7 +186,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
 .bingo-cell{aspect-ratio:1;background:var(--bingo-cell-bg);border:1.5px solid var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .18s;text-align:center;padding:2px;font-weight:600;color:var(--text);word-break:break-all;line-height:1.15;overflow:hidden;}
 .bingo-cell:hover{border-color:var(--accent);transform:scale(1.04);}
 .bingo-cell.marked{background:var(--bingo-marked-bg);border-color:var(--accent);color:var(--accent);}
-.bingo-cell.bingo-win{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;animation:bingoPop .4s;}
+.bingo-cell.bingo-win{background:var(--accent);color:var(--btn-primary-text);border-color:var(--accent);font-weight:700;animation:bingoPop .4s;}
 .bingo-cell.free{background:var(--bingo-free-bg);border-color:var(--accent2);color:var(--accent);cursor:default;}
 @keyframes bingoPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
 .bingo-tip{font-size:0.7rem;color:var(--text2);text-align:center;}
@@ -217,7 +205,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
 .quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:440px;margin:0 auto;}
 .quiz-opt{background:var(--card-bg);border:2px solid var(--border2);border-radius:10px;padding:13px;text-align:center;cursor:pointer;font-size:0.95rem;color:var(--text);transition:all .2s;box-shadow:var(--shadow);}
 .quiz-opt:hover{border-color:var(--accent);background:var(--char-active-bg);}
-.quiz-opt.correct{border-color:#43a047;background:rgba(67,160,71,0.15);color:#2e7d32;}
+.quiz-opt.correct{border-color:#43a047;background:rgba(67,160,71,0.15);color:#1b5e20;}
 .quiz-opt.wrong{border-color:#e53935;background:rgba(229,57,53,0.1);color:#b71c1c;}
 .rocket-score{text-align:center;font-size:1rem;color:var(--accent);margin-bottom:6px;}
 .rocket-emoji{font-size:3.5rem;text-align:center;margin:8px 0;transition:all .25s;}
@@ -241,20 +229,16 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
 .rec-note strong{color:var(--accent);}
 .cpc{position:fixed;width:9px;height:9px;border-radius:2px;animation:cfFall 1.4s ease-in forwards;pointer-events:none;z-index:1000;}
 @keyframes cfFall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-@media(max-width:480px){
-  header h1{font-size:1.4rem;}
-  .char-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}
-  .match-grid{grid-template-columns:repeat(3,1fr);}
-}
+@media(max-width:480px){header h1{font-size:1.4rem;}.char-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}.match-grid{grid-template-columns:repeat(3,1fr);}}
 </style>
 </head>
 <body>
 <canvas id="bgcanvas"></canvas>
 <header>
   <a href="index.html" class="back-btn">← 主页</a>
-  <div class="chapter-num">第四册 · 第一课</div>
-  <h1>给爷爷的信 ✉️<span>A Letter to Grandpa</span></h1>
-  <a href="lesson2.html" class="nav-btn">第二课 →</a>
+  <div class="chapter-num">第四册 · 第二课</div>
+  <h1>颐和园 🏯<span>The Summer Palace</span></h1>
+  <a href="lesson1.html" class="nav-btn">← 第一课</a>
 </header>
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('story',this)">📖 课文</button>
@@ -279,22 +263,21 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
     <div class="story-text" id="storyText"></div>
   </div>
   <div class="card">
-    <div class="section-title">📍 北京名胜 · Famous Beijing Landmarks</div>
+    <div class="section-title">🏯 颐和园的故事 · The Story of the Summer Palace</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:0.9rem;line-height:1.85;">
       <div style="color:var(--text)">
-        <p style="margin-bottom:8px">亮亮在信里提到了北京的四大名胜：<strong style="color:var(--accent)">长城</strong>是世界上最长的城墙，有两千多年历史！<strong style="color:var(--accent)">故宫</strong>是以前皇帝住的地方，有九千多间房子。</p>
-        <p style="margin-bottom:8px"><strong style="color:var(--accent)">颐和园</strong>是北京最大最美的皇家园林，里面有大湖和漂亮的长廊。<strong style="color:var(--accent)">天安门广场</strong>是世界上最大的广场之一！</p>
-        <p>北京是<strong style="color:var(--accent)">中国的首都</strong>，也是世界著名的历史文化名城。</p>
+        <p><strong style="color:var(--accent)">颐和园</strong>位于中国北京城的西北，是中国最大、保存最完好的皇家园林。它建于<strong style="color:var(--accent)">1750年</strong>（清朝乾隆年间），最初叫清漪园。</p>
+        <p style="margin-top:8px">园中最著名的景点是<strong style="color:var(--accent)">十七孔桥</strong>，连接东岸和南湖岛，桥上有544只形态各异的小狮子。昆明湖占全园面积的四分之三。</p>
+        <p style="margin-top:8px">慈禧太后将此园作为她最喜欢的<strong style="color:var(--accent)">避暑行宫</strong>。1998年，颐和园被列为世界文化遗产。</p>
       </div>
       <div style="color:var(--text2);border-left:2px solid var(--border2);padding-left:14px;">
-        <p style="margin-bottom:8px">Liangliang's letter mentions four famous Beijing landmarks: the <strong style="color:var(--accent2)">Great Wall</strong>, the world's longest wall with 2,000+ years of history! The <strong style="color:var(--accent2)">Forbidden City</strong> was the emperor's palace — with over 9,000 rooms!</p>
-        <p style="margin-bottom:8px">The <strong style="color:var(--accent2)">Summer Palace</strong> is Beijing's grandest royal garden with a huge lake and beautiful covered walkways. <strong style="color:var(--accent2)">Tiananmen Square</strong> is one of the world's largest public squares!</p>
-        <p>Beijing (北京 = "Northern Capital") is China's <strong style="color:var(--accent2)">capital city</strong> and one of the world's great historic cities.</p>
+        <p>The <strong style="color:var(--accent2)">Summer Palace</strong> sits northwest of Beijing. Built in <strong style="color:var(--accent2)">1750</strong> by Emperor Qianlong, it is China's largest and best-preserved imperial garden.</p>
+        <p style="margin-top:8px">Its most famous landmark is the <strong style="color:var(--accent2)">Seventeen-Arch Bridge</strong> — 17 arches, 544 stone lions, each carved differently. Kunming Lake covers three-quarters of the whole garden!</p>
+        <p style="margin-top:8px">Empress Dowager Cixi loved this palace as her summer retreat. In <strong style="color:var(--accent2)">1998</strong>, it became a UNESCO World Heritage Site.</p>
       </div>
     </div>
     <div style="margin-top:12px;background:var(--char-active-bg);border-radius:10px;padding:10px 14px;font-size:0.82rem;color:var(--text2)">
-      🏛️ <strong style="color:var(--accent)">北京四大名胜 / Four Famous Sights:</strong>
-      长城 Great Wall · 故宫 Forbidden City · 颐和园 Summer Palace · 天安门广场 Tiananmen Square
+      📅 <strong style="color:var(--accent)">历史简介：</strong> 1750年建造 → 1764年初建成 → 1860年遭英法联军破坏 → 1886年慈禧重建 → 1998年列入世界遗产
     </div>
   </div>
 </div>
@@ -307,10 +290,10 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   </div>
   <div class="stroke-area" id="strokeArea">
     <div class="stroke-header">
-      <div class="stroke-char-disp" id="sCharDisp">信</div>
+      <div class="stroke-char-disp" id="sCharDisp">美</div>
       <div class="stroke-info">
-        <h3 id="sCharPy">xìn</h3>
-        <p id="sCharMeaning">letter / trust</p>
+        <h3 id="sCharPy">měi</h3>
+        <p id="sCharMeaning">beautiful</p>
       </div>
       <div>
         <label style="font-size:0.8rem;color:var(--accent2);display:flex;align-items:center;gap:5px;">
@@ -321,7 +304,9 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
     <div class="writer-row">
       <div class="writer-box">
         <p>📽 笔顺演示</p>
-        <div class="tzg-wrap" id="demoWrap"><div id="demo-div" style="width:180px;height:180px;"></div></div>
+        <div class="tzg-wrap" id="demoWrap">
+          <div id="demo-div" style="width:180px;height:180px;"></div>
+        </div>
         <div class="stroke-name-display" id="strokeNameDisp"></div>
         <div class="stroke-btns">
           <button class="btn btn-primary btn-sm" onclick="animateChar()">▶ 动画</button>
@@ -331,7 +316,9 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
       </div>
       <div class="writer-box">
         <p>✏️ 手写练习（支持触屏）</p>
-        <div class="tzg-wrap" id="quizWrap"><div id="quiz-div" style="width:180px;height:180px;"></div></div>
+        <div class="tzg-wrap" id="quizWrap">
+          <div id="quiz-div" style="width:180px;height:180px;"></div>
+        </div>
         <div class="stroke-btns">
           <button class="btn btn-primary btn-sm" onclick="startQuizMode()">📝 开始练习</button>
           <button class="btn btn-secondary btn-sm" onclick="quizW&&quizW.showCharacter()">👁 提示</button>
@@ -356,7 +343,10 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   <div id="v-flash">
     <div class="flashcard-wrap" onclick="flipCard()">
       <div class="flashcard" id="flashcard">
-        <div class="card-front"><div class="word" id="fc-word">亲爱</div><div class="hint">👆 点击翻转</div></div>
+        <div class="card-front">
+          <div class="word" id="fc-word">美丽</div>
+          <div class="hint">👆 点击翻转</div>
+        </div>
         <div class="card-back">
           <div class="meaning" id="fc-meaning"></div>
           <div class="pinyin" id="fc-pinyin"></div>
@@ -388,8 +378,8 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   <div class="card">
     <div class="section-title">💬 对话角色</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px">
-      <span class="role-badge spk1">👧 云云 (Yúnyun)</span>
-      <span class="role-badge spk2">👦 方方 (Fāngfāng)</span>
+      <span class="role-badge spk1">👧 云云 (Yún yun)</span>
+      <span class="role-badge spk2">👦 亮亮 (Liàng liàng)</span>
     </div>
     <div class="dlg-controls">
       <button class="btn btn-primary" id="dlgPlayBtn" onclick="dlgPlay()">▶ 播放全部</button>
@@ -425,7 +415,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
         <span id="bingoMsg" class="bingo-msg" style="flex:1;text-align:right"></span>
       </div>
       <div class="caller-box">
-        <div style="font-size:2.4rem">✉️</div>
+        <div style="font-size:2.4rem">📢</div>
         <div class="caller-info">
           <div class="caller-label">找找这个 ↓</div>
           <div class="caller-word" id="callerWord">点击"叫字"！</div>
@@ -434,7 +424,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
       </div>
       <div class="bingo-win-banner" id="bingoWin">🎉 BINGO! 恭喜你赢了！🎉</div>
       <div class="bingo-grid" id="bingoGrid"></div>
-      <div class="bingo-tip">5个连成一线（横、竖、斜）就赢！中间格是✉️FREE！</div>
+      <div class="bingo-tip">5个连成一线（横、竖、斜）就赢！中间格是🌊FREE！</div>
     </div>
   </div>
 </div>
@@ -442,12 +432,16 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
 <!-- TAB 6: GAMES -->
 <div id="tab-games" class="tab-panel">
   <div class="game-selector">
-    <button class="game-btn active" onclick="selGame('quiz',this)"><span class="gi">✉️</span>信封问答</button>
-    <button class="game-btn" onclick="selGame('rocket',this)"><span class="gi">✈️</span>拼音飞机</button>
+    <button class="game-btn active" onclick="selGame('quiz',this)">
+      <span class="gi">🌊</span>湖光问答
+    </button>
+    <button class="game-btn" onclick="selGame('rocket',this)">
+      <span class="gi">🦁</span>拼音狮子
+    </button>
   </div>
   <div id="game-quiz" class="game-panel active">
     <div class="card">
-      <div class="section-title">✉️ 信封问答</div>
+      <div class="section-title">🌊 湖光问答</div>
       <div class="quiz-progress"><div class="quiz-bar" id="qBar" style="width:0%"></div></div>
       <div class="quiz-score" id="qScore">得分: 0 / 0</div>
       <div class="quiz-q" id="qQ">这个词语是什么意思？</div>
@@ -460,9 +454,9 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   </div>
   <div id="game-rocket" class="game-panel">
     <div class="card">
-      <div class="section-title">✈️ 拼音飞机</div>
+      <div class="section-title">🦁 拼音狮子</div>
       <div class="rocket-score" id="rScore">🏆 得分: 0</div>
-      <div class="rocket-emoji" id="rEmoji">✈️</div>
+      <div class="rocket-emoji" id="rEmoji">🦁</div>
       <p style="text-align:center;font-size:0.88rem;color:var(--accent2);margin-bottom:4px">看拼音，选汉字！</p>
       <div class="rocket-py" id="rPy"></div>
       <div class="rocket-opts" id="rOpts"></div>
@@ -498,341 +492,371 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────
+// ── DATA ─────────────────────────────────
 const CHARS = [
-  {char:'信',pinyin:'xìn',meaning:'letter / trust',strokes:9},
-  {char:'封',pinyin:'fēng',meaning:'seal / envelope',strokes:9},
-  {char:'城',pinyin:'chéng',meaning:'city / town',strokes:9},
-  {char:'邮',pinyin:'yóu',meaning:'postal / mail',strokes:7},
-  {char:'票',pinyin:'piào',meaning:'ticket / stamp',strokes:11},
-  {char:'京',pinyin:'jīng',meaning:'capital city',strokes:8},
-  {char:'安',pinyin:'ān',meaning:'peace / safe',strokes:6},
-  {char:'广',pinyin:'guǎng',meaning:'wide / broad',strokes:3},
-  {char:'场',pinyin:'chǎng',meaning:'place / field',strokes:6},
-  {char:'全',pinyin:'quán',meaning:'complete / all',strokes:6},
-  {char:'平',pinyin:'píng',meaning:'flat / peaceful',strokes:5},
-  {char:'提',pinyin:'tí',meaning:'raise / mention',strokes:12},
-  {char:'取',pinyin:'qǔ',meaning:'take / fetch',strokes:8},
-  {char:'进',pinyin:'jìn',meaning:'enter / advance',strokes:7},
-  {char:'孙',pinyin:'sūn',meaning:'grandchild',strokes:6}
+  {char:'美',pinyin:'měi',meaning:'beautiful',strokes:9},
+  {char:'丽',pinyin:'lì',meaning:'lovely, pretty',strokes:7},
+  {char:'完',pinyin:'wán',meaning:'complete, finish',strokes:7},
+  {char:'登',pinyin:'dēng',meaning:'to climb, ascend',strokes:12},
+  {char:'景',pinyin:'jǐng',meaning:'scenery, view',strokes:12},
+  {char:'色',pinyin:'sè',meaning:'color, appearance',strokes:6},
+  {char:'岸',pinyin:'àn',meaning:'shore, bank',strokes:8},
+  {char:'岛',pinyin:'dǎo',meaning:'island',strokes:7},
+  {char:'沿',pinyin:'yán',meaning:'along, edge',strokes:8},
+  {char:'座',pinyin:'zuò',meaning:'seat, [measure word]',strokes:10},
+  {char:'桥',pinyin:'qiáo',meaning:'bridge',strokes:10},
+  {char:'柱',pinyin:'zhù',meaning:'pillar, column',strokes:9},
+  {char:'狮',pinyin:'shī',meaning:'lion',strokes:9},
+  {char:'分',pinyin:'fēn / fèn',meaning:'minute / portion',strokes:4,
+   pinyinList:[{py:'fēn',ctx:'十分钟',note:'minute'},{py:'fèn',ctx:'部分',note:'portion'}]},
+  {char:'啊',pinyin:'a',meaning:'ah! (exclamation)',strokes:10}
 ];
 
 const STROKE_NAMES = {
-  '信':['撇','竖','横折','横','横','竖','横折','横','横'],
-  '封':['横','竖','横折','横','横','横','竖','横折','点'],
-  '城':['横','横折','横','撇','竖弯钩','横','竖','撇','捺'],
-  '邮':['竖','横折','横','横','竖','横折折撇','竖'],
-  '票':['横','竖','横折','横','撇','横折钩','点','点','横','横折','横'],
-  '京':['点','横','撇折','撇','横折钩','撇','点','竖钩'],
-  '安':['点','横折','横','横折','撇','横'],
-  '广':['点','横','撇'],
-  '场':['横','竖','横','横折','撇','竖弯钩'],
-  '全':['撇','横折','横','横','横折','横'],
-  '平':['撇','横','横','竖','横'],
-  '提':['横','竖','撇点','横','横折','横','竖','横折','竖','横折钩','撇','撇'],
-  '取':['横','竖','横折','横','撇','竖','横撇','捺'],
-  '进':['横折折撇','捺','横','竖','横','撇','点'],
-  '孙':['撇折','横','竖钩','撇','竖','点']
+  '美':['撇','横','横','撇','竖','横','横','撇','捺'],
+  '丽':['横','竖','横折','横','竖','横折','横'],
+  '完':['点','横折钩','横','横','撇','竖','横折弯钩'],
+  '登':['撇','横撇','横','撇','捺','撇','横','横折','横','撇','横','横折弯钩'],
+  '景':['竖','横折','横','横','点','横','撇','竖','横折','横','撇','捺'],
+  '色':['撇','横折钩','横','撇','竖','横折弯钩'],
+  '岸':['竖','横折','横','横','撇','捺','横','竖'],
+  '岛':['撇','横折钩','竖','横折','横','竖','横折弯钩'],
+  '沿':['点','点','横折钩','竖折折钩','横','竖','竖','横折'],
+  '座':['点','横','竖','横','撇','横','撇','竖','横折','横'],
+  '桥':['横','竖','撇','点','撇','横','横','撇','横折','横'],
+  '柱':['横','竖','撇','点','点','竖','横','横','横'],
+  '狮':['撇','弯钩','撇','横折钩','横','竖','横折钩','竖','横折钩'],
+  '分':['撇','捺','撇','竖钩'],
+  '啊':['竖','横折','横','撇','横','横折钩','横','竖','横折','横折弯钩']
 };
 
 const RADICAL_DATA = {
-  '信':{
-    intro:'部件：亻（人字旁）＋ 言（言字，说话）',
-    introEn:'Components: 亻 (person radical) + 言 (speech/words)',
-    oracle:'"言"字的甲骨文像一张嘴上面有声音，表示"说话"。"信"由人（亻）和言（说话）组成，意思是"说话算数的人"，所以"信"有信任和书信两层含义！',
-    oracleEn:'Ancient 言 showed a mouth with sound waves — meaning "to speak." 信 combines person 亻 with speech 言, meaning "a person who keeps their word." That\'s why 信 means both "trust" and "letter"!',
+  '美':{
+    intro:'部件：羊（上部，羊角头饰）＋ 大（下部，人/大）',
+    introEn:'Components: 羊 (sheep/horns, top) + 大 (person/big, bottom)',
+    oracle:'"美"的甲骨文像一个人头戴大羊角头饰——古代祭祀中戴羊角装扮的人，看起来庄重而美丽！美就是盛装打扮的样子。',
+    oracleEn:'In oracle bone script, 美 showed a person wearing a magnificent sheep-horn headdress. At ancient ceremonies, people dressed in such ornate costumes looked beautiful and grand — 美 = adorned and splendid!',
     groups:[
-      {radical:'亻（人字旁）',chars:[
-        {char:'他',py:'tā',word:'他的（his）'},
-        {char:'你',py:'nǐ',word:'你好（hello）'},
-        {char:'做',py:'zuò',word:'做事（do things）'},
-        {char:'们',py:'men',word:'我们（we/us）'}
+      {radical:'羊字部（羊/美化）',chars:[
+        {char:'美',py:'měi',word:'美丽（beautiful）'},
+        {char:'羊',py:'yáng',word:'小羊（lamb）'},
+        {char:'善',py:'shàn',word:'善良（kind）'}
       ]},
-      {radical:'言（言字旁）',chars:[
-        {char:'说',py:'shuō',word:'说话（speak）'},
-        {char:'请',py:'qǐng',word:'请问（may I ask）'},
-        {char:'话',py:'huà',word:'说话（talk）'},
-        {char:'谢',py:'xiè',word:'谢谢（thank you）'}
+      {radical:'大字底（大/广阔）',chars:[
+        {char:'大',py:'dà',word:'大小（size）'},
+        {char:'太',py:'tài',word:'太阳（sun）'},
+        {char:'天',py:'tiān',word:'天空（sky）'}
       ]}
     ]
   },
-  '封':{
-    intro:'部件：圭（叠土）＋ 寸（手/尺寸）',
-    introEn:'Components: 圭 (stacked earth mounds) + 寸 (hand/measure)',
-    oracle:'古代帝王用手（寸）把土堆起来，划定封地边界。封土地就是"封"！封信封、封王——都有"封住"的意思。',
-    oracleEn:'Ancient kings would use their hands (寸) to pile up earth (圭) to mark the boundaries of royal territories. Sealing land = 封! Now 封 means sealing an envelope or bestowing a title.',
+  '丽':{
+    intro:'部件：一（横，顶部）＋ 冂冂（两个对称框，鹿角形）',
+    introEn:'Components: top horizontal stroke + two symmetric enclosures (like paired deer antlers)',
+    oracle:'"丽"的古字像两只并排的鹿角，左右对称，形态优雅。对称的美叫做丽——颐和园的景色左右呼应，真是美丽！',
+    oracleEn:'The ancient form of 丽 showed two deer antlers side by side — perfectly symmetrical and elegant. Symmetrical beauty = 丽! Think of the balanced arches of the Seventeen-Arch Bridge.',
     groups:[
-      {radical:'寸（寸字旁）',chars:[
-        {char:'寺',py:'sì',word:'寺庙（temple）'},
-        {char:'时',py:'shí',word:'时间（time）'},
-        {char:'持',py:'chí',word:'坚持（persist）'},
-        {char:'对',py:'duì',word:'对了（correct）'}
+      {radical:'丽字系',chars:[
+        {char:'丽',py:'lì',word:'美丽（beautiful）'},
+        {char:'俪',py:'lì',word:'伉俪（couple）'}
       ]}
     ]
   },
-  '城':{
-    intro:'部件：土（土字旁）＋ 成（完成）',
-    introEn:'Components: 土 (earth/soil radical) + 成 (complete/accomplish)',
-    oracle:'建城要用泥土（土）堆起高高的城墙，城墙建成（成）才安全！所以城市就是"建好了的土墙"。',
-    oracleEn:'Building an ancient city meant piling earth (土) into tall protective walls — completing (成) them was a great achievement! 城 = a completed, walled settlement = city!',
+  '完':{
+    intro:'部件：宀（宝盖头，屋顶/庇护）＋ 元（原始/开始）',
+    introEn:'Components: 宀 (roof radical, shelter) + 元 (origin, first)',
+    oracle:'"完"= 屋顶下（宀）一切回归原位（元）= 整整齐齐，完好无缺！颐和园经过1886年重建后，终于完整地恢复了原来的样子。',
+    oracleEn:'完 = under a roof (宀) everything returns to its original state (元) = complete and undamaged! After Empress Cixi rebuilt it in 1886, the Summer Palace was fully (完) restored.',
     groups:[
-      {radical:'土（土字旁）',chars:[
-        {char:'地',py:'dì',word:'大地（earth）'},
-        {char:'场',py:'chǎng',word:'广场（plaza）'},
-        {char:'块',py:'kuài',word:'一块（a piece）'},
-        {char:'坐',py:'zuò',word:'坐下（sit down）'}
+      {radical:'宀字头（屋顶旁）',chars:[
+        {char:'家',py:'jiā',word:'回家（go home）'},
+        {char:'完',py:'wán',word:'完成（complete）'},
+        {char:'定',py:'dìng',word:'一定（certainly）'},
+        {char:'字',py:'zì',word:'汉字（character）'}
+      ]},
+      {radical:'元字底',chars:[
+        {char:'元',py:'yuán',word:'元旦（New Year）'},
+        {char:'完',py:'wán',word:'完好（intact）'}
       ]}
     ]
   },
-  '邮':{
-    intro:'部件：由（经由/通过）＋ 阝（阜字旁，地区/邮局）',
-    introEn:'Components: 由 (via/through) + 阝 (right ear radical, representing regions/districts)',
-    oracle:'古代邮政系统用马传递信件，要经（由）过很多地区（阝）。"邮"本义是驿站，现在引申为邮政、邮票、邮件！',
-    oracleEn:'Ancient postal relay stations used horses to carry letters through (由) different regions (阝). 邮 originally meant relay station, now means postal services, stamps, and mail!',
+  '登':{
+    intro:'部件：癶（两脚向上走，登步）＋ 豆（豆形器皿，祭台）',
+    introEn:'Components: 癶 (feet stepping upward) + 豆 (ritual vessel/platform)',
+    oracle:'"登"的古字像两只脚一步步登上祭祀台的样子。攀登高处，就是"登"！登上万寿山，颐和园的全景尽收眼底。',
+    oracleEn:'Ancient 登 showed feet stepping up onto a ceremonial platform. To climb step by step = 登! Climb Longevity Hill (万寿山) in the Summer Palace and see the whole garden spread out below.',
     groups:[
-      {radical:'阝（右耳旁）',chars:[
-        {char:'都',py:'dōu',word:'都是（all are）'},
-        {char:'部',py:'bù',word:'部分（part）'},
-        {char:'郊',py:'jiāo',word:'郊外（suburbs）'},
-        {char:'邻',py:'lín',word:'邻居（neighbor）'}
+      {radical:'癶字部（登步旁）',chars:[
+        {char:'登',py:'dēng',word:'登山（climb）'},
+        {char:'发',py:'fā',word:'出发（depart）'}
       ]}
     ]
   },
-  '京':{
-    intro:'象形字：高大建筑物或城楼的形状',
-    introEn:'Pictograph: the shape of a tall tower or imposing city gate',
-    oracle:'甲骨文"京"字像一座建在高处的大楼台，非常雄伟，大家都能看见。古代首都一定有最高的建筑，所以"京"就代表首都！北京 = 北方的首都。',
-    oracleEn:'In oracle bone script, 京 looked like a grand tower on a hill — visible from far away! The capital city always had the tallest, grandest buildings. So 京 came to mean "capital." 北京 = "Northern Capital"!',
+  '景':{
+    intro:'部件：日（太阳，上部）＋ 京（京城/高处，下部）',
+    introEn:'Components: 日 (sun, top) + 京 (capital/high place, bottom)',
+    oracle:'"景"= 阳光（日）照耀京城（京）= 灿烂的景致！在颐和园的万寿山顶，阳光洒在昆明湖上，正是"湖光山色"的美景。',
+    oracleEn:'景 = sunlight (日) shining over a capital/high place (京) = a brilliant scenic view! Standing on Longevity Hill, sunlight sparkles on Kunming Lake — that is the classic 景色 of the Summer Palace.',
     groups:[
-      {radical:'京（京字）',chars:[
-        {char:'就',py:'jiù',word:'就是（it is）'},
+      {radical:'日字旁（太阳）',chars:[
+        {char:'日',py:'rì',word:'日出（sunrise）'},
+        {char:'明',py:'míng',word:'明天（tomorrow）'},
         {char:'景',py:'jǐng',word:'景色（scenery）'},
-        {char:'凉',py:'liáng',word:'凉快（cool/refreshing）'}
+        {char:'晒',py:'shài',word:'晒太阳（sunbathe）'}
+      ]},
+      {radical:'京字底（京城）',chars:[
+        {char:'京',py:'jīng',word:'北京（Beijing）'},
+        {char:'景',py:'jǐng',word:'风景（scenery）'}
       ]}
     ]
   },
-  '安':{
-    intro:'部件：宀（宝盖头，屋顶）＋ 女（女字，人）',
-    introEn:'Components: 宀 (roof/house radical) + 女 (woman/person)',
-    oracle:'古代"安"字画的是一位女子安坐在房屋之中，表示平安、安心。家里有人陪伴，才真正安心！',
-    oracleEn:'Ancient 安 showed a woman (女) sitting peacefully under a roof (宀) — the image of safety and contentment. Having family at home = feeling truly at peace. That\'s why 安 means "safe, calm, peaceful"!',
+  '色':{
+    intro:'部件：刀（刀/弯形，上部）＋ 巴（蛇身形，下部）',
+    introEn:'Components: curved knife shape (top) + 巴 (snake body, bottom)',
+    oracle:'"色"的甲骨文像一个人跪在另一人身后——脸上流露出的神情、气色。颜色本是人脸的"气色"！景色就是风景给人的"颜色感受"。',
+    oracleEn:'Ancient 色 showed one figure behind another — capturing the expression and complexion on a person\'s face. Color (色) began as the "color of one\'s complexion." 景色 = the colorful impression scenery gives you!',
     groups:[
-      {radical:'宀（宝盖头）',chars:[
-        {char:'家',py:'jiā',word:'家人（family）'},
-        {char:'室',py:'shì',word:'教室（classroom）'},
-        {char:'宝',py:'bǎo',word:'宝贝（treasure）'},
-        {char:'字',py:'zì',word:'汉字（Chinese character）'}
+      {radical:'色字系',chars:[
+        {char:'色',py:'sè',word:'颜色（color）'},
+        {char:'绝',py:'jué',word:'绝对（absolutely）'}
       ]}
     ]
   },
-  '广':{
-    intro:'象形字：大屋子的侧面，宽敞的遮蔽空间',
-    introEn:'Pictograph: side view of a large open shelter — a wide covered space',
-    oracle:'甲骨文"广"字画的是一个只有一面有墙的宽大棚子或走廊，表示"宽广"的空间。广场就是一个宽广的地方！',
-    oracleEn:'Ancient 广 depicted a wide open shelter — like a large covered space with walls on only one side. It represents wide-open space. 广场 (guǎngchǎng) = a wide-open plaza! 广 always hints at spaciousness.',
+  '岸':{
+    intro:'部件：山（山字旁）＋ 厂（山崖）＋ 干（干燥/岸边）',
+    introEn:'Components: 山 (mountain) + 厂 (cliff) + 干 (dry/bank)',
+    oracle:'"岸"= 山（山）与水之间干燥的悬崖（厂）= 岸边！站在昆明湖的东岸，你能看到十七孔桥横卧在湖面上。',
+    oracleEn:'岸 = the dry rocky cliff (厂) at the edge of a mountain (山), right by the water = a shore or bank! Standing on the east bank (东岸) of Kunming Lake, you can see the Seventeen-Arch Bridge stretching across.',
     groups:[
-      {radical:'广（广字头）',chars:[
-        {char:'庄',py:'zhuāng',word:'庄园（estate）'},
-        {char:'床',py:'chuáng',word:'床上（on the bed）'},
-        {char:'店',py:'diàn',word:'商店（shop）'},
+      {radical:'山字旁',chars:[
+        {char:'山',py:'shān',word:'山上（on the hill）'},
+        {char:'岸',py:'àn',word:'东岸（east bank）'},
+        {char:'岛',py:'dǎo',word:'小岛（island）'},
+        {char:'峰',py:'fēng',word:'山峰（peak）'}
+      ]}
+    ]
+  },
+  '岛':{
+    intro:'部件：鸟（鸟儿）＋ 山（山，海中礁石）',
+    introEn:'Components: 鸟 (bird) + 山 (mountain/rocky outcrop)',
+    oracle:'"岛"= 鸟（鸟）落在海中的山（山）上 = 岛屿！海鸟停歇的礁石就是岛。颐和园昆明湖中央有一个小岛，叫南湖岛。',
+    oracleEn:'岛 = a bird (鸟) landing on a rocky mountain (山) sticking out of the sea = an island! Birds rest on rocky outcrops in the ocean. In the middle of Kunming Lake is a small island (小岛) called South Lake Island.',
+    groups:[
+      {radical:'山字底（礁石）',chars:[
+        {char:'山',py:'shān',word:'大山（mountain）'},
+        {char:'岛',py:'dǎo',word:'小岛（island）'},
+        {char:'岸',py:'àn',word:'湖岸（lake bank）'}
+      ]},
+      {radical:'鸟字（飞鸟）',chars:[
+        {char:'鸟',py:'niǎo',word:'小鸟（little bird）'},
+        {char:'岛',py:'dǎo',word:'岛屿（islands）'},
+        {char:'鸡',py:'jī',word:'小鸡（chick）'}
+      ]}
+    ]
+  },
+  '沿':{
+    intro:'部件：氵（三点水，水）＋ 㕣（沿边形，河床形状）',
+    introEn:'Components: 氵 (water radical) + boat-like shape following a water edge',
+    oracle:'"沿"= 水（氵）顺着岸边流淌 = 沿着！沿着长廊走，就是顺着走廊的方向前进。进了颐和园，沿着走廊来到昆明湖边。',
+    oracleEn:'沿 = water (氵) flowing along an edge = "along, following." To walk 沿着 the long corridor means following it all the way to Kunming Lake — just like the story!',
+    groups:[
+      {radical:'氵字旁（水旁）',chars:[
+        {char:'沿',py:'yán',word:'沿着（along）'},
+        {char:'海',py:'hǎi',word:'大海（sea）'},
+        {char:'湖',py:'hú',word:'湖水（lake water）'},
+        {char:'河',py:'hé',word:'小河（stream）'},
+        {char:'游',py:'yóu',word:'游泳（swim）'}
+      ]}
+    ]
+  },
+  '座':{
+    intro:'部件：广（广字头，宽大建筑）＋ 坐（坐着）',
+    introEn:'Components: 广 (wide shelter/building radical) + 坐 (to sit)',
+    oracle:'"座"= 宽大的建筑（广）里有人坐着（坐）= 座位，也用于计量建筑或山。一座桥，就像"在这里坐镇"的一座建筑！',
+    oracleEn:'座 = a place (广) where people sit (坐) = a seat or position. Also a measure word for large structures! 一座桥 = one bridge. The bridge "sits" regally across the lake.',
+    groups:[
+      {radical:'广字头（宽厦）',chars:[
+        {char:'广',py:'guǎng',word:'广场（plaza）'},
+        {char:'座',py:'zuò',word:'一座桥（a bridge）'},
+        {char:'店',py:'diàn',word:'书店（bookstore）'},
+        {char:'床',py:'chuáng',word:'床上（on the bed）'}
+      ]},
+      {radical:'坐字底（入座）',chars:[
+        {char:'坐',py:'zuò',word:'坐下（sit down）'},
         {char:'座',py:'zuò',word:'座位（seat）'}
       ]}
     ]
   },
-  '场':{
-    intro:'部件：土（土字旁）＋ 昜（太阳升起，开阔明亮）',
-    introEn:'Components: 土 (earth) + 昜 (sun rising, open/bright)',
-    oracle:'古代"场"是晒粮食的空地，要向着太阳（昜）的土地（土）才能晒干谷物。后来引申为广场、操场等开阔的地方！',
-    oracleEn:'In ancient times, 场 was a flat patch of ground (土) facing the sun (昜) where grain was dried. Later it expanded to mean any open public space — plaza (广场), sports field (操场), or marketplace!',
+  '桥':{
+    intro:'部件：木（木字旁，木材）＋ 乔（高挑/跨越）',
+    introEn:'Components: 木 (wood radical) + 乔 (tall, spanning, arching)',
+    oracle:'"桥"= 高跨的木结构（木＋乔）= 桥梁！古代的桥大多是木制的。十七孔桥是石桥，有十七个桥洞，横跨在昆明湖上。',
+    oracleEn:'桥 = a tall spanning wooden structure (木 + 乔) = a bridge! Ancient bridges were mostly wooden. The Seventeen-Arch Bridge (十七孔桥) is stone, with 17 arches spanning Kunming Lake.',
     groups:[
-      {radical:'土（土字旁）',chars:[
-        {char:'地',py:'dì',word:'土地（land）'},
-        {char:'城',py:'chéng',word:'城市（city）'},
-        {char:'坡',py:'pō',word:'山坡（hillside）'}
+      {radical:'木字旁（木材）',chars:[
+        {char:'桥',py:'qiáo',word:'石桥（stone bridge）'},
+        {char:'树',py:'shù',word:'大树（big tree）'},
+        {char:'柱',py:'zhù',word:'石柱（stone pillar）'},
+        {char:'板',py:'bǎn',word:'木板（plank）'}
       ]}
     ]
   },
-  '全':{
-    intro:'部件：入（进入）＋ 王（玉，珍宝）',
-    introEn:'Components: 入 (enter/in) + 王 (jade/precious stone)',
-    oracle:'古文"全"字像一块完整无缺的玉璧，没有裂缝。玉不缺角才叫完全！所以"全"表示完整、全部。',
-    oracleEn:'Ancient 全 depicted a perfect jade disk — no chips, no cracks, completely whole. A flawless piece of jade = something complete and perfect. That\'s why 全 means "complete, whole, entire, all"!',
+  '柱':{
+    intro:'部件：木（木字旁）＋ 主（主要/核心）',
+    introEn:'Components: 木 (wood radical) + 主 (main, core, master)',
+    oracle:'"柱"= 木制（木）的核心支撑（主）= 柱子！是建筑最重要的支撑。十七孔桥两边的石柱上刻有544只小狮子。',
+    oracleEn:'柱 = the main (主) wooden (木) structural support = a pillar or column! The most important element in any building. The 石柱 (stone pillars) on the Seventeen-Arch Bridge each have cute lions carved on them.',
     groups:[
-      {radical:'王（王字旁）',chars:[
-        {char:'玩',py:'wán',word:'玩耍（play）'},
-        {char:'理',py:'lǐ',word:'道理（reason）'},
-        {char:'球',py:'qiú',word:'足球（soccer）'}
-      ]}
-    ]
-  },
-  '平':{
-    intro:'象形字：天平或水面平衡的形状',
-    introEn:'Pictograph: a balanced scale or a perfectly level water surface',
-    oracle:'甲骨文"平"字像一杆天平，两边一样重，表示平衡、公平。水面静止时是平的，心情平静也叫"平"！',
-    oracleEn:'Ancient 平 looked like a balanced scale — perfect equilibrium! A calm water surface is flat (平). A calm mind is peaceful (平静). Both come from this image of perfect balance.',
-    groups:[
-      {radical:'平（平字）',chars:[
-        {char:'评',py:'píng',word:'评价（evaluate）'},
-        {char:'苹',py:'píng',word:'苹果（apple）'},
-        {char:'瓶',py:'píng',word:'瓶子（bottle）'}
-      ]}
-    ]
-  },
-  '提':{
-    intro:'部件：扌（提手旁）＋ 是（是/表示）',
-    introEn:'Components: 扌 (hand radical) + 是 (this/is)',
-    oracle:'用手（扌）把东西提起来。"提"本义是手提东西，后来引申为提高、提问、提出——都有"举起来"的含义！',
-    oracleEn:'提 shows a hand (扌) lifting something up. The core idea is "raising with your hand" — which expanded to 提高 (improve/raise), 提问 (raise a question), 提出 (bring up an idea). Always about lifting things up!',
-    groups:[
-      {radical:'扌（提手旁）',chars:[
-        {char:'拉',py:'lā',word:'拉开（pull open）'},
-        {char:'推',py:'tuī',word:'推门（push door）'},
-        {char:'打',py:'dǎ',word:'打球（play ball）'},
-        {char:'拿',py:'ná',word:'拿走（take away）'},
-        {char:'抬',py:'tái',word:'抬头（lift head）'}
-      ]}
-    ]
-  },
-  '取':{
-    intro:'部件：耳（耳字旁）＋ 又（手）',
-    introEn:'Components: 耳 (ear) + 又 (hand)',
-    oracle:'甲骨文"取"字画的是一只手（又）拿着耳朵，表示古代战争中以战利品记功。后来"取"引申为拿取、获取！',
-    oracleEn:'Ancient 取 showed a hand (又) holding an ear (耳) — from the practice of collecting ears as proof of battlefield victories! Over time it evolved to simply mean "to take, get, or fetch."',
-    groups:[
-      {radical:'耳（耳字旁）',chars:[
-        {char:'闻',py:'wén',word:'听闻（hear about）'},
-        {char:'聪',py:'cōng',word:'聪明（clever）'}
+      {radical:'木字旁',chars:[
+        {char:'柱',py:'zhù',word:'石柱（stone pillar）'},
+        {char:'桥',py:'qiáo',word:'桥梁（bridge）'},
+        {char:'树',py:'shù',word:'树木（trees）'}
       ]},
-      {radical:'又（又字）',chars:[
-        {char:'友',py:'yǒu',word:'朋友（friend）'},
-        {char:'双',py:'shuāng',word:'双手（both hands）'}
+      {radical:'主字（核心）',chars:[
+        {char:'主',py:'zhǔ',word:'主人（host）'},
+        {char:'柱',py:'zhù',word:'柱子（pillar）'},
+        {char:'注',py:'zhù',word:'注意（attention）'}
       ]}
     ]
   },
-  '进':{
-    intro:'部件：辶（走之旁，行走/移动）＋ 井（井字）',
-    introEn:'Components: 辶 (movement radical) + 井 (well/organized)',
-    oracle:'甲骨文"进"字像一只鸟向前飞走，鸟向前飞就是在前进！引申为进入、进步、前进。',
-    oracleEn:'Ancient 进 showed a bird moving forward — like a bird always flying ahead! That image of forward motion = advancing. 进步 = moving forward in learning. 进来 = come in!',
+  '狮':{
+    intro:'部件：犭（反犬旁，兽类）＋ 师（师傅/大师）',
+    introEn:'Components: 犭 (animal radical) + 师 (teacher, master)',
+    oracle:'"狮"= 动物（犭）中的大师（师）= 狮子！狮子是"百兽之王"，动物界的"师傅"。十七孔桥两边的石狮子形态各异，每只都不一样！',
+    oracleEn:'狮 = the master (师) among animals (犭) = the lion! Lions are called the "king of beasts" — literally the teacher-master of all animals. The 544 stone lions on the Seventeen-Arch Bridge each have a unique shape!',
     groups:[
-      {radical:'辶（走之旁）',chars:[
-        {char:'这',py:'zhè',word:'这里（here）'},
-        {char:'还',py:'hái',word:'还是（still）'},
-        {char:'道',py:'dào',word:'道路（road）'},
-        {char:'边',py:'biān',word:'旁边（beside）'},
-        {char:'远',py:'yuǎn',word:'很远（far away）'}
+      {radical:'犭字旁（兽类）',chars:[
+        {char:'狮',py:'shī',word:'狮子（lion）'},
+        {char:'猫',py:'māo',word:'小猫（cat）'},
+        {char:'狗',py:'gǒu',word:'小狗（dog）'},
+        {char:'猴',py:'hóu',word:'猴子（monkey）'}
       ]}
     ]
   },
-  '孙':{
-    intro:'部件：子（子字旁，孩子）＋ 系（丝线/传承）',
-    introEn:'Components: 子 (child radical) + 系 (thread/lineage/connection)',
-    oracle:'"孙"由子（孩子）和系（连接/传承）组成，表示孩子的后代，血脉相传。孙儿就是通过子女延续下去的家族成员！信末署名：孙儿亮亮。',
-    oracleEn:'孙 combines child (子) with lineage (系) — the children of children, the continuation of family bloodline. A grandchild (孙) is literally "the child connected through children." In our letter: 孙儿亮亮 = "your grandson Liangliang"!',
+  '分':{
+    intro:'部件：八（八字，分开）＋ 刀（刀，切割）',
+    introEn:'Components: 八 (eight, splitting apart) + 刀 (knife)',
+    oracle:'"分"= 用刀（刀）把东西切成两半（八）= 分开、部分！也表示时间的"分钟"。十分 = 非常（十份满分），十七孔桥可真是十分美啊！',
+    oracleEn:'分 = a knife (刀) splitting something apart (八) = to divide, a portion! Also means "minute" (1/60 of an hour). 十分 = ten-tenths = extremely! The Seventeen-Arch Bridge is 十分 (extremely) beautiful.',
     groups:[
-      {radical:'子（子字旁）',chars:[
-        {char:'字',py:'zì',word:'汉字（Chinese character）'},
-        {char:'学',py:'xué',word:'学习（study）'},
-        {char:'孩',py:'hái',word:'孩子（child）'},
-        {char:'好',py:'hǎo',word:'好的（good）'}
+      {radical:'刀字（刀割）',chars:[
+        {char:'刀',py:'dāo',word:'刀子（knife）'},
+        {char:'分',py:'fēn',word:'十分钟（10 minutes）'},
+        {char:'切',py:'qiē',word:'切开（cut open）'}
+      ]},
+      {radical:'八字（分开）',chars:[
+        {char:'八',py:'bā',word:'八月（August）'},
+        {char:'分',py:'fēn',word:'部分（portion）'},
+        {char:'公',py:'gōng',word:'公园（park）'}
+      ]}
+    ]
+  },
+  '啊':{
+    intro:'部件：口（口字旁，嘴巴）＋ 阿（声旁，发音ah）',
+    introEn:'Components: 口 (mouth radical) + 阿 (phonetic component, "a" sound)',
+    oracle:'"啊"= 张嘴（口）发出"啊"的惊叹（阿）= 感叹词！当你看到颐和园的美景，禁不住要喊出：颐和园的景色可真美啊！',
+    oracleEn:'啊 = mouth (口) making the exclamatory "ah" sound (阿) = an interjection expressing wonder! When you see the Summer Palace for the first time, you can\'t help but cry out: 颐和园的景色可真美啊!',
+    groups:[
+      {radical:'口字旁（嘴巴）',chars:[
+        {char:'啊',py:'a',word:'真美啊（how beautiful!）'},
+        {char:'吃',py:'chī',word:'吃饭（eat）'},
+        {char:'喝',py:'hē',word:'喝水（drink water）'},
+        {char:'叫',py:'jiào',word:'叫做（called）'},
+        {char:'唱',py:'chàng',word:'唱歌（sing）'}
       ]}
     ]
   }
 };
 
 const VOCAB = [
-  {word:'亲爱',pinyin:'qīn\'ài',meaning:'Dear / Beloved 💌',example:'亲爱的爷爷，您好！'},
-  {word:'信封',pinyin:'xìnfēng',meaning:'Envelope ✉️',example:'信封上贴了一张邮票。'},
-  {word:'邮票',pinyin:'yóupiào',meaning:'Postage stamp 📮',example:'这张邮票真好看！'},
-  {word:'城市',pinyin:'chéngshì',meaning:'City 🏙️',example:'北京是中国的大城市。'},
-  {word:'知道',pinyin:'zhīdào',meaning:'Know / Be aware 💡',example:'你知道长城在哪儿吗？'},
-  {word:'首都',pinyin:'shǒudū',meaning:'Capital city 🏛️',example:'北京是中国的首都。'},
-  {word:'广场',pinyin:'guǎngchǎng',meaning:'Public square / Plaza 🏟️',example:'天安门广场很大很美。'},
-  {word:'放假',pinyin:'fàngjià',meaning:'School holiday / Vacation 🏖️',example:'今年夏天我们放假了！'},
-  {word:'看望',pinyin:'kànwàng',meaning:'Visit / Call on 🤗',example:'我们去看望爷爷奶奶。'},
-  {word:'进步',pinyin:'jìnbù',meaning:'Progress / Improvement 📈',example:'我的中文有了很大进步！'},
-  {word:'水平',pinyin:'shuǐpíng',meaning:'Level / Standard 🎯',example:'我的中文水平提高了。'}
+  {word:'美丽',pinyin:'měilì',meaning:'Beautiful 🌸',example:'颐和园是一个美丽的大公园。'},
+  {word:'名字',pinyin:'míngzi',meaning:'Name 📛',example:'这个公园的名字叫颐和园。'},
+  {word:'公园',pinyin:'gōngyuán',meaning:'Park 🌳',example:'公园里有山有湖，很漂亮！'},
+  {word:'西北',pinyin:'xīběi',meaning:'Northwest 🧭',example:'颐和园在北京城的西北。'},
+  {word:'著名',pinyin:'zhùmíng',meaning:'Famous 🌟',example:'这就是著名的十七孔桥。'},
+  {word:'可爱',pinyin:'kě\'ài',meaning:'Cute / Lovely 💕',example:'桥上的小狮子真可爱！'},
+  {word:'形状',pinyin:'xíngzhuàng',meaning:'Shape 🔷',example:'狮子们的形状都不一样。'},
+  {word:'十分',pinyin:'shífēn',meaning:'Very / Extremely ✨',example:'颐和园的景色十分美丽。'},
+  {word:'景色',pinyin:'jǐngsè',meaning:'Scenery 🏞️',example:'颐和园的景色可真美啊！'},
+  {word:'石桥',pinyin:'shíqiáo',meaning:'Stone bridge 🌉',example:'这就是著名的十七孔桥。'},
+  {word:'小岛',pinyin:'xiǎodǎo',meaning:'Small island 🏝️',example:'湖里还有个小岛，可漂亮了！'}
 ];
 
 const STORY = [
-  {text:'亲爱的爷爷：您好！',
-   py:['qīn','ài','de','yé','ye','：','nín','hǎo','！'],
-   ch:['亲','爱','的','爷','爷','：','您','好','！']},
-  {text:'今天，我收到了您的来信。我很高兴，信封上贴了您寄给我的名城邮票。',
-   py:['jīn','tiān','，','wǒ','shōu','dào','le','nín','de','lái','xìn','。','wǒ','hěn','gāo','xìng','，','xìn','fēng','shàng','tiē','le','nín','jì','gěi','wǒ','de','míng','chéng','yóu','piào','。'],
-   ch:['今','天','，','我','收','到','了','您','的','来','信','。','我','很','高','兴','，','信','封','上','贴','了','您','寄','给','我','的','名','城','邮','票','。']},
-  {text:'我知道，北京是中国的首都，那里有长城、故宫、颐和园，还有天安门广场。',
-   py:['wǒ','zhī','dào','，','Běi','jīng','shì','Zhōng','guó','de','shǒu','dū','，','nà','lǐ','yǒu','Cháng','chéng','、','Gù','gōng','、','Yí','hé','yuán','，','hái','yǒu','Tiān','ān','mén','guǎng','chǎng','。'],
-   ch:['我','知','道','，','北','京','是','中','国','的','首','都','，','那','里','有','长','城','、','故','宫','、','颐','和','园','，','还','有','天','安','门','广','场','。']},
-  {text:'今年夏天放假，我们全家要去北京看望您和奶奶。那时，我就可以去爬长城、游故宫、上天安门了。',
-   py:['jīn','nián','xià','tiān','fàng','jià','，','wǒ','men','quán','jiā','yào','qù','Běi','jīng','kàn','wàng','nín','hé','nǎi','nai','。','nà','shí','，','wǒ','jiù','kě','yǐ','qù','pá','Cháng','chéng','、','yóu','Gù','gōng','、','shàng','Tiān','ān','mén','le','。'],
-   ch:['今','年','夏','天','放','假','，','我','们','全','家','要','去','北','京','看','望','您','和','奶','奶','。','那','时','，','我','就','可','以','去','爬','长','城','、','游','故','宫','、','上','天','安','门','了','。']},
-  {text:'亲爱的爷爷，我的中文水平是不是有了很大提高？今后我还要好好学习，争取更大的进步！',
-   py:['qīn','ài','de','yé','ye','，','wǒ','de','Zhōng','wén','shuǐ','píng','shì','bù','shì','yǒu','le','hěn','dà','tí','gāo','？','jīn','hòu','wǒ','hái','yào','hǎo','hǎo','xué','xí','，','zhēng','qǔ','gèng','dà','de','jìn','bù','！'],
-   ch:['亲','爱','的','爷','爷','，','我','的','中','文','水','平','是','不','是','有','了','很','大','提','高','？','今','后','我','还','要','好','好','学','习','，','争','取','更','大','的','进','步','！']},
-  {text:'祝爷爷奶奶身体健康！孙儿 亮亮',
-   py:['zhù','yé','ye','nǎi','nai','shēn','tǐ','jiàn','kāng','！','sūn','ér',' ','Liàng','liàng'],
-   ch:['祝','爷','爷','奶','奶','身','体','健','康','！','孙','儿',' ','亮','亮']}
+  {text:'在中国北京城的西北，有一个美丽的大公园，它的名字叫颐和园。',
+   ch:['在','中','国','北','京','城','的','西','北','，','有','一','个','美','丽','的','大','公','园','，','它','的','名','字','叫','颐','和','园','。'],
+   py:['zài','Zhōng','guó','Běi','jīng','chéng','de','xī','běi','，','yǒu','yī','gè','měi','lì','de','dà','gōng','yuán','，','tā','de','míng','zì','jiào','Yí','hé','yuán','。']},
+  {text:'进了公园东大门，沿着一条长长的走廊，来到昆明湖边。',
+   ch:['进','了','公','园','东','大','门','，','沿','着','一','条','长','长','的','走','廊','，','来','到','昆','明','湖','边','。'],
+   py:['jìn','le','gōng','yuán','dōng','dà','mén','，','yán','zhe','yī','tiáo','cháng','cháng','de','zǒu','láng','，','lái','dào','Kūn','míng','hú','biān','。']},
+  {text:'你站在湖中的东岸，能望到很长的石桥。',
+   ch:['你','站','在','湖','中','的','东','岸','，','能','望','到','很','长','的','石','桥','。'],
+   py:['nǐ','zhàn','zài','hú','zhōng','de','dōng','àn','，','néng','wàng','dào','hěn','cháng','de','shí','qiáo','。']},
+  {text:'这座桥有十七个桥洞，这就是著名的十七孔桥，桥两边的石柱上有很多可爱的小狮子，它们的形状都不一样，十分可爱。',
+   ch:['这','座','桥','有','十','七','个','桥','洞','，','这','就','是','著','名','的','十','七','孔','桥','，','桥','两','边','的','石','柱','上','有','很','多','可','爱','的','小','狮','子','，','它','们','的','形','状','都','不','一','样','，','十','分','可','爱','。'],
+   py:['zhè','zuò','qiáo','yǒu','shí','qī','gè','qiáo','dòng','，','zhè','jiù','shì','zhù','míng','de','shí','qī','kǒng','qiáo','，','qiáo','liǎng','biān','de','shí','zhù','shàng','yǒu','hěn','duō','kě','ài','de','xiǎo','shī','zi','，','tā','men','de','xíng','zhuàng','dōu','bù','yī','yàng','，','shí','fēn','kě','ài','。']},
+  {text:'颐和园的景色可真美啊！',
+   ch:['颐','和','园','的','景','色','可','真','美','啊','！'],
+   py:['Yí','hé','yuán','de','jǐng','sè','kě','zhēn','měi','a','！']}
 ];
 
 const DIALOGUE = [
-  {spk:'spk1',name:'云云',text:'方方，这是谁的信？',py:'Fāngfāng, zhè shì shéi de xìn?'},
-  {spk:'spk2',name:'方方',text:'是亮亮给我写的信。',py:'Shì Liàngliàng gěi wǒ xiě de xìn.'},
-  {spk:'spk1',name:'云云',text:'这张邮票真好看！',py:'Zhè zhāng yóupiào zhēn hǎokàn!'},
-  {spk:'spk2',name:'方方',text:'这是长城，你知道长城在哪儿吗？',py:'Zhè shì Chángchéng, nǐ zhīdào Chángchéng zài nǎr ma?'},
-  {spk:'spk1',name:'云云',text:'不知道。',py:'Bù zhīdào.'},
-  {spk:'spk2',name:'方方',text:'在中国北京。',py:'Zài Zhōngguó Běijīng.'},
-  {spk:'spk1',name:'云云',text:'北京是中国的首都吧！',py:'Běijīng shì Zhōngguó de shǒudū ba!'},
-  {spk:'spk2',name:'方方',text:'是啊，北京还有故宫和天安门广场，都是很有名的地方。',py:'Shì a, Běijīng hái yǒu Gùgōng hé Tiān\'ānmén Guǎngchǎng, dōu shì hěn yǒumíng de dìfāng.'},
-  {spk:'spk2',name:'方方',text:'今年放假我们要回中国，你跟我们一起去吧。',py:'Jīnnián fàngjià wǒmen yào huí Zhōngguó, nǐ gēn wǒmen yīqǐ qù ba.'},
-  {spk:'spk1',name:'云云',text:'好啊！',py:'Hǎo a!'}
+  {spk:'spk1',name:'云云',text:'亮亮，你去过北京吗？',py:'Liàngliàng, nǐ qùguò Běijīng ma?'},
+  {spk:'spk2',name:'亮亮',text:'当然去过，我是从北京来的。',py:'Dāngrán qùguò, wǒ shì cóng Běijīng lái de.'},
+  {spk:'spk1',name:'云云',text:'那你去过颐和园吗？',py:'Nà nǐ qùguò Yíhéyuán ma?'},
+  {spk:'spk2',name:'亮亮',text:'去过，颐和园有山有湖，湖里还有个小岛，可漂亮了！',py:'Qùguò, Yíhéyuán yǒu shān yǒu hú, hú lǐ hái yǒu gè xiǎodǎo, kě piàoliang le!'},
+  {spk:'spk1',name:'云云',text:'那儿是不是有座桥，叫十七孔桥？',py:'Nàr shì bu shì yǒu zuò qiáo, jiào Shíqī Kǒng Qiáo?'},
+  {spk:'spk2',name:'亮亮',text:'对啊，桥两边的石柱上有很多可爱的小狮子，我很喜欢。',py:'Duì a, qiáo liǎng biān de shízhù shàng yǒu hěn duō kě\'ài de xiǎo shīzi, wǒ hěn xǐhuān.'},
+  {spk:'spk1',name:'云云',text:'今年我妈妈要回北京看爸爸妈妈，又可以到颐和园玩儿了。',py:'Jīnnián wǒ māma yào huí Běijīng kàn bàba māma, yòu kěyǐ dào Yíhéyuán wánr le.'},
+  {spk:'spk2',name:'亮亮',text:'别忘了多照些照片，用e-mail发给我。',py:'Bié wàng le duō zhào xiē zhàopiàn, yòng e-mail fā gěi wǒ.'},
+  {spk:'spk1',name:'云云',text:'好，一定会的！',py:'Hǎo, yīdìng huì de!'}
 ];
 
 const REC_SENTENCES = [
-  {cn:'今天，我收到了您的来信。',py:'Jīntiān, wǒ shōudào le nín de lái xìn.',en:'Today I received your letter.'},
-  {cn:'信封上贴了您寄给我的名城邮票。',py:'Xìnfēng shàng tiē le nín jì gěi wǒ de míngchéng yóupiào.',en:'On the envelope was the famous city stamp you sent me.'},
-  {cn:'北京是中国的首都，那里有长城和天安门广场。',py:'Běijīng shì Zhōngguó de shǒudū, nà lǐ yǒu Chángchéng hé Tiān\'ānmén Guǎngchǎng.',en:'Beijing is China\'s capital, with the Great Wall and Tiananmen Square.'},
-  {cn:'今年夏天放假，我们全家要去北京看望您和奶奶。',py:'Jīnnián xiàtiān fàngjià, wǒmen quánjiā yào qù Běijīng kànwàng nín hé nǎinai.',en:'This summer holiday, our whole family will visit you and Grandma in Beijing.'},
-  {cn:'我的中文水平是不是有了很大提高？',py:'Wǒ de Zhōngwén shuǐpíng shì bu shì yǒu le hěn dà tígāo?',en:'Has my Chinese level improved a great deal?'},
-  {cn:'今后我还要好好学习，争取更大的进步！',py:'Jīnhòu wǒ hái yào hǎohǎo xuéxí, zhēngqǔ gèng dà de jìnbù!',en:'I will keep studying hard and make even greater progress!'}
+  {cn:'在中国北京城的西北，有一个美丽的大公园。',py:'Zài Zhōngguó Běijīng chéng de xīběi, yǒu yī gè měilì de dà gōngyuán.',en:'In the northwest of Beijing, China, there is a beautiful large park.'},
+  {cn:'沿着一条长长的走廊，来到昆明湖边。',py:'Yánzhe yī tiáo cháng cháng de zǒuláng, lái dào Kūnmíng Hú biān.',en:'Walking along a long corridor, we arrive at the edge of Kunming Lake.'},
+  {cn:'你站在湖中的东岸，能望到很长的石桥。',py:'Nǐ zhàn zài hú zhōng de dōng àn, néng wàng dào hěn cháng de shíqiáo.',en:'Standing on the east bank of the lake, you can see a very long stone bridge.'},
+  {cn:'这就是著名的十七孔桥，桥两边有很多可爱的小狮子。',py:'Zhè jiù shì zhùmíng de Shíqī Kǒng Qiáo, qiáo liǎng biān yǒu hěn duō kě\'ài de xiǎo shīzi.',en:'This is the famous Seventeen-Arch Bridge, with many cute little lions on both sides.'},
+  {cn:'它们的形状都不一样，十分可爱。',py:'Tāmen de xíngzhuàng dōu bù yīyàng, shífēn kě\'ài.',en:'Their shapes are all different — extremely cute!'},
+  {cn:'颐和园的景色可真美啊！',py:'Yíhéyuán de jǐngsè kě zhēn měi a!',en:'The scenery of the Summer Palace is truly beautiful!'}
 ];
 
 const BINGO_POOL = [
-  {show:'亲爱',hint:'qīn\'ài — Dear'},{show:'信封',hint:'xìnfēng — Envelope'},
-  {show:'邮票',hint:'yóupiào — Stamp'},{show:'城市',hint:'chéngshì — City'},
-  {show:'知道',hint:'zhīdào — Know'},{show:'首都',hint:'shǒudū — Capital'},
-  {show:'广场',hint:'guǎngchǎng — Plaza'},{show:'放假',hint:'fàngjià — Holiday'},
-  {show:'看望',hint:'kànwàng — Visit'},{show:'进步',hint:'jìnbù — Progress'},
-  {show:'水平',hint:'shuǐpíng — Level'},{show:'信',hint:'xìn — letter'},
-  {show:'封',hint:'fēng — seal/envelope'},{show:'城',hint:'chéng — city'},
-  {show:'邮',hint:'yóu — postal'},{show:'票',hint:'piào — stamp'},
-  {show:'京',hint:'jīng — capital'},{show:'安',hint:'ān — peace'},
-  {show:'广',hint:'guǎng — wide'},{show:'场',hint:'chǎng — place'},
-  {show:'全',hint:'quán — all/complete'},{show:'平',hint:'píng — flat/level'},
-  {show:'提',hint:'tí — raise'},{show:'取',hint:'qǔ — take'},
-  {show:'进',hint:'jìn — enter'},{show:'孙',hint:'sūn — grandchild'},
-  {show:'长城',hint:'Chángchéng — Great Wall'},{show:'北京',hint:'Běijīng — Beijing'}
+  {show:'美丽',hint:'měilì — Beautiful'},{show:'名字',hint:'míngzi — Name'},
+  {show:'公园',hint:'gōngyuán — Park'},{show:'西北',hint:'xīběi — Northwest'},
+  {show:'著名',hint:'zhùmíng — Famous'},{show:'可爱',hint:'kě\'ài — Cute'},
+  {show:'形状',hint:'xíngzhuàng — Shape'},{show:'十分',hint:'shífēn — Very'},
+  {show:'景色',hint:'jǐngsè — Scenery'},{show:'石桥',hint:'shíqiáo — Stone bridge'},
+  {show:'小岛',hint:'xiǎodǎo — Small island'},{show:'美',hint:'měi — beautiful'},
+  {show:'丽',hint:'lì — lovely'},{show:'景',hint:'jǐng — scenery'},
+  {show:'色',hint:'sè — color'},{show:'岸',hint:'àn — shore/bank'},
+  {show:'岛',hint:'dǎo — island'},{show:'沿',hint:'yán — along'},
+  {show:'座',hint:'zuò — [measure word]'},{show:'桥',hint:'qiáo — bridge'},
+  {show:'柱',hint:'zhù — pillar'},{show:'狮',hint:'shī — lion'},
+  {show:'分',hint:'fēn — minute'},{show:'啊',hint:'a — ah!'},
+  {show:'完',hint:'wán — complete'},{show:'登',hint:'dēng — climb'},
+  {show:'颐和园',hint:'Yíhéyuán — Summer Palace'},{show:'昆明湖',hint:'Kūnmíng Hú — Kunming Lake'}
 ];
 
-// ── CANVAS — floating green orbs ──────────
+// ── CANVAS — ocean bubbles ────────────────
 (function(){
   const c=document.getElementById('bgcanvas'),ctx=c.getContext('2d');
-  let pts=[];
+  let bubbles=[];
   function resize(){c.width=innerWidth;c.height=innerHeight;}
   function init(){
-    pts=[];
-    for(let i=0;i<28;i++) pts.push({
+    bubbles=[];
+    for(let i=0;i<20;i++) bubbles.push({
       x:Math.random()*c.width, y:c.height+Math.random()*c.height,
-      r:Math.random()*20+6, sp:Math.random()*.3+.1, op:Math.random()*.12+.04
+      r:Math.random()*14+4, sp:Math.random()*.3+.1, op:Math.random()*.1+.04
     });
   }
   function draw(){
     ctx.clearRect(0,0,c.width,c.height);
-    pts.forEach(p=>{
-      p.y-=p.sp;
-      if(p.y<-p.r*2){p.y=c.height+p.r;p.x=Math.random()*c.width;}
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(46,125,50,${p.op})`;ctx.fill();
+    bubbles.forEach(b=>{
+      b.y-=b.sp;
+      if(b.y<-b.r*2){b.y=c.height+b.r;b.x=Math.random()*c.width;}
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(2,119,189,${b.op+0.05})`;ctx.lineWidth=1.5;ctx.stroke();
+      ctx.fillStyle=`rgba(2,119,189,${b.op})`;ctx.fill();
     });
     requestAnimationFrame(draw);
   }
@@ -854,7 +878,7 @@ setTimeout(loadVoices,500);
 function speak(text,{rate=0.85,pitch=1,onEnd}={}){
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang='zh-CN'; u.rate=rate; u.pitch=pitch;
+  u.lang='zh-CN';u.rate=rate;u.pitch=pitch;
   if(zhCNVoices.length) u.voice=zhCNVoices[0];
   if(onEnd) u.onend=onEnd;
   window.speechSynthesis.speak(u);
@@ -863,14 +887,14 @@ function speak(text,{rate=0.85,pitch=1,onEnd}={}){
 function speakSpk1(text){
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang='zh-CN'; u.rate=0.88; u.pitch=1.1;
+  u.lang='zh-CN';u.rate=0.88;u.pitch=1.1;
   if(zhCNVoices.length) u.voice=zhCNVoices.length>1?zhCNVoices[1]:zhCNVoices[0];
   window.speechSynthesis.speak(u);
 }
 function speakSpk2(text){
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang='zh-CN'; u.rate=0.88; u.pitch=1.05;
+  u.lang='zh-CN';u.rate=0.88;u.pitch=1.05;
   if(zhCNVoices.length) u.voice=zhCNVoices[0];
   window.speechSynthesis.speak(u);
 }
@@ -898,12 +922,12 @@ let showPY=true;
 function buildStory(){
   const cont=document.getElementById('storyText');
   STORY.forEach((para,pi)=>{
-    const div=document.createElement('div'); div.className='story-para'; div.id='sp'+pi;
+    const div=document.createElement('div');div.className='story-para';div.id='sp'+pi;
     para.ch.forEach((ch,ci)=>{
       const punc='，。：""？！、 ：'.includes(ch)||ch===' ';
       if(punc){const s=document.createElement('span');s.textContent=ch;s.style.fontSize='1.2rem';div.appendChild(s);}
       else{
-        const blk=document.createElement('span'); blk.className='pb';
+        const blk=document.createElement('span');blk.className='pb';
         const py=para.py[ci]||'';
         blk.innerHTML=`<span class="py" style="visibility:${showPY?'visible':'hidden'}">${py}</span><span class="ch">${ch}</span>`;
         blk.onclick=(()=>{
@@ -932,7 +956,7 @@ function _storyUpdateBtns(){
   if(!play) return;
   const idle=storyState==='idle',playing=storyState==='playing',paused=storyState==='paused';
   play.textContent=paused?'▶ 继续':'▶ 朗读全文';
-  play.disabled=playing; pause.disabled=!playing; stop.disabled=idle;
+  play.disabled=playing;pause.disabled=!playing;stop.disabled=idle;
   play.style.opacity=playing?'0.55':'1';
   pause.style.opacity=playing?'1':'0.5';
   stop.style.opacity=idle?'0.5':'1';
@@ -940,7 +964,7 @@ function _storyUpdateBtns(){
 function _storyHighlight(idx){
   document.querySelectorAll('.story-para').forEach((p,i)=>{
     p.style.opacity=(i===idx)?'1':'0.45';
-    p.style.borderLeft=(i===idx)?'3px solid rgba(46,125,50,0.5)':'';
+    p.style.borderLeft=(i===idx)?'3px solid rgba(2,119,189,0.5)':'';
     p.style.paddingLeft=(i===idx)?'8px':'';
     p.style.transition='all .3s';
   });
@@ -974,8 +998,8 @@ buildStory();
 // ── TAB 2: CHARS ─────────────────────────
 let charBuilt=false,demoW=null,quizW=null,activeCharIdx=0;
 function addTZGOverlay(wrapId,size){
-  const wrap=document.getElementById(wrapId); if(!wrap) return;
-  const old=wrap.querySelector('.tzg-overlay'); if(old) old.remove();
+  const wrap=document.getElementById(wrapId);if(!wrap) return;
+  const old=wrap.querySelector('.tzg-overlay');if(old) old.remove();
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
   svg.setAttribute('class','tzg-overlay');
   svg.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8;';
@@ -999,8 +1023,10 @@ function buildCharGrid(){
   charBuilt=true;
   const grid=document.getElementById('charGrid');
   CHARS.forEach((c,i)=>{
-    const card=document.createElement('div'); card.className='char-card'+(i===0?' active':''); card.id='cc'+i;
-    card.innerHTML=`<div class="char-stroke-badge">${c.strokes}画</div>
+    const card=document.createElement('div');card.className='char-card'+(i===0?' active':'');card.id='cc'+i;
+    let poly='';
+    if(c.pinyinList) poly=`<div style="position:absolute;top:7px;left:7px;background:rgba(255,153,0,.2);color:#ff9900;font-size:0.6rem;padding:1px 5px;border-radius:8px;">多音</div>`;
+    card.innerHTML=`<div class="char-stroke-badge">${c.strokes}画</div>${poly}
       <div class="char-big">${c.char}</div>
       <div class="char-pinyin">${c.pinyin}</div>
       <div class="char-meaning">${c.meaning}</div>
@@ -1015,15 +1041,15 @@ function selectChar(idx){
   document.querySelectorAll('.char-card').forEach((c,i)=>c.classList.toggle('active',i===idx));
   const c=CHARS[idx];
   document.getElementById('sCharDisp').textContent=c.char;
-  document.getElementById('sCharPy').textContent=c.pinyin;
+  document.getElementById('sCharPy').textContent=c.pinyinList?'多音字: '+c.pinyinList.map(p=>p.py+' ('+p.ctx+')').join(' · '):c.pinyin;
   document.getElementById('sCharMeaning').textContent=c.meaning;
   document.getElementById('strokeMsg').textContent='';
   document.getElementById('strokeNameDisp').textContent='';
   document.getElementById('demo-div').innerHTML='';
   demoW=HanziWriter.create('demo-div',c.char,{
     width:180,height:180,padding:12,
-    strokeColor:'#2e7d32',radicalColor:'#1565c0',
-    outlineColor:'rgba(46,125,50,0.2)',
+    strokeColor:'#0277bd',radicalColor:'#00838f',
+    outlineColor:'rgba(2,119,189,0.2)',
     drawingColor:'#ff6699',drawingWidth:4,
     showOutline:true,showCharacter:true,
     delayBetweenStrokes:250,strokeAnimationSpeed:0.9
@@ -1032,11 +1058,11 @@ function selectChar(idx){
   document.getElementById('quiz-div').innerHTML='';
   quizW=HanziWriter.create('quiz-div',c.char,{
     width:180,height:180,padding:12,
-    strokeColor:'#2e7d32',radicalColor:'#1565c0',
-    outlineColor:'rgba(46,125,50,0.22)',
+    strokeColor:'#0277bd',radicalColor:'#00838f',
+    outlineColor:'rgba(2,119,189,0.22)',
     drawingColor:'#ff6699',drawingWidth:4,
     showOutline:true,showCharacter:false,
-    highlightOnComplete:true,highlightColor:'#43a047'
+    highlightOnComplete:true,highlightColor:'#0288d1'
   });
   addTZGOverlay('quizWrap',180);
   renderRadicalSection(c.char);
@@ -1080,7 +1106,7 @@ function renderRadicalSection(char){
     <p style="font-size:0.78rem;color:var(--text2);margin-bottom:8px">${data.introEn||''}</p>
   </div>`;
   if(data.oracle){
-    html+=`<div style="background:rgba(46,125,50,0.06);border-left:3px solid rgba(46,125,50,0.3);border-radius:0 8px 8px 0;padding:8px 11px;margin-bottom:12px;">
+    html+=`<div style="background:rgba(2,119,189,0.06);border-left:3px solid rgba(2,119,189,0.3);border-radius:0 8px 8px 0;padding:8px 11px;margin-bottom:12px;">
       <p style="font-size:0.75rem;color:var(--accent);margin-bottom:4px">🏺 甲骨文溯源 / Oracle Bone Origin:</p>
       <p style="font-size:0.78rem;color:var(--text);line-height:1.65;margin-bottom:4px">${data.oracle}</p>
       <p style="font-size:0.75rem;color:var(--text2);line-height:1.6;font-style:italic">${data.oracleEn||''}</p>
@@ -1270,7 +1296,7 @@ function initBingo(){
   for(let i=0;i<25;i++){
     const cell=document.createElement('div');cell.className='bingo-cell';cell.id='bc'+i;
     if(i===12){
-      cell.className+=' free';cell.textContent='✉️';cell.title='FREE!';cell.style.fontSize='1.5rem';
+      cell.className+=' free';cell.textContent='🌊';cell.title='FREE!';cell.style.fontSize='1.5rem';
       bingoBoard.push('FREE');bingoMarked[12]=true;
     } else {
       const idx=i<12?i:i-1;const item=pool[idx];
@@ -1349,7 +1375,7 @@ function answerQuiz(btn,chosen,correct){
   else{btn.classList.add('wrong');document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});speak('再试试！');setTimeout(()=>{qIdx++;renderQuiz();},1400);}
 }
 let rScore=0,rItems=[],rIdx=0,rAnswered=false;
-const R_EMOJIS=['✉️','📮','📬','📭','🏛️','🏯','🎑','📝'];
+const R_EMOJIS=['🌊','🦁','🌉','🏯','🏔️','🎑','🌸','🌿'];
 function startRocket(){
   rScore=0;rIdx=0;rAnswered=false;
   rItems=shuffle(CHARS.map(c=>({ch:c.char,py:c.pinyin.split('/')[0].trim(),opts:[]}))).slice(0,CHARS.length);
@@ -1410,12 +1436,12 @@ function playMainRec(){if(!mainBlob)return;new Audio(URL.createObjectURL(mainBlo
 function downloadRec(){
   if(!mainBlob)return;
   const a=document.createElement('a');a.href=URL.createObjectURL(mainBlob);
-  a.download=`lesson1_reading_${Date.now()}.webm`;a.click();
+  a.download=`lesson2_reading_${Date.now()}.webm`;a.click();
 }
 
 // ── CONFETTI ─────────────────────────────
 function launchConfetti(){
-  const colors=['#2e7d32','#81c784','#f9a825','#ff7043','#42a5f5'];
+  const colors=['#0277bd','#4fc3f7','#f9a825','#26c6da','#66bb6a'];
   for(let i=0;i<45;i++) setTimeout(()=>{
     const el=document.createElement('div');el.className='cpc';
     el.style.cssText=`left:${Math.random()*100}vw;top:0;background:${colors[Math.floor(Math.random()*5)]};width:${Math.random()*9+4}px;height:${Math.random()*9+4}px;animation-duration:${Math.random()+1}s;`;
