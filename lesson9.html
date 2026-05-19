@@ -38,7 +38,7 @@
     font-family:'Segoe UI','PingFang SC','Helvetica Neue',sans-serif;
     background:var(--star-blue); color:var(--text);
     min-height:100vh; overflow-x:hidden;
-    font-size:16px;
+    font-size:19px;
   }
   canvas#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.5;}
 
@@ -104,14 +104,14 @@
 
   /* ── TAB 2: CHARS ── */
   /* Fixed 148 px columns, centred — all cards the same width, no stretching in last row */
-  .char-grid{display:grid;grid-template-columns:repeat(auto-fill,148px);gap:10px;justify-content:center;}
+  .char-grid{display:grid;grid-template-columns:repeat(auto-fill,178px);gap:12px;justify-content:center;}
   .char-card{
     background:var(--card-bg);border:2px solid rgba(126,207,255,.15);
     border-radius:12px;
-    padding:28px 10px 38px;  /* top 28: room for stroke-badge; bottom 38: room for 🔊 btn */
+    padding:34px 12px 46px;  /* top 34: room for stroke-badge; bottom 46: room for 🔊 btn */
     text-align:center;cursor:pointer;transition:all .22s;position:relative;
-    width:148px;box-sizing:border-box;
-    min-height:148px;          /* uniform minimum height so rows look balanced */
+    width:178px;box-sizing:border-box;
+    min-height:178px;          /* uniform minimum height so rows look balanced */
     display:flex;flex-direction:column;align-items:center;justify-content:center;
   }
   .char-card:hover{transform:translateY(-3px);border-color:var(--accent2);}
@@ -173,7 +173,7 @@
     background:transparent;color:var(--text);cursor:pointer;font-size:0.84rem;transition:all .2s;}
   .mode-btn.active{background:var(--accent2);color:var(--star-blue);border-color:var(--accent2);font-weight:700;}
   /* flashcard */
-  .flashcard-wrap{perspective:800px;height:200px;cursor:pointer;margin-bottom:12px;}
+  .flashcard-wrap{perspective:800px;height:240px;cursor:pointer;margin-bottom:12px;}
   .flashcard{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s;border-radius:14px;}
   .flashcard.flipped{transform:rotateY(180deg);}
   .card-front,.card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;
@@ -192,7 +192,7 @@
   .match-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
   .match-card{background:rgba(26,47,122,.6);border:2px solid rgba(126,207,255,.2);
     border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;font-size:1rem;
-    transition:all .2s;min-height:58px;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;min-height:70px;display:flex;align-items:center;justify-content:center;
     color:#fff;word-break:break-all;}
   .match-card:hover{border-color:var(--accent2);}
   .match-card.selected{border-color:var(--accent);background:rgba(245,200,66,.1);}
@@ -209,7 +209,7 @@
   .dlg-line{display:flex;gap:10px;margin-bottom:11px;align-items:flex-start;}
   .dlg-line.fangfang{flex-direction:row;}
   .dlg-line.nainai{flex-direction:row-reverse;}
-  .avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;font-size:1.6rem;
+  .avatar{width:53px;height:53px;border-radius:50%;flex-shrink:0;font-size:1.6rem;
     display:flex;align-items:center;justify-content:center;border:2px solid rgba(126,207,255,.3);}
   .fangfang .avatar{background:linear-gradient(135deg,#1a6fa0,#0a3f6b);border-color:var(--accent2);}
   .nainai .avatar{background:linear-gradient(135deg,#6a3fa0,#3a1f6b);border-color:#c490ff;}
@@ -252,7 +252,7 @@
   .bingo-win-banner{text-align:center;font-size:1.5rem;color:var(--accent);display:none;animation:popIn .5s;}
   @keyframes popIn{0%{transform:scale(0);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
   .bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;}
-  .bingo-cell{height:clamp(44px,10vw,62px);background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
+  .bingo-cell{height:clamp(53px,12vw,75px);background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
     border-radius:6px;display:flex;align-items:center;justify-content:center;
     cursor:pointer;transition:all .18s;text-align:center;padding:2px;
     font-weight:600;color:#fff;word-break:break-all;line-height:1.15;overflow:hidden;
@@ -320,15 +320,15 @@
   .rec-note strong{color:var(--accent);}
 
   /* ── CONFETTI ── */
-  .cpc{position:fixed;width:9px;height:9px;border-radius:2px;
+  .cpc{position:fixed;width:11px;height:11px;border-radius:2px;
     animation:cfFall 1.4s ease-in forwards;pointer-events:none;z-index:1000;}
   @keyframes cfFall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
   /* ── RESPONSIVE ── */
   @media(max-width:480px){
     header h1{font-size:1.4rem;}
-    .char-grid{grid-template-columns:repeat(auto-fill,130px);}
-    .char-card{width:130px;min-height:130px;}
+    .char-grid{grid-template-columns:repeat(auto-fill,156px);}
+    .char-card{width:156px;min-height:156px;}
     .match-grid{grid-template-columns:repeat(3,1fr);}
   }
 </style>
@@ -441,7 +441,7 @@
       <div class="writer-box">
         <p>📽 笔顺演示</p>
         <div class="tzg-wrap" id="demoWrap">
-          <div id="demo-div" style="width:180px;height:180px;"></div>
+          <div id="demo-div" style="width:216px;height:216px;"></div>
         </div>
         <div class="stroke-name-display" id="strokeNameDisp"></div>
         <div class="stroke-btns">
@@ -453,7 +453,7 @@
       <div class="writer-box">
         <p>✏️ 手写练习（支持触屏）</p>
         <div class="tzg-wrap" id="quizWrap">
-          <div id="quiz-div" style="width:180px;height:180px;"></div>
+          <div id="quiz-div" style="width:216px;height:216px;"></div>
         </div>
         <div class="stroke-btns">
           <button class="btn btn-primary btn-sm" onclick="startQuizMode()">📝 开始练习</button>
@@ -1216,7 +1216,7 @@ function selectChar(idx){
   // Demo writer
   document.getElementById('demo-div').innerHTML='';
   demoW = HanziWriter.create('demo-div', c.char, {
-    width:180, height:180, padding:12,
+    width:216, height:216, padding:14,
     strokeColor:'#f5c842', radicalColor:'#7ecfff',
     outlineColor:'rgba(255,255,255,0.12)',
     drawingColor:'#ff6699', drawingWidth:4,
@@ -1224,19 +1224,19 @@ function selectChar(idx){
     delayBetweenStrokes:250,
     strokeAnimationSpeed:0.9
   });
-  addTZGOverlay('demoWrap', 180);
+  addTZGOverlay('demoWrap', 216);
 
   // Quiz writer
   document.getElementById('quiz-div').innerHTML='';
   quizW = HanziWriter.create('quiz-div', c.char, {
-    width:180, height:180, padding:12,
+    width:216, height:216, padding:14,
     strokeColor:'#f5c842', radicalColor:'#7ecfff',
     outlineColor:'rgba(255,255,255,0.14)',
     drawingColor:'#ff6699', drawingWidth:4,
     showOutline:true, showCharacter:false,
     highlightOnComplete:true, highlightColor:'#4cff8a'
   });
-  addTZGOverlay('quizWrap', 180);
+  addTZGOverlay('quizWrap', 216);
 
   // Radical section
   renderRadicalSection(c.char);
@@ -1656,103 +1656,4 @@ function answerQuiz(btn,chosen,correct){
 }
 // ROCKET
 let rScore=0, rItems=[], rIdx=0, rAnswered=false;
-const R_EMOJIS=['🚀','🛸','⭐','🌟','💫','🌙','☄️','🔭'];
-function startRocket(){
-  rScore=0; rIdx=0; rAnswered=false;
-  rItems=shuffle(CHARS.map(c=>({ch:c.char,py:c.pinyin.split('/')[0],opts:[]}))).slice(0,CHARS.length);
-  rItems.forEach(item=>{ const wrong=shuffle(CHARS.filter(c=>c.char!==item.ch)).slice(0,3).map(c=>c.char); item.opts=shuffle([item.ch,...wrong]); });
-  document.getElementById('rScore').textContent='🏆 得分: 0';
-  nextRocket();
-}
-function nextRocket(){
-  if(rIdx>=rItems.length){ document.getElementById('rPy').textContent='完成啦！'; document.getElementById('rOpts').innerHTML=`<div style="color:var(--accent);font-size:1.1rem">🎉 ${rScore}/${rItems.length} 分！</div>`; if(rScore>=rItems.length) launchConfetti(); return; }
-  const item=rItems[rIdx]; rAnswered=false;
-  document.getElementById('rEmoji').textContent=R_EMOJIS[rIdx%R_EMOJIS.length];
-  document.getElementById('rPy').textContent=item.py;
-  const opts=document.getElementById('rOpts'); opts.innerHTML='';
-  item.opts.forEach(opt=>{ const btn=document.createElement('button'); btn.className='rocket-opt'; btn.textContent=opt; btn.onclick=()=>answerRocket(btn,opt,item.ch); opts.appendChild(btn); });
-}
-function answerRocket(btn,chosen,correct){
-  if(rAnswered) return; rAnswered=true;
-  if(chosen===correct){ btn.classList.add('correct'); rScore++; document.getElementById('rScore').textContent=`🏆 得分: ${rScore}`; document.getElementById('rEmoji').textContent='🎉'; speak(correct,{rate:0.75}); }
-  else { btn.classList.add('wrong'); document.querySelectorAll('.rocket-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');}); document.getElementById('rEmoji').textContent='💥'; }
-  rIdx++; setTimeout(nextRocket,1000);
-}
-
-// ════════════════════════════════════════
-// TAB 7: RECORDING
-// ════════════════════════════════════════
-let mainBlob=null, mainMR=null, mainTimer=null, mainSec=0, mainRec=false;
-let curRefText='', curRefPy='';
-function buildRecSents(){
-  const cont=document.getElementById('recSents'); if(cont.children.length) return;
-  REC_SENTENCES.forEach((s,i)=>{
-    const btn=document.createElement('div'); btn.className='rsb'; btn.id='rsb'+i;
-    btn.innerHTML=`<div><div class="scn">${s.cn}</div><div class="sen">${s.en}</div></div><span style="color:var(--accent2)">▶</span>`;
-    btn.onclick=()=>selectRecSent(i); cont.appendChild(btn);
-  });
-}
-function selectRecSent(i){
-  document.querySelectorAll('.rsb').forEach(b=>b.classList.remove('selected'));
-  document.getElementById('rsb'+i).classList.add('selected');
-  const s=REC_SENTENCES[i]; curRefText=s.cn; curRefPy=s.py;
-  document.getElementById('rDisp').textContent=s.cn;
-  document.getElementById('rPyRec').textContent=s.py;
-  document.getElementById('mRecStatus').textContent='准备好了！先点"听示范"。';
-  mainBlob=null; document.getElementById('mPlayBtn').disabled=true; document.getElementById('mDlBtn').disabled=true;
-  document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false;
-}
-function playRefTTS(){ if(!curRefText){speak('先选句子！');return;} speak(curRefText,{rate:0.8}); }
-function toggleMainRec(){
-  if(mainRec){ if(mainMR&&mainMR.state==='recording') mainMR.stop(); clearInterval(mainTimer); document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false; return; }
-  if(!curRefText){ document.getElementById('mRecStatus').textContent='先选句子！'; return; }
-  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    const chunks=[];
-    mainMR=MIME_TYPE ? new MediaRecorder(stream,{mimeType:MIME_TYPE}) : new MediaRecorder(stream);
-    const blobType=mainMR.mimeType||MIME_TYPE||'audio/webm';
-    mainMR.ondataavailable=e=>chunks.push(e.data);
-    mainMR.onstop=()=>{ mainBlob=new Blob(chunks,{type:blobType}); document.getElementById('mPlayBtn').disabled=false; document.getElementById('mDlBtn').disabled=false; document.getElementById('mRecStatus').textContent='🎙 完成！点"我的录音"听一听，再点"听示范"对比。'; stream.getTracks().forEach(t=>t.stop()); };
-    mainMR.start(); mainRec=true; mainSec=0;
-    document.getElementById('mRecBtn').textContent='⏹ 停止'; document.getElementById('mRecStatus').textContent='🔴 正在录音…说出句子！';
-    mainTimer=setInterval(()=>{ mainSec++; if(mainSec>=30) toggleMainRec(); },1000);
-  }).catch(()=>document.getElementById('mRecStatus').textContent='无法访问麦克风。');
-}
-function playMainRec(){
-  if(!mainBlob)return;
-  const url=URL.createObjectURL(mainBlob);
-  const a=new Audio(url);
-  document.getElementById('mRecStatus').textContent='▶ 正在播放录音…';
-  a.play().catch(e=>{ document.getElementById('mRecStatus').textContent='播放失败，请检查浏览器权限。'; console.warn(e); });
-  a.onended=()=>{ document.getElementById('mRecStatus').textContent='播放完毕。'; URL.revokeObjectURL(url); };
-}
-function downloadRec(){
-  if(!mainBlob)return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(mainBlob);
-  a.download=`reading_practice_${Date.now()}.webm`;
-  a.click();
-}
-
-// ════════════════════════════════════════
-// CONFETTI
-// ════════════════════════════════════════
-function launchConfetti(){
-  const colors=['#f5c842','#7ecfff','#ff6699','#4cff8a','#ff9900'];
-  for(let i=0;i<45;i++) setTimeout(()=>{
-    const el=document.createElement('div'); el.className='cpc';
-    el.style.cssText=`left:${Math.random()*100}vw;top:0;background:${colors[Math.floor(Math.random()*5)]};width:${Math.random()*9+4}px;height:${Math.random()*9+4}px;animation-duration:${Math.random()+1}s;`;
-    document.body.appendChild(el); setTimeout(()=>el.remove(),2200);
-  },i*28);
-}
-
-// ════════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════════
-function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
-
-// Init on load
-initFlashcards();
-setTimeout(loadVoices, 800); // extra attempt for iOS
-</script>
-</body>
-</html>
+const R_EMOJIS=['🚀','🛸','⭐','🌟','💫','🌙','☄️
