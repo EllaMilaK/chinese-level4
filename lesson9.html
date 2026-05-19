@@ -108,6 +108,9 @@
     border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:all .22s;position:relative;}
   .char-card:hover{transform:translateY(-3px);border-color:var(--accent2);}
   .char-card.active{border-color:var(--accent);background:rgba(245,200,66,.07);}
+  /* Practiced char: green border + ✓ badge so kids know which ones they've written */
+  .char-card.practiced{border-color:#4cff8a !important;background:rgba(76,255,138,0.06) !important;}
+  .char-card.practiced .prac-tick{display:block !important;}
   .char-big{font-size:2.8rem;line-height:1.1;margin-bottom:4px;}
   .char-pinyin{font-size:0.82rem;color:var(--accent2);margin-bottom:2px;}
   .char-meaning{font-size:0.72rem;color:rgba(232,244,255,.65);}
@@ -235,17 +238,19 @@
   .bingo-msg{text-align:center;font-size:0.88rem;color:var(--accent2);min-height:20px;}
   .bingo-win-banner{text-align:center;font-size:1.5rem;color:var(--accent);display:none;animation:popIn .5s;}
   @keyframes popIn{0%{transform:scale(0);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
-  .bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
-  .bingo-cell{aspect-ratio:1;background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
+  .bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;}
+  .bingo-cell{height:clamp(44px,10vw,62px);background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
     border-radius:6px;display:flex;align-items:center;justify-content:center;
     cursor:pointer;transition:all .18s;text-align:center;padding:2px;
-    font-weight:600;color:#fff;word-break:break-all;line-height:1.15;overflow:hidden;}
+    font-weight:600;color:#fff;word-break:break-all;line-height:1.15;overflow:hidden;
+    font-size:clamp(0.5rem,1.8vw,0.88rem);}
   .bingo-cell:hover{border-color:var(--accent2);transform:scale(1.04);}
   .bingo-cell.marked{background:linear-gradient(135deg,rgba(245,200,66,.28),rgba(245,200,66,.1));
     border-color:var(--accent);color:var(--accent);box-shadow:0 0 8px rgba(245,200,66,.2);}
   .bingo-cell.bingo-win{background:linear-gradient(135deg,#f5c842,#ff9900);
     color:#0a0e2e;border-color:#f5c842;font-weight:700;animation:bingoPop .4s;}
-  .bingo-cell.free{background:rgba(76,255,138,.12);border-color:var(--green);color:var(--green);cursor:default;}
+  /* Centre cell is the "收字" caller button — golden style, always clickable */
+  .bingo-cell.free{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.45);color:var(--accent);cursor:pointer;font-weight:700;}
   @keyframes bingoPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
   .bingo-tip{font-size:0.7rem;color:rgba(232,244,255,.4);text-align:center;}
 
@@ -366,6 +371,41 @@
       公元78年生 (Born 78 CE) · 20岁任职 (Appointed age 20) · 制作浑天仪 (Made armillary sphere) · 发明地动仪 (Invented seismograph 132 CE) · 公元139年逝 (Died 139 CE)
     </div>
   </div>
+
+  <!-- 多音字 warning card -->
+  <div class="card" style="border-color:rgba(255,153,0,.35);background:rgba(255,100,0,.04)">
+    <div class="section-title" style="color:#ff9900">⚠️ 多音字提示 — Polyphonic Characters</div>
+    <p style="font-size:0.78rem;color:rgba(232,244,255,.6);margin-bottom:12px;line-height:1.6">
+      AI语音系统有时无法正确区分以下多音字的读音，朗读时可能会有错误，请家长留意。<br>
+      <em style="color:rgba(200,220,255,.5)">The TTS voice may mispronounce these polyphonic characters depending on context.</em>
+    </p>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">数</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>shù</strong> — 数字（number）　·　<strong>shǔ</strong> — 数星星（to count）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">地</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>de</strong> — 一颗一颗地（助词 particle）　·　<strong>dì</strong> — 大地（earth）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">着</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>zhe</strong> — 靠着/仰着/笑着（ongoing action）　·　<strong>zhuó</strong> — 穿着（wearing）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">还</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>hái</strong> — 还是（still）　·　<strong>huán</strong> — 归还（return）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">得</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>de</strong> — 数得清（potential complement）　·　<strong>dé</strong> — 得到（obtain）　·　<strong>děi</strong> — 得去（must）</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:8px;padding:8px 12px">
+        <span style="font-size:1.5rem;color:var(--accent);font-weight:700;min-width:2rem;text-align:center">长</span>
+        <span style="font-size:0.82rem;color:var(--accent2);line-height:1.55"><strong>zhǎng</strong> — 长大（grow up）　·　<strong>cháng</strong> — 长城（long）</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ══ TAB 2: CHARS ══ -->
@@ -381,11 +421,7 @@
         <h3 id="sCharPy">shù / shǔ</h3>
         <p id="sCharMeaning">number / to count</p>
       </div>
-      <div>
-        <label style="font-size:0.8rem;color:var(--accent2);display:flex;align-items:center;gap:5px;">
-          <input type="checkbox" id="strokeAudioChk" checked style="width:15px;height:15px;"> 读出笔画名称
-        </label>
-      </div>
+      <!-- stroke audio removed: names could be inaccurate on this device -->
     </div>
     <div class="writer-row">
       <div class="writer-box">
@@ -491,27 +527,17 @@
 <div id="tab-bingo" class="tab-panel">
   <div class="card">
     <div class="bingo-compact">
-      <!-- Controls row -->
+      <!-- Controls row — 叫字 button removed; centre cell IS the caller -->
       <div class="bingo-top">
-        <button class="btn btn-primary btn-sm" onclick="callBingo()">📢 叫字！</button>
         <button class="btn btn-secondary btn-sm" onclick="initBingo()">🔄 新游戏</button>
         <span class="bingo-score" id="bScore">连线: 0</span>
         <span id="bingoMsg" class="bingo-msg" style="flex:1;text-align:right"></span>
       </div>
-      <!-- Caller box -->
-      <div class="caller-box">
-        <div style="font-size:2.4rem">📢</div>
-        <div class="caller-info">
-          <div class="caller-label">找找这个 ↓</div>
-          <div class="caller-word" id="callerWord">点击"叫字"！</div>
-          <div class="caller-hint" id="callerHint"></div>
-        </div>
-      </div>
       <!-- Win banner -->
       <div class="bingo-win-banner" id="bingoWin">🎉 BINGO! 恭喜你赢了！🎉</div>
-      <!-- Grid -->
+      <!-- Grid: centre cell (index 12) acts as the 叫字 button -->
       <div class="bingo-grid" id="bingoGrid"></div>
-      <div class="bingo-tip">5个连成一线（横、竖、斜）就赢！中间格是⭐FREE！</div>
+      <div class="bingo-tip">5个连成一线就赢！点中间金格叫字，再点卡片标记！</div>
     </div>
   </div>
 </div>
@@ -558,7 +584,7 @@
   </div>
   <div class="rec-main" id="recMain">
     <div class="rec-disp" id="rDisp">← 点击上面的句子</div>
-    <div class="rec-py" id="rPy"></div>
+    <div class="rec-py" id="rPyRec"></div>
     <div class="rec-ctrl">
       <button class="btn btn-secondary" onclick="playRefTTS()">🔊 听示范</button>
       <button class="btn btn-danger" id="mRecBtn" onclick="toggleMainRec()">⏺ 开始录音</button>
@@ -917,6 +943,19 @@ if(window.speechSynthesis.getVoices().length) loadVoices();
 // iOS needs explicit call after short delay
 setTimeout(loadVoices, 500);
 
+// ── MIME type for recording — iOS supports mp4, desktop supports webm ──
+const MIME_TYPE=(()=>{
+  try{ if(typeof MediaRecorder!=='undefined'){
+    if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) return 'audio/webm;codecs=opus';
+    if(MediaRecorder.isTypeSupported('audio/webm')) return 'audio/webm';
+    if(MediaRecorder.isTypeSupported('audio/mp4')) return 'audio/mp4';
+  }}catch(e){}
+  return '';
+})();
+
+// ── Strip Chinese punctuation from TTS text (prevents iPad reading quotes/colons) ──
+function stripPunct(s){ return s.replace(/[，。！？：、""「」『』…《》〈〉【】]/g,' ').replace(/\s{2,}/g,' ').trim(); }
+
 function speak(text, {rate=0.85, pitch=1, onEnd}={}){
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -1051,7 +1090,8 @@ async function _storyRun(from){
     storyPos=i; _storyHighlight(i);
     await new Promise(resolve=>{
       if(storyState!=='playing'){resolve();return;}
-      const u=new SpeechSynthesisUtterance(STORY[i].text);
+      // stripPunct removes "，。""：" etc so iPad doesn't read them aloud
+      const u=new SpeechSynthesisUtterance(stripPunct(STORY[i].text));
       u.lang='zh-CN'; u.rate=0.82;
       if(zhCNVoices.length) u.voice=zhCNVoices[0];
       let _sd=false;
@@ -1141,6 +1181,7 @@ function buildCharGrid(){
     card.innerHTML=`
       ${polyBadge}
       <div class="char-stroke-badge">${c.strokes}画</div>
+      <span class="prac-tick" style="display:none;position:absolute;bottom:7px;right:7px;color:#4cff8a;font-size:0.72rem;font-weight:700;background:rgba(76,255,138,.15);padding:1px 5px;border-radius:8px">✓ 写过</span>
       <div class="char-big">${c.char}</div>
       <div class="char-pinyin">${c.pinyin}</div>
       <div class="char-meaning">${c.meaning}</div>
@@ -1202,31 +1243,43 @@ function speakCurrentChar(){ speakChar(activeCharIdx); }
 function animateChar(){
   if(!demoW) return;
   const c=CHARS[activeCharIdx];
-  const names=STROKE_NAMES[c.char]||[];
-  const useAudio=document.getElementById('strokeAudioChk').checked;
+  // Stroke names are for display only — audio disabled as names may be inaccurate
   document.getElementById('strokeNameDisp').textContent='';
   demoW.animateCharacter({
     onStrokeAnimationStart(strokeData){
-      const n=names[strokeData.strokeNum];
-      if(n){ document.getElementById('strokeNameDisp').textContent=`第${strokeData.strokeNum+1}笔：${n}`; if(useAudio) speak(n,{rate:0.8}); }
+      document.getElementById('strokeNameDisp').textContent=`第${strokeData.strokeNum+1}笔`;
     },
     onComplete(){ document.getElementById('strokeNameDisp').textContent='✓ 完成！'; }
   });
 }
 
+let practicedSet=new Set(); // tracks which char indices the child has successfully written
+
 function startQuizMode(){
   if(!quizW) return;
-  const c=CHARS[activeCharIdx]; const names=STROKE_NAMES[c.char]||[];
   document.getElementById('strokeMsg').textContent='按顺序一笔一笔写！';
   speak('开始写字！',{rate:0.85});
   quizW.quiz({
-    onMistake(d){ document.getElementById('strokeMsg').textContent=`第${d.strokeNum+1}笔：再试一次！`; speak('再试一次',{rate:0.9}); },
+    onMistake(d){ document.getElementById('strokeMsg').textContent=`第${d.strokeNum+1}笔：再试一次！`; speak('再试试',{rate:0.9}); },
     onCorrectStroke(d){
-      const n=names[d.strokeNum]||'';
-      document.getElementById('strokeMsg').textContent=`✓ ${n} 正确！`;
-      if(document.getElementById('strokeAudioChk').checked&&n) speak(n,{rate:0.8});
+      // Stroke audio removed (names may be inaccurate). Only show "✓ 正确！" text.
+      document.getElementById('strokeMsg').textContent=`✓ 第${d.strokeNum+1}笔 正确！`;
     },
-    onComplete(d){ document.getElementById('strokeMsg').textContent=d.totalMistakes===0?'🎉 满分！太棒了！':'🎉 完成了！';speak('太棒了！');launchConfetti(); }
+    onComplete(d){
+      document.getElementById('strokeMsg').textContent=d.totalMistakes===0?'🎉 满分！太棒了！':'🎉 完成了！';
+      speak('太棒了！');
+      launchConfetti();
+      // Mark this character's card green so the child knows they've written it
+      if(!practicedSet.has(activeCharIdx)){
+        practicedSet.add(activeCharIdx);
+        const card=document.getElementById('cc'+activeCharIdx);
+        if(card){
+          card.classList.add('practiced');
+          const tick=card.querySelector('.prac-tick');
+          if(tick) tick.style.display='block';
+        }
+      }
+    }
   });
 }
 
@@ -1440,16 +1493,17 @@ function toggleRec(){
   if(!dlgRecTarget){ document.getElementById('recStatus').textContent='先选一句话！'; return; }
   navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
     const chunks=[];
-    mRec=new MediaRecorder(stream);
+    mRec=MIME_TYPE ? new MediaRecorder(stream,{mimeType:MIME_TYPE}) : new MediaRecorder(stream);
+    const blobType=mRec.mimeType||MIME_TYPE||'audio/webm';
     mRec.ondataavailable=e=>chunks.push(e.data);
-    mRec.onstop=()=>{ recBlob=new Blob(chunks,{type:'audio/webm'}); document.getElementById('playRecBtn').disabled=false; document.getElementById('recStatus').textContent='🎙 完成！点播放听听。'; stream.getTracks().forEach(t=>t.stop()); };
+    mRec.onstop=()=>{ recBlob=new Blob(chunks,{type:blobType}); document.getElementById('playRecBtn').disabled=false; document.getElementById('recStatus').textContent='🎙 完成！点播放听听。'; stream.getTracks().forEach(t=>t.stop()); };
     mRec.start(); recSec=0;
     document.getElementById('recBtn').textContent='⏹ 停止'; document.getElementById('recBtn').classList.add('recording');
     document.getElementById('recStatus').textContent='🔴 正在录音…';
     recTimer=setInterval(()=>{ recSec++; const m=Math.floor(recSec/60),s=recSec%60; document.getElementById('recTimer').textContent=`${m}:${s<10?'0':''}${s}`; },1000);
   }).catch(()=>{ document.getElementById('recStatus').textContent='无法访问麦克风。'; });
 }
-function playRec(){ if(!recBlob)return; new Audio(URL.createObjectURL(recBlob)).play(); }
+function playRec(){ if(!recBlob)return; const a=new Audio(URL.createObjectURL(recBlob)); a.play().catch(e=>{ document.getElementById('recStatus').textContent='无法播放，请检查麦克风权限。'; console.warn(e); }); }
 
 // ════════════════════════════════════════
 // TAB 5: BINGO (COMPACT)
@@ -1467,8 +1521,7 @@ function bingoCellFontSize(text){
 function initBingo(){
   bingoBuilt=true; bingoLines=0; bingoQueue=shuffle([...BINGO_POOL]);
   document.getElementById('bScore').textContent='连线: 0';
-  document.getElementById('callerWord').textContent='点击"叫字"！';
-  document.getElementById('callerHint').textContent='';
+  // (caller display is now the centre cell — reset handled by grid rebuild)
   document.getElementById('bingoWin').style.display='none';
   document.getElementById('bingoMsg').textContent='';
   calledNow=null;
@@ -1478,9 +1531,12 @@ function initBingo(){
   for(let i=0;i<25;i++){
     const cell=document.createElement('div'); cell.className='bingo-cell'; cell.id='bc'+i;
     if(i===12){
-      cell.className+=' free'; cell.textContent='⭐'; cell.title='FREE!';
-      cell.style.fontSize='1.8rem';
-      bingoBoard.push('FREE'); bingoMarked[12]=true;
+      // Centre cell = 收字 caller button
+      cell.className+=' free';
+      cell.innerHTML='<span style="font-size:0.72em;line-height:1.3;display:block;text-align:center">收字<br>👆</span>';
+      cell.title='点击叫字！';
+      bingoBoard.push('CALLER'); bingoMarked[12]=true;
+      cell.onclick=()=>callBingo();
     } else {
       const idx=i<12?i:i-1; const item=pool[idx];
       bingoBoard.push(item.show); cell.textContent=item.show;
@@ -1495,8 +1551,12 @@ function callBingo(){
   if(!bingoQueue.length) bingoQueue=shuffle([...BINGO_POOL]);
   const item=bingoQueue.pop();
   calledNow=item.show;
-  document.getElementById('callerWord').textContent=item.show;
-  document.getElementById('callerHint').textContent=item.hint;
+  // Show called word inside centre cell; hint shown as tooltip
+  const cc=document.getElementById('bc12');
+  if(cc){
+    cc.innerHTML=`<span style="font-size:${bingoCellFontSize(item.show)};line-height:1.1;display:block;text-align:center">${item.show}</span>`;
+    cc.title=item.hint;
+  }
   document.getElementById('bingoMsg').textContent='';
   speak(item.show,{rate:0.75});
 }
@@ -1609,7 +1669,7 @@ function selectRecSent(i){
   document.getElementById('rsb'+i).classList.add('selected');
   const s=REC_SENTENCES[i]; curRefText=s.cn; curRefPy=s.py;
   document.getElementById('rDisp').textContent=s.cn;
-  document.getElementById('rPy').textContent=s.py;
+  document.getElementById('rPyRec').textContent=s.py;
   document.getElementById('mRecStatus').textContent='准备好了！先点"听示范"。';
   mainBlob=null; document.getElementById('mPlayBtn').disabled=true; document.getElementById('mDlBtn').disabled=true;
   document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false;
@@ -1619,15 +1679,24 @@ function toggleMainRec(){
   if(mainRec){ if(mainMR&&mainMR.state==='recording') mainMR.stop(); clearInterval(mainTimer); document.getElementById('mRecBtn').textContent='⏺ 开始录音'; mainRec=false; return; }
   if(!curRefText){ document.getElementById('mRecStatus').textContent='先选句子！'; return; }
   navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    const chunks=[]; mainMR=new MediaRecorder(stream);
+    const chunks=[];
+    mainMR=MIME_TYPE ? new MediaRecorder(stream,{mimeType:MIME_TYPE}) : new MediaRecorder(stream);
+    const blobType=mainMR.mimeType||MIME_TYPE||'audio/webm';
     mainMR.ondataavailable=e=>chunks.push(e.data);
-    mainMR.onstop=()=>{ mainBlob=new Blob(chunks,{type:'audio/webm'}); document.getElementById('mPlayBtn').disabled=false; document.getElementById('mDlBtn').disabled=false; document.getElementById('mRecStatus').textContent='🎙 完成！点"我的录音"听一听，再点"听示范"对比。'; stream.getTracks().forEach(t=>t.stop()); };
+    mainMR.onstop=()=>{ mainBlob=new Blob(chunks,{type:blobType}); document.getElementById('mPlayBtn').disabled=false; document.getElementById('mDlBtn').disabled=false; document.getElementById('mRecStatus').textContent='🎙 完成！点"我的录音"听一听，再点"听示范"对比。'; stream.getTracks().forEach(t=>t.stop()); };
     mainMR.start(); mainRec=true; mainSec=0;
     document.getElementById('mRecBtn').textContent='⏹ 停止'; document.getElementById('mRecStatus').textContent='🔴 正在录音…说出句子！';
     mainTimer=setInterval(()=>{ mainSec++; if(mainSec>=30) toggleMainRec(); },1000);
   }).catch(()=>document.getElementById('mRecStatus').textContent='无法访问麦克风。');
 }
-function playMainRec(){ if(!mainBlob)return; new Audio(URL.createObjectURL(mainBlob)).play(); document.getElementById('mRecStatus').textContent='▶ 正在播放录音…'; }
+function playMainRec(){
+  if(!mainBlob)return;
+  const url=URL.createObjectURL(mainBlob);
+  const a=new Audio(url);
+  document.getElementById('mRecStatus').textContent='▶ 正在播放录音…';
+  a.play().catch(e=>{ document.getElementById('mRecStatus').textContent='播放失败，请检查浏览器权限。'; console.warn(e); });
+  a.onended=()=>{ document.getElementById('mRecStatus').textContent='播放完毕。'; URL.revokeObjectURL(url); };
+}
 function downloadRec(){
   if(!mainBlob)return;
   const a=document.createElement('a');
