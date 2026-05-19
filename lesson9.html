@@ -38,7 +38,7 @@
     font-family:'Segoe UI','PingFang SC','Helvetica Neue',sans-serif;
     background:var(--star-blue); color:var(--text);
     min-height:100vh; overflow-x:hidden;
-    font-size:19px;
+    font-size:23px;
   }
   canvas#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.5;}
 
@@ -244,17 +244,17 @@
   .bingo-win-banner{text-align:center;font-size:1.5rem;color:var(--accent);display:none;animation:popIn .5s;}
   @keyframes popIn{0%{transform:scale(0);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
   .bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;}
-  .bingo-cell{height:clamp(53px,12vw,75px);background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
+  .bingo-cell{height:clamp(80px,16vw,110px);background:rgba(26,47,122,.5);border:1.5px solid rgba(126,207,255,.2);
     border-radius:6px;display:flex;align-items:center;justify-content:center;
     cursor:pointer;transition:all .18s;text-align:center;padding:2px;
     font-weight:600;color:#fff;word-break:break-all;line-height:1.15;overflow:hidden;
-    font-size:clamp(0.5rem,1.8vw,0.88rem);}
+    font-size:clamp(1rem,3.6vw,1.76rem);}
   .bingo-cell:hover{border-color:var(--accent2);transform:scale(1.04);}
   .bingo-cell.marked{background:linear-gradient(135deg,rgba(245,200,66,.28),rgba(245,200,66,.1));
     border-color:var(--accent);color:var(--accent);box-shadow:0 0 8px rgba(245,200,66,.2);}
   .bingo-cell.bingo-win{background:linear-gradient(135deg,#f5c842,#ff9900);
     color:#0a0e2e;border-color:#f5c842;font-weight:700;animation:bingoPop .4s;}
-  /* Centre cell is the "收字" caller button — golden style, always clickable */
+  /* Centre cell is the "叫字" caller button — golden style, always clickable */
   .bingo-cell.free{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.45);color:var(--accent);cursor:pointer;font-weight:700;}
   @keyframes bingoPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
   .bingo-tip{font-size:0.7rem;color:rgba(232,244,255,.4);text-align:center;}
@@ -949,8 +949,47 @@ const MIME_TYPE=(()=>{
   return '';
 })();
 
-// ── Strip Chinese punctuation from TTS text (prevents iPad reading quotes/colons) ──
-function stripPunct(s){ return s.replace(/[，。！？：、""「」『』…《》〈〉【】]/g,' ').replace(/\s{2,}/g,' ').trim(); }
+// ── Strip only decorative punctuation (quotes, brackets, ellipsis) ──
+// Pause-type punctuation (，。！？；：) is handled by speakWithPauses below.
+function stripPunct(s){ return s.replace(/[""「」『』…《》〈〉【】、]/g,' ').replace(/\s{2,}/g,' ').trim(); }
+
+// ── Speak with natural pauses at Chinese punctuation ──
+// Splits at ，。！？；： and inserts a timed silence between each chunk.
+// This prevents the iPad from reading punctuation names aloud while still
+// giving a natural rhythm — short pause at commas, longer at sentence ends.
+// Returns a cancel() function.
+function speakWithPauses(text, {rate=0.85, pitch=1}={}, onDone){
+  window.speechSynthesis.cancel();
+  const PAUSE={'，':320,'。':600,'！':560,'？':560,'；':420,'：':260};
+  const parts = text.split(/(，|。|！|？|；|：)/);
+  const segs = [];
+  let nextPause = 150;
+  for(let i=0;i<parts.length;i++){
+    const p = parts[i];
+    if(PAUSE[p] !== undefined){
+      nextPause = PAUSE[p];
+    } else {
+      const clean = stripPunct(p);
+      if(clean){ segs.push({text:clean, pause:nextPause}); nextPause=150; }
+    }
+  }
+  if(!segs.length){ onDone&&onDone(); return ()=>{}; }
+  let cancelled = false, timer = null;
+  const voice = zhCNVoices.length ? zhCNVoices[0] : null;
+  function next(idx){
+    if(cancelled) return;
+    if(idx >= segs.length){ onDone&&onDone(); return; }
+    const seg = segs[idx];
+    const u = new SpeechSynthesisUtterance(seg.text);
+    u.lang='zh-CN'; u.rate=rate; u.pitch=pitch;
+    if(voice) u.voice=voice;
+    const proceed = ()=>{ timer = setTimeout(()=>next(idx+1), seg.pause); };
+    u.onend = proceed; u.onerror = proceed;
+    window.speechSynthesis.speak(u);
+  }
+  next(0);
+  return function cancel(){ cancelled=true; if(timer) clearTimeout(timer); window.speechSynthesis.cancel(); };
+}
 
 function speak(text, {rate=0.85, pitch=1, onEnd}={}){
   window.speechSynthesis.cancel();
@@ -1086,15 +1125,10 @@ async function _storyRun(from){
     storyPos=i; _storyHighlight(i);
     await new Promise(resolve=>{
       if(storyState!=='playing'){resolve();return;}
-      // stripPunct removes "，。""：" etc so iPad doesn't read them aloud
-      const u=new SpeechSynthesisUtterance(stripPunct(STORY[i].text));
-      u.lang='zh-CN'; u.rate=0.82;
-      if(zhCNVoices.length) u.voice=zhCNVoices[0];
       let _sd=false;
       function _sn(){if(!_sd){_sd=true;clearTimeout(_sfb);setTimeout(resolve,storyState==='playing'?350:0);}}
       const _sfb=setTimeout(_sn,STORY[i].text.length*420+3500);
-      u.onend=_sn;u.onerror=_sn;
-      window.speechSynthesis.speak(u);
+      speakWithPauses(STORY[i].text,{rate:0.82},()=>{clearTimeout(_sfb);_sn();});
     });
   }
   if(storyState==='playing'){ storyState='idle'; storyPos=0; _storyReset(); }
@@ -1446,15 +1480,11 @@ async function _dlgRun(from){
     await new Promise(resolve=>{
       if(dlgState!=='playing'){ resolve(); return; }
       const line=DIALOGUE[i];
-      // Read Chinese characters directly
-      const u=new SpeechSynthesisUtterance(line.text);
-      u.lang='zh-CN'; u.rate=line.spk==='ff'?0.88:0.82; u.pitch=line.spk==='ff'?1.08:0.92;
-      if(zhCNVoices.length) u.voice=zhCNVoices[0];
+      const rate=line.spk==='ff'?0.88:0.82, pitch=line.spk==='ff'?1.08:0.92;
       let _dd=false;
       function _dn(){if(!_dd){_dd=true;clearTimeout(_dfb);bbl?.classList.remove('playing');setTimeout(resolve,dlgState==='playing'?380:0);}}
       const _dfb=setTimeout(_dn,line.text.length*420+3500);
-      u.onend=_dn;u.onerror=_dn;
-      window.speechSynthesis.speak(u);
+      speakWithPauses(line.text,{rate,pitch},()=>{clearTimeout(_dfb);_dn();});
     });
   }
   if(dlgState==='playing'){
@@ -1488,11 +1518,8 @@ function speakDlgLine(i){
   const line=DIALOGUE[i];
   document.querySelectorAll('.bubble').forEach(b=>b.classList.remove('playing'));
   const bbl=document.getElementById('bbl'+i); if(bbl) bbl.classList.add('playing');
-  const u=new SpeechSynthesisUtterance(line.text);
-  u.lang='zh-CN'; u.rate=line.spk==='ff'?0.88:0.82; u.pitch=line.spk==='ff'?1.08:0.92;
-  if(zhCNVoices.length) u.voice=zhCNVoices[0];
-  u.onend=()=>bbl?.classList.remove('playing');
-  window.speechSynthesis.speak(u);
+  speakWithPauses(line.text,{rate:line.spk==='ff'?0.88:0.82,pitch:line.spk==='ff'?1.08:0.92},
+    ()=>bbl?.classList.remove('playing'));
 }
 function toggleDlgPy(){
   showDlgPY=!showDlgPY;
@@ -1505,11 +1532,11 @@ function toggleDlgPy(){
 let bingoBuilt=false, bingoBoard=[], bingoMarked=[], bingoLines=0, bingoQueue=[], calledNow=null;
 function bingoCellFontSize(text){
   const len=[...text].length; // Unicode-aware length
-  if(len<=1) return '2rem';
-  if(len<=2) return '1.45rem';
-  if(len<=3) return '1rem';
-  if(len<=4) return '0.82rem';
-  return '0.65rem';
+  if(len<=1) return '4rem';
+  if(len<=2) return '2.9rem';
+  if(len<=3) return '2rem';
+  if(len<=4) return '1.65rem';
+  return '1.3rem';
 }
 
 function initBingo(){
@@ -1525,9 +1552,9 @@ function initBingo(){
   for(let i=0;i<25;i++){
     const cell=document.createElement('div'); cell.className='bingo-cell'; cell.id='bc'+i;
     if(i===12){
-      // Centre cell = 收字 caller button
+      // Centre cell = 叫字 caller button
       cell.className+=' free';
-      cell.innerHTML='<span style="font-size:0.72em;line-height:1.3;display:block;text-align:center">收字<br>👆</span>';
+      cell.innerHTML='<span style="font-size:0.72em;line-height:1.3;display:block;text-align:center">叫字<br>👆</span>';
       cell.title='点击叫字！';
       bingoBoard.push('CALLER'); bingoMarked[12]=true;
       cell.onclick=()=>callBingo();
@@ -1722,6 +1749,14 @@ function playMainRec(){
   if(!mainBlob)return;
   const url=URL.createObjectURL(mainBlob);
   const a=new Audio(url);
+  // Boost volume 4× using Web Audio API GainNode so quiet microphone recordings are audible
+  try {
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const src=ctx.createMediaElementSource(a);
+    const gain=ctx.createGain();
+    gain.gain.value=4;
+    src.connect(gain); gain.connect(ctx.destination);
+  } catch(e){ console.warn('AudioContext unavailable, playing at normal volume:', e); }
   document.getElementById('mRecStatus').textContent='▶ 正在播放录音…';
   a.play().catch(e=>{ document.getElementById('mRecStatus').textContent='播放失败，请检查浏览器权限。'; console.warn(e); });
   a.onended=()=>{ document.getElementById('mRecStatus').textContent='播放完毕。'; URL.revokeObjectURL(url); };
