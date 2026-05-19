@@ -225,17 +225,9 @@
   .nainai .bubble .spk-name{color:#c490ff;}
   .bubble .line-txt{font-size:1rem;line-height:1.5;color:#fff;}
   .bubble .line-py{font-size:0.7rem;color:rgba(232,244,255,.6);margin-top:3px;}
-  /* recording in dialogue */
-  .rec-box{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.2);
-    border-radius:12px;padding:14px;margin-top:14px;}
-  .rec-box h4{color:var(--accent);margin-bottom:8px;font-size:0.95rem;}
-  .rec-target{font-size:1.1rem;margin:8px 0;color:var(--accent2);}
-  .rec-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
-  #recBtn{background:#ff4466;color:#fff;}
-  #recBtn.recording{animation:pulse 1s infinite;}
+  /* recording tab */
+  #mRecBtn.recording{animation:pulse 1s infinite;}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,68,102,.4)}50%{box-shadow:0 0 0 10px rgba(255,68,102,0)}}
-  #recTimer{color:#ff4466;font-size:0.88rem;min-width:36px;}
-  .rec-status{font-size:0.85rem;margin-top:6px;min-height:20px;color:var(--accent2);}
 
   /* ── TAB 5: BINGO ── */
   .bingo-compact{display:flex;flex-direction:column;gap:8px;}
@@ -341,7 +333,7 @@
   <a href="index.html" class="back-btn">← 主页</a>
   <div class="chapter-num">第四册 · 第九课</div>
   <h1>数星星的孩子 ⭐<span>The Boy Who Counted Stars</span></h1>
-  <a href="lesson1.html" class="prev-btn">← 第一课</a>
+  <a href="lesson8.html" class="prev-btn">← 第八课</a>
 </header>
 
 <div class="tabs">
@@ -1139,6 +1131,7 @@ function addTZGOverlay(wrapId, size){
   const old = wrap.querySelector('.tzg-overlay'); if(old) old.remove();
   const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
   svg.setAttribute('class','tzg-overlay');
+  svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
   svg.style.cssText=`position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8;`;
   const half=size/2;
   // Border
@@ -1422,15 +1415,6 @@ function buildDialogue(){
       </div>`;
     cont.appendChild(div);
   });
-  // Sentence picker for recording
-  const picker=document.getElementById('dlgPicker'); picker.innerHTML='';
-  DIALOGUE.forEach((line,i)=>{
-    const btn=document.createElement('button'); btn.className='btn btn-secondary btn-sm';
-    btn.textContent=(line.spk==='ff'?'👦':'👵')+' '+line.text.substring(0,8)+'…';
-    btn.onclick=()=>{ dlgRecTarget=line.text; dlgRecPY=line.py;
-      document.getElementById('dlgTarget').innerHTML=`<strong>${line.text}</strong><br><span style="font-size:0.75rem;color:rgba(232,244,255,.5)">${line.py}</span>`; };
-    picker.appendChild(btn);
-  });
 }
 // ── Dialogue state machine (pause / resume / stop) ──
 let dlgState='idle', dlgPos=0;
@@ -1514,24 +1498,6 @@ function toggleDlgPy(){
   showDlgPY=!showDlgPY;
   document.querySelectorAll('.line-py').forEach(e=>e.style.display=showDlgPY?'block':'none');
 }
-let dlgRecTarget='', dlgRecPY='', recBlob=null, mRec=null, recTimer=null, recSec=0;
-function playTargetTTS(){ if(!dlgRecTarget){speak('先选一句话！');return;} speak(dlgRecTarget,{rate:0.82}); }
-function toggleRec(){
-  if(mRec&&mRec.state==='recording'){ mRec.stop(); clearInterval(recTimer); document.getElementById('recBtn').textContent='⏺ 录音'; document.getElementById('recBtn').classList.remove('recording'); return; }
-  if(!dlgRecTarget){ document.getElementById('recStatus').textContent='先选一句话！'; return; }
-  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    const chunks=[];
-    mRec=MIME_TYPE ? new MediaRecorder(stream,{mimeType:MIME_TYPE}) : new MediaRecorder(stream);
-    const blobType=mRec.mimeType||MIME_TYPE||'audio/webm';
-    mRec.ondataavailable=e=>chunks.push(e.data);
-    mRec.onstop=()=>{ recBlob=new Blob(chunks,{type:blobType}); document.getElementById('playRecBtn').disabled=false; document.getElementById('recStatus').textContent='🎙 完成！点播放听听。'; stream.getTracks().forEach(t=>t.stop()); };
-    mRec.start(); recSec=0;
-    document.getElementById('recBtn').textContent='⏹ 停止'; document.getElementById('recBtn').classList.add('recording');
-    document.getElementById('recStatus').textContent='🔴 正在录音…';
-    recTimer=setInterval(()=>{ recSec++; const m=Math.floor(recSec/60),s=recSec%60; document.getElementById('recTimer').textContent=`${m}:${s<10?'0':''}${s}`; },1000);
-  }).catch(()=>{ document.getElementById('recStatus').textContent='无法访问麦克风。'; });
-}
-function playRec(){ if(!recBlob)return; const a=new Audio(URL.createObjectURL(recBlob)); a.play().catch(e=>{ document.getElementById('recStatus').textContent='无法播放，请检查麦克风权限。'; console.warn(e); }); }
 
 // ════════════════════════════════════════
 // TAB 5: BINGO (COMPACT)
@@ -1654,6 +1620,140 @@ function answerQuiz(btn,chosen,correct){
   if(chosen===correct){ btn.classList.add('correct'); qCorrect++; speak('正确！'); setTimeout(()=>{qIdx++;renderQuiz();},900); }
   else { btn.classList.add('wrong'); document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');}); speak('再试试！'); setTimeout(()=>{qIdx++;renderQuiz();},1400); }
 }
-// ROCKET
+// ════════════════════════════════════════
+// TAB 6: GAMES — ROCKET
+// ════════════════════════════════════════
 let rScore=0, rItems=[], rIdx=0, rAnswered=false;
-const R_EMOJIS=['🚀','🛸','⭐','🌟','💫','🌙','☄️
+const R_EMOJIS=['🚀','🛸','⭐','🌟','💫','🌙','☄️','🔭'];
+function startRocket(){
+  rScore=0; rIdx=0; rAnswered=false;
+  rItems=shuffle(CHARS.map(c=>({ch:c.char,py:c.pinyin.split('/')[0].trim(),opts:[]}))).slice(0,CHARS.length);
+  rItems.forEach(item=>{ const wrong=shuffle(CHARS.filter(c=>c.char!==item.ch)).slice(0,3).map(c=>c.char); item.opts=shuffle([item.ch,...wrong]); });
+  document.getElementById('rScore').textContent='🏆 得分: 0';
+  nextRocket();
+}
+function nextRocket(){
+  if(rIdx>=rItems.length){
+    document.getElementById('rPy').textContent='完成啦！';
+    document.getElementById('rOpts').innerHTML=`<div style="color:var(--accent);font-size:1.1rem">🎉 ${rScore}/${rItems.length} 分！</div>`;
+    if(rScore>=rItems.length) launchConfetti();
+    return;
+  }
+  const item=rItems[rIdx]; rAnswered=false;
+  document.getElementById('rEmoji').textContent=R_EMOJIS[rIdx%R_EMOJIS.length];
+  document.getElementById('rPy').textContent=item.py;
+  const opts=document.getElementById('rOpts'); opts.innerHTML='';
+  item.opts.forEach(opt=>{
+    const btn=document.createElement('button'); btn.className='rocket-opt';
+    btn.textContent=opt; btn.onclick=()=>answerRocket(btn,opt,item.ch); opts.appendChild(btn);
+  });
+}
+function answerRocket(btn,chosen,correct){
+  if(rAnswered) return; rAnswered=true;
+  if(chosen===correct){
+    btn.classList.add('correct'); rScore++;
+    document.getElementById('rScore').textContent=`🏆 得分: ${rScore}`;
+    document.getElementById('rEmoji').textContent='🎉';
+    speak(correct,{rate:0.75});
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.rocket-opt').forEach(b=>{ if(b.textContent===correct) b.classList.add('correct'); });
+    document.getElementById('rEmoji').textContent='💥';
+  }
+  rIdx++; setTimeout(nextRocket,1000);
+}
+
+// ════════════════════════════════════════
+// TAB 7: RECORDING
+// ════════════════════════════════════════
+let mainBlob=null, mainMR=null, mainTimer=null, mainSec=0, mainRec=false;
+let curRefText='', curRefPy='';
+function buildRecSents(){
+  const cont=document.getElementById('recSents');
+  if(cont.children.length) return; // guard against duplicates
+  REC_SENTENCES.forEach((s,i)=>{
+    const btn=document.createElement('div'); btn.className='rsb'; btn.id='rsb'+i;
+    btn.innerHTML=`<div><div class="scn">${s.cn}</div><div class="sen">${s.en}</div></div><span style="color:var(--accent2)">▶</span>`;
+    btn.onclick=()=>selectRecSent(i);
+    cont.appendChild(btn);
+  });
+}
+function selectRecSent(i){
+  document.querySelectorAll('.rsb').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('rsb'+i).classList.add('selected');
+  const s=REC_SENTENCES[i]; curRefText=s.cn; curRefPy=s.py;
+  document.getElementById('rDisp').textContent=s.cn;
+  document.getElementById('rPyRec').textContent=s.py;
+  document.getElementById('mRecStatus').textContent='准备好了！先点"听示范"。';
+  mainBlob=null;
+  document.getElementById('mPlayBtn').disabled=true;
+  document.getElementById('mDlBtn').disabled=true;
+  document.getElementById('mRecBtn').textContent='⏺ 开始录音';
+  mainRec=false;
+}
+function playRefTTS(){ if(!curRefText){speak('先选句子！');return;} speak(curRefText,{rate:0.8}); }
+function toggleMainRec(){
+  if(mainRec){
+    if(mainMR&&mainMR.state==='recording') mainMR.stop();
+    clearInterval(mainTimer);
+    document.getElementById('mRecBtn').textContent='⏺ 开始录音';
+    mainRec=false; return;
+  }
+  if(!curRefText){ document.getElementById('mRecStatus').textContent='先选句子！'; return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    const chunks=[];
+    mainMR=MIME_TYPE ? new MediaRecorder(stream,{mimeType:MIME_TYPE}) : new MediaRecorder(stream);
+    const blobType=mainMR.mimeType||MIME_TYPE||'audio/webm';
+    mainMR.ondataavailable=e=>chunks.push(e.data);
+    mainMR.onstop=()=>{
+      mainBlob=new Blob(chunks,{type:blobType});
+      document.getElementById('mPlayBtn').disabled=false;
+      document.getElementById('mDlBtn').disabled=false;
+      document.getElementById('mRecStatus').textContent='🎙 完成！点"我的录音"听一听，再点"听示范"对比。';
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mainMR.start(); mainRec=true; mainSec=0;
+    document.getElementById('mRecBtn').textContent='⏹ 停止';
+    document.getElementById('mRecStatus').textContent='🔴 正在录音…说出句子！';
+    mainTimer=setInterval(()=>{ mainSec++; if(mainSec>=30) toggleMainRec(); },1000);
+  }).catch(()=>document.getElementById('mRecStatus').textContent='无法访问麦克风。');
+}
+function playMainRec(){
+  if(!mainBlob)return;
+  const url=URL.createObjectURL(mainBlob);
+  const a=new Audio(url);
+  document.getElementById('mRecStatus').textContent='▶ 正在播放录音…';
+  a.play().catch(e=>{ document.getElementById('mRecStatus').textContent='播放失败，请检查浏览器权限。'; console.warn(e); });
+  a.onended=()=>{ document.getElementById('mRecStatus').textContent='播放完毕。'; URL.revokeObjectURL(url); };
+}
+function downloadRec(){
+  if(!mainBlob)return;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(mainBlob);
+  a.download=`recording_${Date.now()}.webm`;
+  a.click();
+}
+
+// ════════════════════════════════════════
+// CONFETTI
+// ════════════════════════════════════════
+function launchConfetti(){
+  const colors=['#f5c842','#7ecfff','#ff6699','#4cff8a','#ff9900'];
+  for(let i=0;i<45;i++) setTimeout(()=>{
+    const el=document.createElement('div'); el.className='cpc';
+    el.style.cssText=`left:${Math.random()*100}vw;top:0;background:${colors[Math.floor(Math.random()*5)]};width:${Math.random()*11+4}px;height:${Math.random()*11+4}px;animation-duration:${Math.random()+1}s;`;
+    document.body.appendChild(el); setTimeout(()=>el.remove(),2200);
+  },i*28);
+}
+
+// ════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+// Init on load
+initFlashcards();
+setTimeout(loadVoices, 800); // extra attempt for iOS
+</script>
+</body>
+</html>
