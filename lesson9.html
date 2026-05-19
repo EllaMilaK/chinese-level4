@@ -103,22 +103,35 @@
   .pb.hl .ch{color:#0a0e2e;background:rgba(245,200,66,.35);border-radius:3px;}
 
   /* ── TAB 2: CHARS ── */
-  .char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
-  .char-card{background:var(--card-bg);border:2px solid rgba(126,207,255,.15);
-    border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:all .22s;position:relative;}
+  /* Fixed 148 px columns, centred — all cards the same width, no stretching in last row */
+  .char-grid{display:grid;grid-template-columns:repeat(auto-fill,148px);gap:10px;justify-content:center;}
+  .char-card{
+    background:var(--card-bg);border:2px solid rgba(126,207,255,.15);
+    border-radius:12px;
+    padding:28px 10px 38px;  /* top 28: room for stroke-badge; bottom 38: room for 🔊 btn */
+    text-align:center;cursor:pointer;transition:all .22s;position:relative;
+    width:148px;box-sizing:border-box;
+    min-height:148px;          /* uniform minimum height so rows look balanced */
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
   .char-card:hover{transform:translateY(-3px);border-color:var(--accent2);}
   .char-card.active{border-color:var(--accent);background:rgba(245,200,66,.07);}
-  /* Practiced char: green border + ✓ badge so kids know which ones they've written */
+  /* Practiced char: green border + ✓ badge */
   .char-card.practiced{border-color:#4cff8a !important;background:rgba(76,255,138,0.06) !important;}
   .char-card.practiced .prac-tick{display:block !important;}
-  .char-big{font-size:2.8rem;line-height:1.1;margin-bottom:4px;}
-  .char-pinyin{font-size:0.82rem;color:var(--accent2);margin-bottom:2px;}
-  .char-meaning{font-size:0.72rem;color:rgba(232,244,255,.65);}
-  .char-stroke-badge{position:absolute;top:7px;right:7px;background:rgba(245,200,66,.18);
+  .char-big{font-size:2.7rem;line-height:1.1;margin-bottom:4px;}
+  .char-pinyin{font-size:0.8rem;color:var(--accent2);margin-bottom:3px;}
+  /* Meaning: capped at 2 lines with ellipsis so it never pushes into the button area */
+  .char-meaning{font-size:0.7rem;color:rgba(232,244,255,.65);
+    overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    word-break:break-word;}
+  .char-stroke-badge{position:absolute;top:6px;right:6px;background:rgba(245,200,66,.18);
     color:var(--accent);font-size:0.62rem;padding:1px 5px;border-radius:8px;}
-  .char-speak-btn{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
+  /* 🔊 button pinned at bottom centre — 38 px bottom padding guarantees no overlap */
+  .char-speak-btn{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
     background:rgba(126,207,255,.15);border:1px solid rgba(126,207,255,.3);
-    color:var(--accent2);border-radius:10px;padding:2px 8px;font-size:0.68rem;cursor:pointer;}
+    color:var(--accent2);border-radius:10px;padding:3px 12px;font-size:0.68rem;
+    cursor:pointer;white-space:nowrap;}
   .char-speak-btn:hover{background:rgba(126,207,255,.3);}
 
   /* 田字格 */
@@ -314,7 +327,8 @@
   /* ── RESPONSIVE ── */
   @media(max-width:480px){
     header h1{font-size:1.4rem;}
-    .char-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}
+    .char-grid{grid-template-columns:repeat(auto-fill,130px);}
+    .char-card{width:130px;min-height:130px;}
     .match-grid{grid-template-columns:repeat(3,1fr);}
   }
 </style>
@@ -443,8 +457,8 @@
         </div>
         <div class="stroke-btns">
           <button class="btn btn-primary btn-sm" onclick="startQuizMode()">📝 开始练习</button>
-          <button class="btn btn-secondary btn-sm" onclick="quizW&&quizW.showCharacter()">👁 提示</button>
-          <button class="btn btn-secondary btn-sm" onclick="quizW&&quizW.cancelQuiz()">↺ 重来</button>
+          <button class="btn btn-secondary btn-sm" onclick="hintNextStroke()">👁 提示</button>
+          <button class="btn btn-secondary btn-sm" onclick="restartQuiz()">↺ 重来</button>
         </div>
         <div class="stroke-msg" id="strokeMsg"></div>
       </div>
@@ -508,19 +522,9 @@
     </div>
   </div>
   <div class="card" id="dlgLines"></div>
-  <div class="rec-box">
-    <h4>🎤 我来配音！</h4>
-    <p style="font-size:0.82rem;color:rgba(232,244,255,.65);margin-bottom:8px">选一句话，录下你的声音！</p>
-    <div id="dlgPicker" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
-    <div class="rec-target" id="dlgTarget">← 选择句子</div>
-    <div class="rec-controls">
-      <button class="btn btn-sm" id="recBtn" onclick="toggleRec()">⏺ 录音</button>
-      <button class="btn btn-secondary btn-sm" onclick="playRec()" id="playRecBtn" disabled>▶ 播放</button>
-      <button class="btn btn-secondary btn-sm" onclick="playTargetTTS()">🔊 示范</button>
-      <span id="recTimer">0:00</span>
-    </div>
-    <div class="rec-status" id="recStatus">准备好了！</div>
-  </div>
+  <p style="font-size:0.8rem;color:rgba(232,244,255,.45);text-align:center;margin-top:6px">
+    🎤 想录音？去「录音」标签页练习朗读！
+  </p>
 </div>
 
 <!-- ══ TAB 5: BINGO ══ -->
@@ -1254,15 +1258,39 @@ function animateChar(){
 }
 
 let practicedSet=new Set(); // tracks which char indices the child has successfully written
+let quizCurrentStroke=0;   // tracks which stroke we're currently on in the quiz
+
+function hintNextStroke(){
+  // Show a fast animation of the FULL character on the DEMO writer so the child
+  // can see what stroke comes next — the QUIZ canvas stays untouched.
+  if(!demoW) return;
+  document.getElementById('strokeMsg').textContent='👁 看左边的笔顺演示！';
+  demoW.animateCharacter({strokeAnimationSpeed:1.5});
+}
+
+function restartQuiz(){
+  // Fully reset the quiz canvas and restart from stroke 1.
+  if(!quizW) return;
+  quizW.cancelQuiz();
+  quizCurrentStroke=0;
+  document.getElementById('strokeMsg').textContent='';
+  // Brief delay so HanziWriter can finish cancelling before we restart
+  setTimeout(()=>{
+    quizW.hideCharacter();
+    startQuizMode();
+  }, 80);
+}
 
 function startQuizMode(){
   if(!quizW) return;
+  quizCurrentStroke=0;
   document.getElementById('strokeMsg').textContent='按顺序一笔一笔写！';
   speak('开始写字！',{rate:0.85});
   quizW.quiz({
     onMistake(d){ document.getElementById('strokeMsg').textContent=`第${d.strokeNum+1}笔：再试一次！`; speak('再试试',{rate:0.9}); },
     onCorrectStroke(d){
       // Stroke audio removed (names may be inaccurate). Only show "✓ 正确！" text.
+      quizCurrentStroke=d.strokeNum+1;
       document.getElementById('strokeMsg').textContent=`✓ 第${d.strokeNum+1}笔 正确！`;
     },
     onComplete(d){
