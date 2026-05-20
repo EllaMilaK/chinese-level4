@@ -261,6 +261,8 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   <button class="tab-btn" onclick="switchTab('chars',this)">✍️ 生字</button>
   <button class="tab-btn" onclick="switchTab('vocab',this)">📚 词语</button>
   <button class="tab-btn" onclick="switchTab('dialogue',this)">💬 对话</button>
+  <button class="tab-btn" onclick="switchTab('pattern',this)">📝 句型</button>
+  <button class="tab-btn" onclick="switchTab('reading',this)">📖 扩展阅读</button>
   <button class="tab-btn" onclick="switchTab('bingo',this)">🎯 宾果</button>
   <button class="tab-btn" onclick="switchTab('games',this)">🎮 游戏</button>
   <button class="tab-btn" onclick="switchTab('recording',this)">🎤 录音</button>
@@ -414,7 +416,83 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   </div>
 </div>
 
-<!-- TAB 5: BINGO -->
+<!-- TAB 5: PATTERN (句型) -->
+<div id="tab-pattern" class="tab-panel">
+  <!-- Card 1: Pattern explanation -->
+  <div class="card">
+    <div class="section-title">📝 句型：是不是</div>
+    <div style="background:var(--char-active-bg);border-radius:10px;padding:14px;margin-bottom:12px;">
+      <div style="font-size:1.4rem;text-align:center;color:var(--accent);font-weight:700;margin-bottom:6px">
+        …<span style="background:var(--accent);color:white;padding:2px 8px;border-radius:6px">是不是</span>…？
+      </div>
+      <div style="text-align:center;font-size:0.85rem;color:var(--text2)">Used to ask "Is it true that...?" — seeking confirmation</div>
+    </div>
+    <!-- Example sentence with audio -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:0.8rem;color:var(--text2);margin-bottom:4px">📖 课文例句：</div>
+      <div style="font-size:1.1rem;line-height:1.8;color:var(--text);cursor:pointer;" onclick="speak('我的中文水平是不是有了很大提高？',{rate:0.82})">
+        我的中文水平<strong style="color:var(--accent)">是不是</strong>有了很大提高？
+        <span style="font-size:0.75rem;color:var(--accent2)">🔊</span>
+      </div>
+      <div style="font-size:0.75rem;color:var(--text2)">Wǒ de Zhōngwén shuǐpíng shì bu shì yǒu le hěn dà tígāo?</div>
+      <div style="font-size:0.8rem;color:var(--text2);font-style:italic">Has my Chinese level improved a great deal?</div>
+    </div>
+  </div>
+
+  <!-- Card 2: More examples -->
+  <div class="card">
+    <div class="section-title">💡 更多例句</div>
+    <div id="patternExamples"></div>
+  </div>
+
+  <!-- Card 3: Fill-in-the-blank exercise -->
+  <div class="card">
+    <div class="section-title">✏️ 填一填：用"是不是"完成句子</div>
+    <div id="fillExercise"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="btn btn-primary" onclick="checkFill()">✓ 检查答案</button>
+      <button class="btn btn-secondary" onclick="resetFill()" style="margin-left:8px;">↺ 重来</button>
+    </div>
+    <div id="fillMsg" style="text-align:center;margin-top:8px;font-size:0.9rem;min-height:22px;color:var(--accent)"></div>
+  </div>
+
+  <!-- Card 4: Transform exercise -->
+  <div class="card">
+    <div class="section-title">🔄 变一变：把句子改成"是不是"问句</div>
+    <div id="transformEx"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="btn btn-primary" onclick="checkTransform()">✓ 检查答案</button>
+      <button class="btn btn-secondary" onclick="resetTransform()" style="margin-left:8px;">↺ 重来</button>
+    </div>
+    <div id="transformMsg" style="text-align:center;margin-top:8px;font-size:0.9rem;min-height:22px;color:var(--accent)"></div>
+  </div>
+</div>
+
+<!-- TAB 6: EXTENDED READING (扩展阅读) -->
+<div id="tab-reading" class="tab-panel">
+  <div class="card">
+    <div class="section-title">📖 扩展阅读 — 一封信</div>
+    <div style="font-size:0.8rem;color:var(--text2);margin-bottom:10px">📝 用本课生字和词语写成的小作文，帮助你巩固和运用所学内容。</div>
+    <div class="story-controls">
+      <button class="btn btn-primary" id="readPlayBtn" onclick="readPlay()">▶ 朗读全文</button>
+      <button class="btn btn-secondary" id="readPauseBtn" onclick="readPause()" disabled style="opacity:.5">⏸ 暂停</button>
+      <button class="btn btn-secondary" id="readStopBtn" onclick="readStop()" disabled style="opacity:.5">⏹ 停止重来</button>
+      <button class="btn btn-secondary" onclick="toggleReadPY()">🔤 拼音开/关</button>
+    </div>
+    <div class="story-text" id="readText"></div>
+  </div>
+  <div class="card">
+    <div class="section-title">🎯 阅读理解</div>
+    <div id="comprehension"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="btn btn-primary" onclick="checkComp()">✓ 检查答案</button>
+      <button class="btn btn-secondary" onclick="resetComp()" style="margin-left:8px;">↺ 重做</button>
+    </div>
+    <div id="compMsg" style="text-align:center;margin-top:8px;font-size:0.9rem;min-height:22px;color:var(--accent)"></div>
+  </div>
+</div>
+
+<!-- TAB 7: BINGO -->
 <div id="tab-bingo" class="tab-panel">
   <div class="card">
     <div class="bingo-compact">
@@ -439,7 +517,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   </div>
 </div>
 
-<!-- TAB 6: GAMES -->
+<!-- TAB 8: GAMES -->
 <div id="tab-games" class="tab-panel">
   <div class="game-selector">
     <button class="game-btn active" onclick="selGame('quiz',this)"><span class="gi">✉️</span>信封问答</button>
@@ -473,7 +551,7 @@ header h1 span{font-size:0.9rem;color:rgba(255,255,255,0.8);display:block;margin
   </div>
 </div>
 
-<!-- TAB 7: RECORDING -->
+<!-- TAB 9: RECORDING -->
 <div id="tab-recording" class="tab-panel">
   <div class="card">
     <div class="section-title">🎤 朗读练习</div>
@@ -751,7 +829,14 @@ const VOCAB = [
   {word:'放假',pinyin:'fàngjià',meaning:'School holiday / Vacation 🏖️',example:'今年夏天我们放假了！'},
   {word:'看望',pinyin:'kànwàng',meaning:'Visit / Call on 🤗',example:'我们去看望爷爷奶奶。'},
   {word:'进步',pinyin:'jìnbù',meaning:'Progress / Improvement 📈',example:'我的中文有了很大进步！'},
-  {word:'水平',pinyin:'shuǐpíng',meaning:'Level / Standard 🎯',example:'我的中文水平提高了。'}
+  {word:'水平',pinyin:'shuǐpíng',meaning:'Level / Standard 🎯',example:'我的中文水平提高了。'},
+  {word:'邮件',pinyin:'yóujiàn',meaning:'Mail / Email 📧',example:'我收到了一封邮件。'},
+  // 专有名词
+  {word:'北京',pinyin:'Běijīng',meaning:'Beijing (capital of China) 🏙️',example:'北京是中国的首都。'},
+  {word:'长城',pinyin:'Chángchéng',meaning:'The Great Wall 🏯',example:'我们要去爬长城！'},
+  {word:'故宫',pinyin:'Gùgōng',meaning:'The Forbidden City 🏛️',example:'故宫以前是皇帝的宫殿。'},
+  {word:'颐和园',pinyin:'Yíhéyuán',meaning:'The Summer Palace 🌊',example:'颐和园有一个很大的湖。'},
+  {word:'天安门',pinyin:'Tiān'ānmén',meaning:'Tiananmen (Gate of Heavenly Peace) 🌟',example:'天安门广场很大很美。'}
 ];
 
 const STORY = [
@@ -811,7 +896,18 @@ const BINGO_POOL = [
   {show:'全',hint:'quán — all/complete'},{show:'平',hint:'píng — flat/level'},
   {show:'提',hint:'tí — raise'},{show:'取',hint:'qǔ — take'},
   {show:'进',hint:'jìn — enter'},{show:'孙',hint:'sūn — grandchild'},
-  {show:'长城',hint:'Chángchéng — Great Wall'},{show:'北京',hint:'Běijīng — Beijing'}
+  {show:'长城',hint:'Chángchéng — Great Wall'},{show:'北京',hint:'Běijīng — Beijing'},
+  // 读一读 word families
+  {show:'来信',hint:'láixìn — incoming letter'},
+  {show:'回信',hint:'huíxìn — reply letter'},
+  {show:'写信',hint:'xiěxìn — write a letter'},
+  {show:'邮件',hint:'yóujiàn — mail'},
+  {show:'邮局',hint:'yóujú — post office'},
+  {show:'首都',hint:'shǒudū — capital city'},
+  {show:'名城',hint:'míngchéng — famous city'},
+  {show:'故宫',hint:'Gùgōng — Forbidden City'},
+  {show:'颐和园',hint:'Yíhéyuán — Summer Palace'},
+  {show:'天安门',hint:'Tiān'ānmén — Tiananmen'}
 ];
 
 // ── CANVAS — floating green orbs ──────────
@@ -888,6 +984,8 @@ function switchTab(id,btn){
   if(id==='chars'&&!charBuilt) buildCharGrid();
   if(id==='vocab') initFlashcards();
   if(id==='dialogue'&&!dlgBuilt) buildDialogue();
+  if(id==='pattern') buildPattern();
+  if(id==='reading') buildReading();
   if(id==='bingo'&&!bingoBuilt) initBingo();
   if(id==='games'){startQuizGame();startRocket();}
   if(id==='recording') buildRecSents();
@@ -1254,7 +1352,264 @@ function toggleRec(){
 }
 function playRec(){if(!recBlob)return;new Audio(URL.createObjectURL(recBlob)).play();}
 
-// ── TAB 5: BINGO ─────────────────────────
+// ── TAB 5: PATTERN (句型) ─────────────────
+const PATTERN_EXAMPLES = [
+  {cn:'你姐姐是不是放假了？',py:'Nǐ jiějie shì bu shì fàngjià le?',en:'Did your sister go on holiday?'},
+  {cn:'你是不是去游泳了？',py:'Nǐ shì bu shì qù yóuyǒng le?',en:'Did you go swimming?'},
+  {cn:'爸爸是不是明天回来？',py:'Bàba shì bu shì míngtiān huílái?',en:'Is Dad coming back tomorrow?'},
+  {cn:'北京是不是中国的首都？',py:'Běijīng shì bu shì Zhōngguó de shǒudū?',en:'Is Beijing the capital of China?'},
+];
+
+const FILL_EXERCISES = [
+  {before:'我的中文水平',blank:'是不是',after:'有了很大提高？',answer:'是不是'},
+  {before:'你姐姐',blank:'是不是',after:'放假了？',answer:'是不是'},
+  {before:'爸爸',blank:'是不是',after:'明天回来？',answer:'是不是'},
+  {before:'北京',blank:'是不是',after:'中国的首都？',answer:'是不是'},
+];
+
+const TRANSFORM_EXERCISES = [
+  {statement:'你去游泳了。',answer:'你是不是去游泳了？'},
+  {statement:'爸爸明天回来。',answer:'爸爸是不是明天回来？'},
+  {statement:'她学习中文了。',answer:'她是不是学习中文了？'},
+];
+
+let patternBuilt=false;
+function buildPattern(){
+  if(patternBuilt) return;
+  patternBuilt=true;
+  // Build examples
+  const exDiv=document.getElementById('patternExamples');
+  PATTERN_EXAMPLES.forEach(ex=>{
+    const d=document.createElement('div');
+    d.style.cssText='margin-bottom:14px;padding:10px;background:var(--char-active-bg);border-radius:8px;cursor:pointer;';
+    const highlighted=ex.cn.replace('是不是',`<strong style="color:var(--accent)">是不是</strong>`);
+    d.innerHTML=`<div style="font-size:1rem;color:var(--text)" onclick="speak('${ex.cn}',{rate:0.82})">${highlighted} 🔊</div>
+      <div style="font-size:0.72rem;color:var(--text2);margin-top:2px">${ex.py}</div>
+      <div style="font-size:0.75rem;color:var(--text2);font-style:italic">${ex.en}</div>`;
+    exDiv.appendChild(d);
+  });
+  // Build fill exercises
+  const fillDiv=document.getElementById('fillExercise');
+  FILL_EXERCISES.forEach((ex,i)=>{
+    const d=document.createElement('div');
+    d.style.cssText='margin-bottom:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;';
+    d.innerHTML=`<span style="font-size:1rem;color:var(--text)">${ex.before}</span>
+      <input type="text" id="fill${i}" placeholder="填入词语" style="border:2px solid var(--border2);border-radius:8px;padding:4px 10px;font-size:1rem;width:90px;background:var(--card-bg);color:var(--text);">
+      <span style="font-size:1rem;color:var(--text)">${ex.after}</span>`;
+    fillDiv.appendChild(d);
+  });
+  // Build transform exercises
+  const transDiv=document.getElementById('transformEx');
+  TRANSFORM_EXERCISES.forEach((ex,i)=>{
+    const d=document.createElement('div');
+    d.style.cssText='margin-bottom:14px;';
+    d.innerHTML=`<div style="font-size:0.85rem;color:var(--text2);margin-bottom:4px">把这句话变成问句：</div>
+      <div style="font-size:1.05rem;color:var(--text);margin-bottom:6px">${ex.statement}</div>
+      <input type="text" id="trans${i}" placeholder="写出"是不是"问句…" style="border:2px solid var(--border2);border-radius:8px;padding:6px 12px;font-size:0.95rem;width:100%;background:var(--card-bg);color:var(--text);">`;
+    transDiv.appendChild(d);
+  });
+}
+function checkFill(){
+  let allCorrect=true;
+  FILL_EXERCISES.forEach((ex,i)=>{
+    const inp=document.getElementById('fill'+i);
+    if(!inp) return;
+    const val=inp.value.trim();
+    if(val===ex.answer){inp.style.borderColor='#43a047';inp.style.background='rgba(67,160,71,0.1)';}
+    else{inp.style.borderColor='#e53935';inp.style.background='rgba(229,57,53,0.08)';allCorrect=false;}
+  });
+  const msg=document.getElementById('fillMsg');
+  if(allCorrect){msg.textContent='🎉 全部正确！太棒了！';msg.style.color='var(--accent)';speak('全部正确！太棒了！');launchConfetti();}
+  else{msg.textContent='❌ 有些不对，提示：每个空都要填"是不是"';msg.style.color='#e53935';}
+}
+function resetFill(){
+  FILL_EXERCISES.forEach((ex,i)=>{
+    const inp=document.getElementById('fill'+i);
+    if(inp){inp.value='';inp.style.borderColor='';inp.style.background='';}
+  });
+  document.getElementById('fillMsg').textContent='';
+}
+function checkTransform(){
+  let correct=0;
+  TRANSFORM_EXERCISES.forEach((ex,i)=>{
+    const inp=document.getElementById('trans'+i);
+    if(!inp) return;
+    const val=inp.value.trim().replace(/\s+/g,'');
+    const hasShiPuShi=val.includes('是不是');
+    const hasKeyword=val.includes(ex.statement.replace('。','').replace('了','').substring(0,3));
+    if(hasShiPuShi&&hasKeyword){inp.style.borderColor='#43a047';inp.style.background='rgba(67,160,71,0.1)';correct++;}
+    else{inp.style.borderColor='#e53935';inp.style.background='rgba(229,57,53,0.08)';}
+  });
+  const msg=document.getElementById('transformMsg');
+  if(correct===TRANSFORM_EXERCISES.length){msg.textContent='🎉 全部正确！';msg.style.color='var(--accent)';speak('太棒了！');launchConfetti();}
+  else{msg.textContent=`✓ ${correct}/${TRANSFORM_EXERCISES.length} — 记得加上"是不是"哦！`;msg.style.color='var(--accent2)';}
+}
+function resetTransform(){
+  TRANSFORM_EXERCISES.forEach((ex,i)=>{
+    const inp=document.getElementById('trans'+i);
+    if(inp){inp.value='';inp.style.borderColor='';inp.style.background='';}
+  });
+  document.getElementById('transformMsg').textContent='';
+}
+
+// ── TAB 6: EXTENDED READING (扩展阅读) ──────
+const READING = [
+  {text:'亲爱的明明：',
+   py:['qīn','ài','de','Míng','ming','：'],
+   ch:['亲','爱','的','明','明','：']},
+  {text:'你好！今天我收到了你的来信，我很高兴。',
+   py:['nǐ','hǎo','！','jīn','tiān','wǒ','shōu','dào','le','nǐ','de','lái','xìn','，','wǒ','hěn','gāo','xìng','。'],
+   ch:['你','好','！','今','天','我','收','到','了','你','的','来','信','，','我','很','高','兴','。']},
+  {text:'你知道吗？我们学校放假了！我们全家要去北京看望爷爷奶奶。',
+   py:['nǐ','zhī','dào','ma','？','wǒ','men','xué','xiào','fàng','jià','le','！','wǒ','men','quán','jiā','yào','qù','Běi','jīng','kàn','wàng','yé','ye','nǎi','nai','。'],
+   ch:['你','知','道','吗','？','我','们','学','校','放','假','了','！','我','们','全','家','要','去','北','京','看','望','爷','爷','奶','奶','。']},
+  {text:'北京是中国的首都，那里有长城、故宫、颐和园，还有天安门广场，真的很有名！',
+   py:['Běi','jīng','shì','Zhōng','guó','de','shǒu','dū','，','nà','lǐ','yǒu','Cháng','chéng','、','Gù','gōng','、','Yí','hé','yuán','，','hái','yǒu','Tiān','ān','mén','guǎng','chǎng','，','zhēn','de','hěn','yǒu','míng','！'],
+   ch:['北','京','是','中','国','的','首','都','，','那','里','有','长','城','、','故','宫','、','颐','和','园','，','还','有','天','安','门','广','场','，','真','的','很','有','名','！']},
+  {text:'我要去爬长城、游故宫、上天安门。我很期待！',
+   py:['wǒ','yào','qù','pá','Cháng','chéng','、','yóu','Gù','gōng','、','shàng','Tiān','ān','mén','。','wǒ','hěn','qī','dài','！'],
+   ch:['我','要','去','爬','长','城','、','游','故','宫','、','上','天','安','门','。','我','很','期','待','！']},
+  {text:'回来以后，我的中文水平是不是有了很大提高？今后我还要好好学习，争取更大的进步！',
+   py:['huí','lái','yǐ','hòu','，','wǒ','de','Zhōng','wén','shuǐ','píng','shì','bù','shì','yǒu','le','hěn','dà','tí','gāo','？','jīn','hòu','wǒ','hái','yào','hǎo','hǎo','xué','xí','，','zhēng','qǔ','gèng','dà','de','jìn','bù','！'],
+   ch:['回','来','以','后','，','我','的','中','文','水','平','是','不','是','有','了','很','大','提','高','？','今','后','我','还','要','好','好','学','习','，','争','取','更','大','的','进','步','！']},
+  {text:'你的朋友 云云',
+   py:['nǐ','de','péng','you',' ','Yún','yun'],
+   ch:['你','的','朋','友',' ','云','云']},
+];
+
+const COMP_QUESTIONS = [
+  {q:'云云要去哪里放假？',opts:['上海','北京','故宫','天安门'],answer:'北京'},
+  {q:'北京是中国的什么地方？',opts:['大城市','首都','广场','公园'],answer:'首都'},
+  {q:'云云说她要去做什么？',opts:['写信','游泳','爬长城','买邮票'],answer:'爬长城'},
+  {q:'云云希望自己有什么进步？',opts:['数学','中文','英文','体育'],answer:'中文'},
+];
+let compAnswers={};
+let readShowPY=true;
+let readState='idle',readPos2=0;
+
+function buildReading(){
+  const cont=document.getElementById('readText');
+  if(cont.children.length) return;
+  READING.forEach((para,pi)=>{
+    const div=document.createElement('div');div.className='story-para';div.id='rp'+pi;
+    para.ch.forEach((ch,ci)=>{
+      const punc='，。：""？！、 ：'.includes(ch)||ch===' ';
+      if(punc){const s=document.createElement('span');s.textContent=ch;s.style.fontSize='1.2rem';div.appendChild(s);}
+      else{
+        const blk=document.createElement('span');blk.className='pb';
+        const py=para.py[ci]||'';
+        blk.innerHTML=`<span class="py" style="visibility:${readShowPY?'visible':'hidden'}">${py}</span><span class="ch">${ch}</span>`;
+        blk.onclick=(()=>{const _ch=ch;return ()=>speak(_ch,{rate:0.8});})();
+        div.appendChild(blk);
+      }
+    });
+    cont.appendChild(div);
+  });
+  // Build comprehension
+  const compDiv=document.getElementById('comprehension');
+  if(compDiv.children.length) return;
+  COMP_QUESTIONS.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.style.cssText='margin-bottom:16px;';
+    let optsHtml=q.opts.map(opt=>`<button class="quiz-opt" id="copt_${i}_${opt.replace(/[^a-zA-Z0-9一-鿿]/g,'')}" onclick="selectComp(${i},'${opt}')">${opt}</button>`).join('');
+    d.innerHTML=`<div style="font-size:0.95rem;color:var(--text);font-weight:600;margin-bottom:8px">${i+1}. ${q.q}</div>
+      <div class="quiz-options">${optsHtml}</div>`;
+    compDiv.appendChild(d);
+  });
+}
+function toggleReadPY(){
+  readShowPY=!readShowPY;
+  document.querySelectorAll('#readText .py').forEach(e=>e.style.visibility=readShowPY?'visible':'hidden');
+}
+function _readUpdateBtns(){
+  const play=document.getElementById('readPlayBtn');
+  const pause=document.getElementById('readPauseBtn');
+  const stop=document.getElementById('readStopBtn');
+  if(!play) return;
+  const idle=readState==='idle',playing=readState==='playing',paused=readState==='paused';
+  play.textContent=paused?'▶ 继续':'▶ 朗读全文';
+  play.disabled=playing;pause.disabled=!playing;stop.disabled=idle;
+  play.style.opacity=playing?'0.55':'1';
+  pause.style.opacity=playing?'1':'0.5';
+  stop.style.opacity=idle?'0.5':'1';
+}
+function _readHighlight(idx){
+  document.querySelectorAll('#readText .story-para').forEach((p,i)=>{
+    p.style.opacity=(i===idx)?'1':'0.45';
+    p.style.borderLeft=(i===idx)?'3px solid var(--accent2)':'';
+    p.style.paddingLeft=(i===idx)?'8px':'';
+  });
+}
+function _readReset(){
+  document.querySelectorAll('#readText .story-para').forEach(p=>{p.style.opacity='';p.style.borderLeft='';p.style.paddingLeft='';});
+}
+async function _readRun(from){
+  buildReading();
+  readState='playing';_readUpdateBtns();
+  for(let i=from;i<READING.length;i++){
+    if(readState!=='playing') break;
+    readPos2=i;_readHighlight(i);
+    await new Promise(resolve=>{
+      if(readState!=='playing'){resolve();return;}
+      const u=new SpeechSynthesisUtterance(READING[i].text);
+      u.lang='zh-CN';u.rate=0.82;
+      if(zhCNVoices.length) u.voice=zhCNVoices[0];
+      let _sd=false;
+      function _sn(){if(!_sd){_sd=true;clearTimeout(_sfb);setTimeout(resolve,readState==='playing'?350:0);}}
+      const _sfb=setTimeout(_sn,READING[i].text.length*420+3500);
+      u.onend=_sn;u.onerror=_sn;
+      window.speechSynthesis.speak(u);
+    });
+  }
+  if(readState==='playing'){readState='idle';readPos2=0;_readReset();}
+  _readUpdateBtns();
+}
+function readPlay(){buildReading();if(readState==='paused')_readRun(readPos2);else if(readState==='idle'){readPos2=0;_readRun(0);}}
+function readPause(){if(readState!=='playing')return;readState='paused';window.speechSynthesis.cancel();_readUpdateBtns();}
+function readStop(){readState='idle';readPos2=0;window.speechSynthesis.cancel();_readReset();_readUpdateBtns();}
+
+function selectComp(qi,opt){
+  COMP_QUESTIONS[qi].opts.forEach(o=>{
+    const key=o.replace(/[^a-zA-Z0-9一-鿿]/g,'');
+    const btn=document.getElementById(`copt_${qi}_${key}`);
+    if(btn){btn.classList.remove('selected');btn.style.borderColor='';btn.style.background='';}
+  });
+  compAnswers[qi]=opt;
+  const key=opt.replace(/[^a-zA-Z0-9一-鿿]/g,'');
+  const btn=document.getElementById(`copt_${qi}_${key}`);
+  if(btn){btn.classList.add('selected');}
+}
+function checkComp(){
+  let correct=0;
+  COMP_QUESTIONS.forEach((q,i)=>{
+    const chosen=compAnswers[i];
+    q.opts.forEach(o=>{
+      const key=o.replace(/[^a-zA-Z0-9一-鿿]/g,'');
+      const btn=document.getElementById(`copt_${i}_${key}`);
+      if(!btn) return;
+      btn.classList.remove('correct','wrong');
+      if(o===q.answer) btn.classList.add('correct');
+      else if(o===chosen) btn.classList.add('wrong');
+    });
+    if(chosen===q.answer) correct++;
+  });
+  const msg=document.getElementById('compMsg');
+  if(correct===COMP_QUESTIONS.length){msg.textContent='🎉 全部正确！真厉害！';speak('全部正确！太棒了！');launchConfetti();}
+  else{msg.textContent=`✓ ${correct} / ${COMP_QUESTIONS.length} — 再想想！`;}
+}
+function resetComp(){
+  compAnswers={};
+  COMP_QUESTIONS.forEach((q,i)=>{
+    q.opts.forEach(o=>{
+      const key=o.replace(/[^a-zA-Z0-9一-鿿]/g,'');
+      const btn=document.getElementById(`copt_${i}_${key}`);
+      if(btn){btn.classList.remove('correct','wrong','selected');btn.style.borderColor='';btn.style.background='';}
+    });
+  });
+  document.getElementById('compMsg').textContent='';
+}
+
+// ── TAB 7: BINGO ─────────────────────────
 let bingoBuilt=false,bingoBoard=[],bingoMarked=[],bingoLines=0,bingoQueue=[],calledNow=null;
 function bingoCellFontSize(text){
   const len=[...text].length;
@@ -1312,7 +1667,7 @@ function checkBingoWin(){
     document.getElementById('bingoWin').style.display='block';speak('宾果！恭喜你赢了！');launchConfetti();}
 }
 
-// ── TAB 6: GAMES ─────────────────────────
+// ── TAB 8: GAMES ─────────────────────────
 function selGame(id,btn){
   document.querySelectorAll('.game-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));
@@ -1376,7 +1731,7 @@ function answerRocket(btn,chosen,correct){
   rIdx++;setTimeout(nextRocket,1000);
 }
 
-// ── TAB 7: RECORDING ─────────────────────
+// ── TAB 9: RECORDING ─────────────────────
 let mainBlob=null,mainMR=null,mainTimer=null,mainSec=0,mainRec=false;
 let curRefText='',curRefPy='';
 function buildRecSents(){
